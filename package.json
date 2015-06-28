@@ -1,0 +1,29 @@
+{
+    "name": "generator-hilary",
+    "version": "1.0.1",
+    "description": "A yeoman generator for projects that use the Hilary DI container",
+    "keywords": [
+        "yeoman-generator",
+        "hilary",
+        "dependency",
+        "injection",
+        "injector",
+        "inversion",
+        "control",
+        "IoC",
+        "DI",
+        "node",
+        "javascript",
+        "autowire",
+        "configuration",
+        "low",
+        "ceremony"        
+    ],
+    "author": "Andy Wright <andes.collab@gmail.com> (https://github.com/losandes)",
+    "license": "MIT",
+    "dependencies": {
+        "chalk": "^1.0.0",
+        "yeoman-generator": "^0.20.1",
+        "yosay": "^1.0.4"
+    }
+}
