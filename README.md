@@ -20,11 +20,11 @@ Yeoman generator for projects that use hilary IoC (DI).
 ## Generators
 Available generators
 
-* [Hilary Module :: Node](#Node-Hilary-Module)
-* [Hilary Module :: Browser](#Browser-Hilary-Module)
-* [Hilary Module :: Cross Platform](#Cross-Platform-Hilary-Module)
-* [Hilary Express Router](#Hilary-Express-Router)
-* [Hilary Gidget Router](#Hilary-Gidget-Router)
+* [Hilary Module :: Node](#node-hilary-module)
+* [Hilary Module :: Browser](#browser-hilary-module)
+* [Hilary Module :: Cross Platform](#cross-platform-hilary-module)
+* [Hilary Express Router](#hilary-express-router)
+* [Hilary Gidget Router](#hilary-gidget-router)
 
 ### Node Hilary Module
 Creates a new Hilary compatible Node file
@@ -209,7 +209,7 @@ Available sub generators:
 
 * [hilary:js](#javascript)
 * [hilary:grunt](#grunt)
-* [hilary:gruntTask](#gruntTask)
+* [hilary:gruntTask](#grunttask)
 * [hilary:html](#html)
 * [hilary:json](#json)
 * [hilary:md](#markdown)
