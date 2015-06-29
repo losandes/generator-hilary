@@ -278,7 +278,7 @@ Produces `/myTask.js`
 module.exports = function (grunt) {
     "use strict";
     
-    grunt.registerTask('myTask', '[DESCRITION]', function () {
+    grunt.registerTask('myTask', '[DESCRIPTION]', function () {
 
     });
     

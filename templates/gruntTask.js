@@ -2,7 +2,7 @@
 module.exports = function (grunt) {
     "use strict";
     
-    grunt.registerTask('<%= name %>', '[DESCRITION]', function () {
+    grunt.registerTask('<%= name %>', '[DESCRIPTION]', function () {
 
     });
     
