@@ -20,13 +20,13 @@ Yeoman generator for projects that use hilary IoC (DI).
 ## Generators
 Available generators
 
-* [Hilary Module :: Node](#Hilary Module :: Node)
-* [Hilary Module :: Browser](#Hilary Module :: Browser)
-* [Hilary Module :: Cross Platform](#Hilary Module :: Cross Platform)
-* [Hilary Express Router](#Hilary Express Router)
-* [Hilary Gidget Router](#Hilary Gidget Router)
+* [Hilary Module :: Node](#Node-Hilary-Module)
+* [Hilary Module :: Browser](#Browser-Hilary-Module)
+* [Hilary Module :: Cross Platform](#Cross-Platform-Hilary-Module)
+* [Hilary Express Router](#Hilary-Express-Router)
+* [Hilary Gidget Router](#Hilary-Gidget-Router)
 
-### Hilary Module :: Node
+### Node Hilary Module
 Creates a new Hilary compatible Node file
 
 Example:
@@ -53,7 +53,7 @@ module.exports.factory = function () {
 };
 ```
 
-### Hilary Module :: Browser
+### Browser Hilary Module
 Creates a new Hilary compatible JavaScript file
 
 Example:
@@ -83,7 +83,7 @@ Hilary.scope('myScope').register({
 });
 ```
 
-### Hilary Module :: Cross Platform
+### Cross Platform Hilary Module
 Creates a new JavaScript file that is compatible with Hilary in Node and the Browser, and will put the output on Window if Hilary doesn't exist.
 
 Example:
