@@ -1,7 +1,7 @@
 {
     "name": "generator-hilary",
     "version": "1.0.1",
-    "description": "A yeoman generator for projects that use the Hilary DI container",
+    "description": "Yeoman generator for projects that use hilary IoC (DI)",
     "keywords": [
         "yeoman-generator",
         "hilary",

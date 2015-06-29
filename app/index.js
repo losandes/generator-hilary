@@ -1,42 +1,63 @@
 /*jslint node: true, nomen: true*/
 "use strict";
 var Generator = require('../YoGenerator.js'),
-    appGenerator,
+    jsGenerator,
     choices,
     namePrompt;
 
 choices = {
-    domain: {
-        name: 'Domain project',
+    hilaryNode: {
+        name: 'Hilary Module :: Node',
         callback: function ($this) {
-            console.log('todo');
-            // copy files from projects/domain
+            $this.fs.copyTpl($this.templatePath('hilary-module-node.js'), $this.destinationPath($this.templatedata.name + '.js'), $this.templatedata);
+        }
+    },
+    hilaryBrowser: {
+        name: 'Hilary Module :: Browser',
+        callback: function ($this) {
+            $this.fs.copyTpl($this.templatePath('hilary-module-browser.js'), $this.destinationPath($this.templatedata.name + '.js'), $this.templatedata);
+        }
+    },
+    hilaryCrossPlatform: {
+        name: 'Hilary Module :: Cross-Platform',
+        callback: function ($this) {
+            $this.fs.copyTpl($this.templatePath('hilary-module.js'), $this.destinationPath($this.templatedata.name + '.js'), $this.templatedata);
+        }
+    },
+    expressRouter: {
+        name: 'Hilary Express Router',
+        callback: function ($this) {
+            $this.fs.copyTpl($this.templatePath('hilary-express-router.js'), $this.destinationPath($this.templatedata.name + '.js'), $this.templatedata);
+        }
+    },
+    gidgetRouter: {
+        name: 'Hilary Gidget Router',
+        callback: function ($this) {
+            $this.fs.copyTpl($this.templatePath('hilary-gidget-router.js'), $this.destinationPath($this.templatedata.name + '.js'), $this.templatedata);
         }
     }
 };
 
 namePrompt = function () {
     var done = this.async(),
-        app = '',
         prompts;
 
-    switch (this.type) {
-    case 'domain':
-        app = 'project';
-        break;
-    }
-
     prompts = [{
-        "name": 'projectName',
-        "message": 'What\'s the name of your project?',
-        "default": app
+        "name": 'scope',
+        "message": 'What is the name of the Hilary scope?',
+        "default": 'myScope'
+    }, {
+        "name": 'fileName',
+        "message": 'What is the name of your module?',
+        "default": 'myModule'
     }];
 
     this.prompt(prompts, function (props) {
-        this.templatedata.projectName = props.projectName;
+        this.templatedata.scope = props.scope;
+        this.templatedata.name = props.fileName;
         done();
     }.bind(this));
 };
 
-appGenerator = new Generator(choices, namePrompt);
-module.exports = appGenerator;
+jsGenerator = new Generator(choices, namePrompt);
+module.exports = jsGenerator;
