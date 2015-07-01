@@ -35,6 +35,18 @@ choices = {
         callback: function ($this) {
             $this.fs.copyTpl($this.templatePath('hilary-gidget-router.js'), $this.destinationPath($this.templatedata.name + '.js'), $this.templatedata);
         }
+    },
+    nodeStartup: {
+        name: 'Hilary Startup (Composition Root) :: Node',
+        callback: function ($this) {
+            $this.fs.copyTpl($this.templatePath('hilary-startup-node.js'), $this.destinationPath($this.templatedata.name + '.js'), $this.templatedata);
+        }
+    },
+    browserStartup: {
+        name: 'Hilary Startup (Composition Root) :: Browser',
+        callback: function ($this) {
+            $this.fs.copyTpl($this.templatePath('hilary-startup-browser.js'), $this.destinationPath($this.templatedata.name + '.js'), $this.templatedata);
+        }
     }
 };
 

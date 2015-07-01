@@ -347,7 +347,33 @@ Produces `/myMarkDown.md`
 ```Markdown
 myMarkDown
 ==========
-
 ```
 
+## Projects
+Available project generators
 
+* [Hilary Node console project](#hilary-node-console-project)
+
+### Hilary Node console project
+Creates a new Hilary compatible Node app with grunt, mocha and chai.
+
+Example:
+
+```
+>yo hilary:projects
+? What do you want to create?
+>Hilary Node console project
+? What is the name of the Hilary scope?
+>myScope
+? What is the name of your project?
+>myProject
+```
+
+Produces a folder named after your project with the following directory structure:
+
+```
+- app
+- build
+    - tasks
+- tests
+```

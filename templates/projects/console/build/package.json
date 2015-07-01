@@ -1,0 +1,14 @@
+{
+    "name": "<%= projectName %>-build",
+    "version": "1.0.0",
+    "description": "grunt build tasks for <%= projectName %>",
+    "main": "gruntfile.js",
+    "scripts": {
+        "test": "grunt test"
+    },
+    "dependencies": {
+        "grunt": "*",
+        "grunt-mocha-test": "*",
+        "chai": "*"
+    }
+}

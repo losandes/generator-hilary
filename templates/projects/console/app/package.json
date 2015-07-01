@@ -1,0 +1,13 @@
+{
+    "name": "<%= projectName %>",
+    "version": "1.0.0",
+    "description": "<%= projectName %>",
+    "main": "startup.js",
+    "scripts": {
+        "start": "node startup",
+        "test": "../build/grunt test"
+    },
+    "dependencies": {
+        "hilary": "^2.2.4"
+    }
+}

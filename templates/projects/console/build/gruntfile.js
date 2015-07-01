@@ -10,4 +10,9 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json')
     });
     
+    grunt.loadTasks('tasks');
+
+    // Default task(s).
+    grunt.registerTask('default', ['mochaTest:main']);
+    grunt.registerTask('test', ['mochaTest:main']);
 };

@@ -1,0 +1,9 @@
+{
+    "name": "<%= projectName %>-tests",
+    "description": "mocha test fixtures for <%= projectName %>",
+    "version": "0.0.1",
+    "dependencies": {
+        "chai": "*",
+        "hilary": "*"
+    }
+}
