@@ -13,7 +13,7 @@
         // DEFINITION
     };
     
-    if (Window && scope instanceof Window) {
+    if (typeof Window !== 'undefined' && scope instanceof Window) {
         scope[definition.name] = definition.factory;
     } else if (typeof scope.register === 'function') {
         scope.register(definition);
