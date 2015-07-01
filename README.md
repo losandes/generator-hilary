@@ -18,13 +18,17 @@ Yeoman generator for projects that use hilary IoC (DI).
 * ``yo hilary --help`` shows flags and other configurable options
 
 ## Generators
-Available generators
+Generator choices with ``yo hilary``
 
 * [Hilary Module :: Node](#node-hilary-module)
 * [Hilary Module :: Browser](#browser-hilary-module)
 * [Hilary Module :: Cross Platform](#cross-platform-hilary-module)
 * [Hilary Express Router](#hilary-express-router)
 * [Hilary Gidget Router](#hilary-gidget-router)
+
+There are also several more sub generators
+* [Sub Generators](#sub-generators)
+* [Project Generators](#project-generators)
 
 ### Node Hilary Module
 Creates a new Hilary compatible Node file
@@ -349,7 +353,7 @@ myMarkDown
 ==========
 ```
 
-## Projects
+## Project Generators
 Available project generators
 
 * [Hilary Node console project](#hilary-node-console-project)
