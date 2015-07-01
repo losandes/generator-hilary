@@ -359,9 +359,10 @@ Project generator choices are presented to you when you execute the projects sub
 
 Generator choices with ``yo hilary:projects``
 
-* [Hilary Node console project](#hilary-node-console-project)
+* [Node console project](#node-console-project)
+* [Node domain project](#node-domain-project)
 
-### Hilary Node console project
+### Node Console Project
 Creates a new Hilary compatible Node app with grunt, mocha and chai.
 
 Example:
@@ -369,11 +370,11 @@ Example:
 ```
 >yo hilary:projects
 ? What do you want to create?
->Hilary Node console project
-? What is the name of the Hilary scope?
->myScope
+>Node console project
 ? What is the name of your project?
 >myProject
+? What is the name of the Hilary scope?
+>myScope
 ```
 
 Produces a folder named after your project with the following directory structure:
@@ -383,4 +384,27 @@ Produces a folder named after your project with the following directory structur
 - build
     - tasks
 - tests
+```
+
+### Node Domain Project
+Creates a new Hilary compatible Node domain library.
+
+Example:
+
+```
+>yo hilary:projects
+? What do you want to create?
+>Node console project
+? What is the name of your project?
+>myProject
+? What is the name of the first module you want to create?
+>myModule
+```
+
+Produces a folder named after your project with the following file structure:
+
+```
+- index.js
+- package.json
+- myModule.js
 ```
