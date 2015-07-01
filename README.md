@@ -14,7 +14,7 @@ Yeoman generator for projects that use hilary IoC (DI).
 
 ## Usage
 
-* ``yo hilary`` shows a wizard for generating a new ASP.NET app
+* ``yo hilary`` shows a wizard for generating Hilary modules
 * ``yo hilary --help`` shows flags and other configurable options
 
 ## Generators
@@ -354,7 +354,10 @@ myMarkDown
 ```
 
 ## Project Generators
-Available project generators
+Project generator choices are presented to you when you execute the projects sub generator.
+* ``yo hilary:projects`` shows a wizard for generating a new Hilary project
+
+Generator choices with ``yo hilary:projects``
 
 * [Hilary Node console project](#hilary-node-console-project)
 
