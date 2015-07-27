@@ -1,9 +1,7 @@
-/*jslint node: true, nomen: true*/
-"use strict";
+'use strict';
 
 var yeoman = require('yeoman-generator'),
     yosay = require('yosay'),
-    chalk = require('chalk'),
     path = require('path'),
     YoGenerator;
 
@@ -21,7 +19,7 @@ YoGenerator = function (choices, namePrompt) {
                 prompts,
                 promptChoices = [],
                 choice;
-            
+
             for (choice in choices) {
                 if (choices.hasOwnProperty(choice)) {
                     promptChoices.push({
@@ -47,7 +45,7 @@ YoGenerator = function (choices, namePrompt) {
         writing: function () {
             this.sourceRoot(path.resolve(__dirname, './templates'));
             var handler = choices[this.type];
-            
+
             if (handler) {
                 handler.callback(this);
             } else {

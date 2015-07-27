@@ -1,9 +1,9 @@
 /*jslint node: true*/
 module.exports = function (grunt) {
-    "use strict";
-    
+    'use strict';
+
     grunt.registerTask('<%= name %>', '[DESCRIPTION]', function () {
 
     });
-    
+
 };

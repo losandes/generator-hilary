@@ -1,5 +1,4 @@
-/*jslint node: true*/
-"use strict";
+'use strict';
 
 // All app variables are defined in start and compose.
 // By isolating the app's requirements into the start and compose functions,
@@ -11,7 +10,11 @@ var scope, compose, start;
 // Orchestrates composition of the application dependency graph
 */
 compose = function () {
+    // perform composition tasks (register modules here)
 
+    // example
+    scope.register({ name: 'example', factory: function () { console.log('example'); } });
+    scope.register({ name: 'application', factory: function () { return { compose: compose, start: start }; } });
 };
 
 /*
@@ -19,7 +22,6 @@ compose = function () {
 */
 start = function () {
     var Hilary = require('hilary');
-
     scope = Hilary.scope('<%= scope %>');
 
     console.log('startup::@' + new Date().toISOString());
@@ -27,8 +29,17 @@ start = function () {
 
     // compose the application dependency graph
     compose();
+
+    // perform startup tasks (resolve modules here)
+    console.log('startup::starting application');
+
+    // example
+    scope.resolve('example');
+
+    console.log('startup::application running');
 };
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!
-// START NOW
+//////////////////////////////////////////////////
+// START IMMEDIATELY
+// note: we don't use an iffe for start, so it can be registered and the app can be restarted
 start();

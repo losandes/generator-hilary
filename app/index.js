@@ -1,5 +1,5 @@
-/*jslint node: true, nomen: true*/
-"use strict";
+/*jshint quotmark: false*/
+'use strict';
 var Generator = require('../YoGenerator.js'),
     jsGenerator,
     choices,

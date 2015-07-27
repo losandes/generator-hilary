@@ -1,5 +1,5 @@
-/*jslint node: true, nomen: true*/
-"use strict";
+/*jshint quotmark: false*/
+'use strict';
 var Generator = require('../YoGenerator.js'),
     path = require('path'),
     appGenerator,
@@ -21,7 +21,7 @@ choices = {
 
             $this.prompt(prompts, function (props) {
                 var templatePath, destinationPath;
-                
+
                 $this.templatedata.scope = props.scope;
                 $this.sourceRoot(path.join(__dirname, '../templates/projects/console'));
                 templatePath = $this.templatePath();
@@ -42,10 +42,10 @@ choices = {
 
                 $this.fs.copyTpl(path.join(templatePath, '/tests/package.json'), path.join(destinationPath, '/tests/package.json'), $this.templatedata);
                 $this.fs.copy(path.join(templatePath, '/tests/example.fixture.js'), path.join(destinationPath, '/tests/example.fixture.js'));
-                
+
                 done();
             }.bind($this));
-            
+
         }
     },
     domain: {
@@ -62,16 +62,16 @@ choices = {
 
             $this.prompt(prompts, function (props) {
                 var templatePath, destinationPath;
-                
+
                 $this.templatedata.namedModule = props.namedModule;
                 $this.sourceRoot(path.join(__dirname, '../templates/projects/domain'));
                 templatePath = $this.templatePath();
                 destinationPath = path.join($this.destinationPath(), $this.templatedata.projectName);
-                
+
                 $this.fs.copyTpl(path.join(templatePath, 'index.js'), path.join(destinationPath, 'index.js'), $this.templatedata);
                 $this.fs.copyTpl(path.join(templatePath, 'package.json'), path.join(destinationPath, 'package.json'), $this.templatedata);
                 $this.fs.copyTpl(path.join(templatePath, 'untitled.js'), path.join(destinationPath, props.namedModule + '.js'), $this.templatedata);
-                
+
                 done();
             }.bind($this));
         }

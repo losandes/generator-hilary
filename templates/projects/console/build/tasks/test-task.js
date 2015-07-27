@@ -1,11 +1,8 @@
-/*jslint node: true*/
 module.exports = function (grunt) {
-    "use strict";
-    
-    var mochaConfig;
-    
+    'use strict';
+
     grunt.loadNpmTasks('grunt-mocha-test'); // node
-    
+
     // Update the grunt config
     grunt.config.set('mochaTest', {
         main: {

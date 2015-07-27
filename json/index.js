@@ -1,5 +1,4 @@
-/*jslint node: true*/
-"use strict";
+'use strict';
 
 var util = require('util'),
     SubGenerator = require('../SubGenerator.js'),
