@@ -75,6 +75,52 @@ choices = {
                 done();
             }.bind($this));
         }
+    },
+    "express-app": {
+        name: 'Node express project',
+        callback: function ($this) {
+            var done = $this.async(),
+                prompts;
+
+            prompts = [{
+                "name": 'scope',
+                "message": 'What is the name of the Hilary scope?',
+                "default": 'myScope'
+            }];
+
+            $this.prompt(prompts, function (props) {
+                var templatePath, destinationPath;
+
+                $this.templatedata.scope = props.scope;
+                $this.sourceRoot(path.join(__dirname, '../templates/projects/express-app'));
+                templatePath = $this.templatePath();
+                destinationPath = path.join($this.destinationPath(), $this.templatedata.projectName);
+
+                $this.fs.copy(path.join(templatePath, 'gitignore.txt'), path.join(destinationPath, '.gitignore'));
+                $this.fs.copy(path.join(templatePath, 'environment.js'), path.join(destinationPath, 'environment.js'));
+                $this.fs.copy(path.join(templatePath, 'ExceptionHandler.js'), path.join(destinationPath, 'ExceptionHandler.js'));
+                $this.fs.copy(path.join(templatePath, 'expressStartup.js'), path.join(destinationPath, 'expressStartup.js'));
+                $this.fs.copyTpl(path.join(templatePath, 'package.json'), path.join(destinationPath, 'package.json'), $this.templatedata);
+                $this.fs.copyTpl(path.join(templatePath, 'README.md'), path.join(destinationPath, 'README.md'), $this.templatedata);
+                $this.fs.copyTpl(path.join(templatePath, 'startup.js'), path.join(destinationPath, 'startup.js'), $this.templatedata);
+                $this.fs.copy(path.join(templatePath, 'www.js'), path.join(destinationPath, 'www.js'));
+
+                $this.fs.copy(path.join(templatePath, '/controllers/homeController.js'), path.join(destinationPath, '/controllers/homeController.js'));
+                $this.fs.copy(path.join(templatePath, '/controllers/index.js'), path.join(destinationPath, '/controllers/index.js'));
+
+                $this.fs.copy(path.join(templatePath, '/public/css/default.less'), path.join(destinationPath, '/public/css/default.less'));
+                $this.fs.copy(path.join(templatePath, '/public/scripts/lib/bower.json'), path.join(destinationPath, '/public/scripts/lib/bower.json'));
+
+                $this.fs.copy(path.join(templatePath, '/views/layout.hbs'), path.join(destinationPath, '/views/layout.hbs'));
+                $this.fs.copy(path.join(templatePath, '/views/index.hbs'), path.join(destinationPath, '/views/index.hbs'));
+                $this.fs.copy(path.join(templatePath, '/views/error.hbs'), path.join(destinationPath, '/views/error.hbs'));
+                $this.fs.copy(path.join(templatePath, '/views/templates/empty.hbs'), path.join(destinationPath, '/views/templates/empty.hbs'));
+                $this.fs.copy(path.join(templatePath, '/views/templates/error404.hbs'), path.join(destinationPath, '/views/templates/error404.hbs'));
+
+                done();
+            }.bind($this));
+
+        }
     }
 };
 

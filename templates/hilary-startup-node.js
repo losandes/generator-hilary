@@ -30,9 +30,10 @@ start = function () {
     // compose the application dependency graph
     compose();
 
-    // perform startup tasks (resolve modules here)
     console.log('startup::starting application');
 
+    // perform startup tasks (resolve modules here)
+    
     // example
     scope.resolve('example');
 
