@@ -1,11 +1,12 @@
 {
-  "name": "express-app",
+  "name": "<%= projectName %>-express-app",
   "description": "The <%= projectName %> web app",
   "version": "0.0.1",
   "main": "startup.js",
   "scripts": {
-    "start": "nodemon startup.js -e js,hbs"
-  },  
+    "start": "nodemon startup.js -e js,hbs",
+    "install-dependencies": "npm install; cd public/scripts/lib; bower install"
+  },
   "dependencies": {
     "async": "^1.4.0",
     "body-parser": "^1.13.2",

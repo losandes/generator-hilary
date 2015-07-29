@@ -21,14 +21,12 @@ compose = function () {
     scope.register({
         name: 'exceptions',
         factory: function () {
-            if (exceptions) {
-                return exceptions;
+            if (!exceptions) {
+                var ExceptionHandler = scope.resolve('ExceptionHandler');
+                exceptions = new ExceptionHandler(function (exception) {
+                    console.error(exception);
+                });
             }
-
-            var ExceptionHandler = scope.resolve('ExceptionHandler');
-            exceptions = new ExceptionHandler(function (exception) {
-                console.error(exception);
-            });
 
             return exceptions;
         }
