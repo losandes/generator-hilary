@@ -30,7 +30,7 @@ Hilary.scope('<%= scope %>').register({
                     template: 't-empty',
                     data: {
                         heading: locale.pages.home.empty.heading,
-                        body: '/gidget/example'
+                        body: 'Route: "/gidget/example"'
                     }
                 });
             },
@@ -43,10 +43,10 @@ Hilary.scope('<%= scope %>').register({
         });
 
         // route with parameters
-        $this.get['/gidget/foos/:foo/bars/:bar'] = function (params) {
-            var body = '<p>/gidget/foos/:foo/bars/:bar</p><p>foos: {foo}</p><p>bars: {bar}</p>'
-                .replace('{foo}', params.foo)
-                .replace('{bar}', params.bar);
+        $this.get['/gidget/breweries/:brewery/beers/:beer'] = function (params) {
+            var body = 'Route: "/gidget/breweries/:brewery/beers/:beer", Brewery: {brewery}, Beer: {beer}'
+                .replace('{brewery}', params.brewery)
+                .replace('{beer}', params.beer);
 
             viewEngine.setVM({
                 template: 't-empty',

@@ -94,7 +94,7 @@ expressAppProject = {
         },
         {
             "name": 'instructions',
-            "message": 'When this completes, you need to run ``npm run install-dependencies`` before running the app!',
+            "message": 'This generator will create your project and install dependencies. When it is complete, you can run the app with ``npm start``. Checkout the README.md for more info.',
             "default": 'OK'
         }];
 
@@ -133,9 +133,20 @@ expressAppProject = {
             $this.fs.copy(path.join(templatePath, '/views/templates/empty.hbs'), path.join(destinationPath, '/views/templates/empty.hbs'));
             $this.fs.copy(path.join(templatePath, '/views/templates/error.hbs'), path.join(destinationPath, '/views/templates/error.hbs'));
 
+            $this.on('end', function () {
+                $this.spawnCommand('npm', ['run', 'install-dependencies'], { cwd: destinationPath });
+                //
+                // $this.installDependencies({
+                //     skipInstall: $this.options['skip-install'],
+                //     callback: function () {
+                //         $this.spawnCommand('npm', ['install']);
+                //         $this.spawnCommand('bower', ['install']);
+                //     }.bind($this)
+                // });
+            });
+
             done();
         }.bind($this));
-
     }
 };
 

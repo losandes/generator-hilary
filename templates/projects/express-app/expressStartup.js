@@ -32,6 +32,11 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
     };
 
     after = function () {
+        // make 404's a greedy index route for the SPA
+        app.use(function (req, res, next) {
+            res.render('index', { title: '<%= projectName %>' });
+        });
+
         // error handlers
 
         // development error handler
