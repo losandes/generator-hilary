@@ -7,10 +7,9 @@ module.exports.dependencies = [
     'serve-static',
     'less',
     'hbs',
-    'favicon',
-    'exceptions'
+    'favicon'
 ];
-module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, favicon, exceptions) {
+module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, favicon) {
     'use strict';
 
     var before,
@@ -33,13 +32,6 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
     };
 
     after = function () {
-        // catch 404 and forward to error handler
-        app.use(function (req, res, next) {
-            var err = exceptions.makeException('404', 'Not Found');
-            err.status = 404;
-            next(err);
-        });
-
         // error handlers
 
         // development error handler
