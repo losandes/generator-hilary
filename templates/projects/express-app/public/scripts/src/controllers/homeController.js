@@ -1,23 +1,16 @@
 Hilary.scope('<%= scope %>').register({
     name: 'homeController',
-    dependencies: ['newGidgetModule', 'locale', 'viewEngine'],
-    factory: function ($this, locale, viewEngine) {
+    dependencies: ['newGidgetModule', 'GidgetRoute', 'locale', 'viewEngine'],
+    factory: function ($this, GidgetRoute, locale, viewEngine) {
         'use strict';
 
-        var getExample1,
-            getHomepage,
-            logLifecycle;
-
-        logLifecycle = function (message, verb, path, params) {
+        var logLifecycle = function (message, params) {
             console.log(message, {
-                verb: verb,
-                path: path,
                 params: params
             });
         };
 
-        // Multiple routes covered by the same route handler
-        getHomepage = function () {
+        $this.get['/'] = function () {
             viewEngine.setVM({
                 template: 't-empty',
                 data: {
@@ -29,34 +22,37 @@ Hilary.scope('<%= scope %>').register({
                 }
             });
         };
-        $this.get['/#/'] = getHomepage;
-        $this.get['/'] = getHomepage;
 
-        // Single route with `before` and `after` pipelines
-        getExample1 = function () {
+        // route with `before` and `after` pipelines, using GidgetRoute
+        $this.get['/gidget/example'] = new GidgetRoute({
+            routeHandler: function () {
+                viewEngine.setVM({
+                    template: 't-empty',
+                    data: {
+                        heading: locale.pages.home.empty.heading,
+                        body: 'Route: "/gidget/example"'
+                    }
+                });
+            },
+            before: function (params) {
+                logLifecycle('before example 1 route', params);
+            },
+            after: function (params) {
+                logLifecycle('after example 1 route', params);
+            }
+        });
+
+        // route with parameters
+        $this.get['/gidget/breweries/:brewery/beers/:beer'] = function (params) {
+            var body = 'Route: "/gidget/breweries/:brewery/beers/:beer", Brewery: {brewery}, Beer: {beer}'
+                .replace('{brewery}', params.brewery)
+                .replace('{beer}', params.beer);
+
             viewEngine.setVM({
                 template: 't-empty',
                 data: {
                     heading: locale.pages.home.empty.heading,
-                    body: '/#/example1'
-                }
-            });
-        };
-        getExample1.before = function (verb, path, params) {
-            logLifecycle('before example 1 route', verb, path, params);
-        };
-        getExample1.after = function (verb, path, params) {
-            logLifecycle('after example 1 route', verb, path, params);
-        };
-        $this.get['/#/example1'] = getExample1;
-
-        // Single route handler for a route
-        $this.get['/#/example2'] = function () {
-            viewEngine.setVM({
-                template: 't-empty',
-                data: {
-                    heading: locale.pages.home.empty.heading,
-                    body: '/#/example2'
+                    body: body
                 }
             });
         };

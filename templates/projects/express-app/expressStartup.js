@@ -7,10 +7,9 @@ module.exports.dependencies = [
     'serve-static',
     'less',
     'hbs',
-    'favicon',
-    'exceptions'
+    'favicon'
 ];
-module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, favicon, exceptions) {
+module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, favicon) {
     'use strict';
 
     var before,
@@ -33,11 +32,9 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
     };
 
     after = function () {
-        // catch 404 and forward to error handler
+        // make 404's a greedy index route for the SPA
         app.use(function (req, res, next) {
-            var err = exceptions.makeException('404', 'Not Found');
-            err.status = 404;
-            next(err);
+            res.render('index', { title: '<%= projectName %>' });
         });
 
         // error handlers
@@ -47,21 +44,14 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
         if (app.get('env') === 'development') {
             app.use(function (err, req, res, next) {
                 res.status(err.status || 500);
-                res.render('error', {
-                    message: err.message,
-                    error: err
-                });
+                res.render('error', { title: 'error', message: err.message, error: err });
             });
         } else {
             // production error handler
             // no stacktraces leaked to user
-
             app.use(function (err, req, res, next) {
                 res.status(err.status || 500);
-                res.render('error', {
-                    message: err.message,
-                    error: {}
-                });
+                res.render('error', { title: 'error', message: err.message, error: {} });
             });
         }
     };

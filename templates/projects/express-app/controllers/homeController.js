@@ -8,5 +8,10 @@ module.exports.factory = function (router) {
         res.render('index', { title: '<%= projectName %>' });
     });
 
+    /* Throw an example error. */
+    router.get('/hilary/example/error', function (req, res, next) {
+        next('threw example error');
+    });
+
     return router;
 };
