@@ -30,6 +30,7 @@ consoleProject = {
             destinationPath = path.join($this.destinationPath(), $this.templatedata.projectName);
 
             $this.fs.copy(path.join(templatePath, 'gitignore.txt'), path.join(destinationPath, '.gitignore'));
+            $this.fs.copy(path.join(templatePath, 'jshintrc.txt'), path.join(destinationPath, '.jshintrc'));
             $this.fs.copy(path.join(templatePath, 'index.js'), path.join(destinationPath, 'index.js'));
             $this.fs.copyTpl(path.join(templatePath, 'package.json'), path.join(destinationPath, 'package.json'), $this.templatedata);
             $this.fs.copy(path.join(templatePath, 'npm-install-all.sh'), path.join(destinationPath, 'npm-install-all.sh'));
@@ -130,7 +131,7 @@ expressAppProject = {
             $this.fs.copy(path.join(templatePath, '/views/index.hbs'), path.join(destinationPath, '/views/index.hbs'));
             $this.fs.copy(path.join(templatePath, '/views/error.hbs'), path.join(destinationPath, '/views/error.hbs'));
             $this.fs.copy(path.join(templatePath, '/views/templates/empty.hbs'), path.join(destinationPath, '/views/templates/empty.hbs'));
-            $this.fs.copy(path.join(templatePath, '/views/templates/error404.hbs'), path.join(destinationPath, '/views/templates/error404.hbs'));
+            $this.fs.copy(path.join(templatePath, '/views/templates/error.hbs'), path.join(destinationPath, '/views/templates/error.hbs'));
 
             done();
         }.bind($this));
