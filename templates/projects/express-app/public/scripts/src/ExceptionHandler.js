@@ -69,7 +69,6 @@ Hilary.scope('<%= scope %>').register({
 
         self.fetchException = function (response) {
             response = response || {};
-            response.status = response.status || 'unknown';
 
             return makeException('FetchException', 'Server Request Failed with status: ' + response.status, response);
         };

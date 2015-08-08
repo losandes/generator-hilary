@@ -70,7 +70,7 @@
     "wsh"           : false,
     "yui"           : false,
     "globals"       : {
-        "Hilary": false,
+        "Hilary": true,
         "Gidget": false,
         "jQuery": false,
         "ko": false,
