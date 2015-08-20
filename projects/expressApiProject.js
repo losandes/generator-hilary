@@ -2,7 +2,7 @@ module.exports.init = function (path) {
     'use strict';
 
     return {
-        name: 'Node express project',
+        name: 'Node express API project',
         callback: function ($this) {
             var done = $this.async(),
                 prompts;
@@ -22,7 +22,7 @@ module.exports.init = function (path) {
                 var templatePath, destinationPath;
 
                 $this.templatedata.scope = props.scope;
-                $this.sourceRoot(path.join(__dirname, '../templates/projects/express-app'));
+                $this.sourceRoot(path.join(__dirname, '../templates/projects/express-api'));
                 templatePath = $this.templatePath();
                 destinationPath = path.join($this.destinationPath(), $this.templatedata.projectName);
 
@@ -58,14 +58,6 @@ module.exports.init = function (path) {
 
                 $this.on('end', function () {
                     $this.spawnCommand('npm', ['run', 'install-dependencies'], { cwd: destinationPath });
-                    //
-                    // $this.installDependencies({
-                    //     skipInstall: $this.options['skip-install'],
-                    //     callback: function () {
-                    //         $this.spawnCommand('npm', ['install']);
-                    //         $this.spawnCommand('bower', ['install']);
-                    //     }.bind($this)
-                    // });
                 });
 
                 done();
