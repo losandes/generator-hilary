@@ -43,8 +43,8 @@ module.exports.init = function (path) {
                 $this.fs.copy(path.join(templatePath, '/controllers/index.js'), path.join(destinationPath, '/controllers/index.js'));
 
                 $this.fs.copyTpl(path.join(templatePath, '/docs/index.apib'), path.join(destinationPath, '/docs/index.apib'), $this.templatedata);
-                $this.fs.copy(path.join(templatePath, '/docs/errors.md'), path.join(destinationPath, '/docs/errors.md'));
-                $this.fs.copy(path.join(templatePath, '/docs/example-schema.json'), path.join(destinationPath, '/docs/example-schema.json'));
+                $this.fs.copy(path.join(templatePath, '/docs/_errors.md'), path.join(destinationPath, '/docs/_errors.md'));
+                $this.fs.copy(path.join(templatePath, '/docs/_schema-example.json'), path.join(destinationPath, '/docs/_schema-example.json'));
 
                 $this.fs.copy(path.join(templatePath, '/environment/environment.json'), path.join(destinationPath, '/environment/environment.json'));
 
