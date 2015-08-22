@@ -48,6 +48,11 @@
         toggleLanguage: undefined,
 
         /*
+        // expand all examples that are hidden or hide all that are shown
+        */
+        toggleAllExamples: undefined,
+
+        /*
         // Refresh the page after a live update from the server. This only
         // works in live preview mode (using the `--server` parameter).
         */
@@ -65,11 +70,13 @@
     };
 
     expandNavItem = function (el) {
-        var inner = el.children[0];
+        if (el && el.children) {
+            var inner = el.children[0];
 
-        docs.collapseAllNavItems();
-        el.className = el.className + ' in';
-        el.style.maxHeight = inner.offsetHeight + 12 + 'px';
+            docs.collapseAllNavItems();
+            el.className = el.className + ' in';
+            el.style.maxHeight = inner.offsetHeight + 12 + 'px';
+        }
     };
 
     addLanguageHandle = function (handle) {
@@ -128,14 +135,17 @@
     };
 
     docs.toggleCollapseButton = function (event) {
-        var button = event.target.parentNode,
-            content = button.parentNode.nextSibling,
-            inner = content.children[0];
+        var button, content, inner;
+
+        button = event.target.className.indexOf('collapse-button') > -1 ? event.target : event.target.parentNode;
 
         if (button.className.indexOf('collapse-button') === -1) {
             // Clicked without hitting the right element?
             return;
         }
+
+        content = button.parentNode.nextSibling;
+        inner = content.children[0];
 
         if (button.className.indexOf('in') > -1) {
             // Currently showing, so let's hide it
@@ -224,6 +234,18 @@
         }
     };
 
+    docs.toggleAllExamples = function (show) {
+        var examples,
+            i;
+
+        examples = show ? document.querySelectorAll('.content .collapse-button:not(.in)') :
+            document.querySelectorAll('.content .collapse-button.in');
+
+        for (i = 0; i < examples.length; i += 1) {
+            examples[i].click();
+        }
+    };
+
     docs.refresh = function (body) {
         document.querySelector('body').className = 'preload';
         document.body.innerHTML = body;
@@ -257,6 +279,19 @@
         }
 
         parseQueryString();
+
+        document.querySelector('.toggle-examples').onclick = function (event) {
+            var button = event.target,
+                show = button.className.indexOf('in') === -1;
+
+            if (show) {
+                docs.toggleAllExamples(true);
+                button.className = button.className + ' in';
+            } else {
+                docs.toggleAllExamples(false);
+                button.className = button.className.replace(' in', '');
+            }
+        };
     };
 
 
