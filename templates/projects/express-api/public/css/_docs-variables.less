@@ -1,9 +1,9 @@
 // main: docs.less
-@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:300|Roboto:400,700|Raleway:200);
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:300|Roboto:400,700|Raleway:200,400);
 
 /* Page-wide variables */
 @padding: 12px;
-@border-radius: 6px;
+@border-radius: 0;
 @font-size: 14px;
 
 @base-font: 'Roboto', Helvetica, sans-serif;
@@ -21,6 +21,10 @@
 // 4B6ABF
 
 @link-color: #428bca;
+
+@nav-background-color: #F9FBFF;// #F2FDFF; //#F8FDFF;
+@nav-text-color: #000;
+@nav-border-color: #ddd;
 
 @heading-text-color: @text-color;
 
@@ -40,9 +44,7 @@
 @group-title-background-color: contrast(@background-color,
                                         darken(@background-color, 5%),
                                         lighten(@background-color, 5%));
-@group-border-color: contrast(@background-color,
-                              darken(@background-color, 15%),
-                              lighten(@background-color, 15%));
+@group-border-color: transparent;
 @group-text-color: contrast(@group-background-color);
 
 /* HTTP GET */
@@ -102,6 +104,7 @@
 @code-block-background-color: #161616;
 @code-block-text-color: #ddd;
 @code-block-border-color: #000;
+@code-block-radius: 4px;
 
 @title-code-background-color: @inline-code-background-color;
 @title-code-text-color: @inline-code-text-color;

@@ -18,7 +18,7 @@ header {
 
 h1, h2, h3, h4, h5 {
     color: @heading-text-color;
-    margin: @padding 0;
+    margin: @padding*3 0 @padding 0;
 
     & .permalink {
         margin-left: @padding / 2;
@@ -29,6 +29,10 @@ h1, h2, h3, h4, h5 {
     &:hover .permalink {
         opacity: 1;
     }
+}
+
+h1#top {
+    margin-top: 0;
 }
 
 h1 {
@@ -44,13 +48,23 @@ h2 {
 }
 
 h3 {
-    font-size: 100%;
+    font-family: @title-font;
+    font-size: 20px;
     text-transform: uppercase;
+    color: contrast(@background-color,
+                darken(@background-color, 40%),
+                lighten(@background-color, 40%));
 }
 
 h5 {
-    font-size: 100%;
-    font-weight: normal;
+    font-family: @title-font;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: contrast(@background-color,
+                darken(@background-color, 40%),
+                lighten(@background-color, 40%));
+    margin-top: 0;
 }
 
 p {
@@ -104,8 +118,9 @@ blockquote {
 pre {
     background-color: @code-block-background-color;
     padding: @padding;
+    margin: -(@padding/2) 0 (@padding * 3) 0;
     border: 1px solid @code-block-border-color;
-    border-radius: @border-radius;
+    border-radius: @code-block-radius;
     overflow: auto;
 
     code {
@@ -113,6 +128,10 @@ pre {
         background-color: transparent;
         padding: 0;
         border: none;
+    }
+
+    &.out {
+        display: none;
     }
 }
 
@@ -154,6 +173,7 @@ table {
     font-family: @title-font;
     font-size: 135%;
     font-weight: 500;
+    margin-top: 0;
   }
 
   p {
@@ -183,9 +203,10 @@ table {
 
 nav {
     position: fixed;
-    top: @padding * 2;
+    top: 0;
     bottom: 0;
     overflow-y: auto;
+    padding-top: 5px;
 
     .resource-group {
       padding: 0;
@@ -350,9 +371,9 @@ nav {
         cursor: pointer;
     }
 
-    &.show {
+    &.in {
         .close {
-            display: inline;
+            display: block;
         }
 
         .open {
@@ -365,22 +386,31 @@ nav {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
+
+    // ADDED
+        // &.in {
+        //     max-height: 5000px;
+        // }
+    // /ADDED
 }
 
 /* Layout classes */
 nav {
     width: 220px;
+    background-color: @nav-background-color;
+    border-right: 1px solid @nav-border-color;
 }
 
 .container {
     //max-width: 940px;
+    //max-width: 1090px;
     margin-left: auto;
     margin-right: auto;
 
     .row {
         .content {
-            margin-left: 220px + (@padding * 2);
-            //width: 720px - (@padding * 2);
+            margin-left: 340px + (@padding * 2);
+            width: 720px - (@padding * 2);
         }
 
         &:after {
@@ -483,7 +513,7 @@ nav {
 
     h2.group-heading, .heading a {
         padding: @padding;
-        margin: -@padding -@padding @padding -@padding;
+        margin: @padding*3 -@padding @padding -@padding;
         background-color: @group-title-background-color;
         border-bottom: 1px solid @group-border-color;
         border-top-left-radius: @border-radius;
@@ -496,12 +526,31 @@ nav {
 }
 
 nav .resource-group{
+    border: none;
+
   .heading a {
     margin-bottom: 0;
+    background-color: @nav-background-color;
+    color: @nav-text-color;
+    opacity: 1;
+    border: none;
+  }
+
+  ul a {
+      border: none;
+      color: @nav-text-color;
+      margin-left: 10px;
+
+      &.lang.in {
+          border-left: 2px solid @post-background-color;
+          font-weight: 700;
+      }
   }
 
   .collapse-content {
     padding: 0;
+    background-color: @nav-background-color;
+    color: @nav-text-color;
   }
 }
 

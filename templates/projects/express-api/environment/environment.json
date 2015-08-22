@@ -13,5 +13,12 @@
         "exposeHeaders": ["Content-Length", "Date", "ETag", "Expires", "Last-Modified", "X-Powered-By"],
         "cacheDuration": "120",
         "denialMessage": { "status": 403, "message": "CORS Error: your origin, {origin}, is not whitelisted." }
+    },
+    "docs": {
+        "languages": [
+            { "name": "All", "preName": "language-any" },
+            { "name": "Shell", "preName": "language-bash" },
+            { "name": "JavaScript", "preName": "language-js" }
+        ]
     }
 }

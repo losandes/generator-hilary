@@ -23,6 +23,16 @@ mixin Nav()
     //- Draw a navigation bar, which includes links to individual
     //- resources and actions.
     nav
+        if self.languages && self.languages.length
+            .resource-group
+                .heading
+                  .chevron
+                    i.open.fa.fa-angle-down
+                  a(href='#languages') Languages
+                .collapse-content
+                  ul: each item in self.languages
+                    li
+                      a(class="lang", href='javascript: void(0)', data-pre-name=item.preName)= item.name
         if self.api.navItems && self.api.navItems.length
             .resource-group
                 .heading

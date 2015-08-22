@@ -1,169 +1,278 @@
-(function (window) {
+(function(window, document) {
     'use strict';
 
+    var docs,
+        collapseNavItem,
+        expandNavItem,
+        languageHandles = {},
+        addLanguageHandle,
+        makeLanguageHandler,
+        parseQueryString;
 
-    /*
-      Determine if a string ends with another string.
-    */
-    function endsWith(str, suffix) {
+    docs = {
+        /*
+        // Determine if a string ends with another string.
+        */
+        endsWith: undefined,
+
+        /*
+        // Get an array [width, height] of the window.
+        */
+        getWindowDimentions: undefined,
+
+        /*
+        // Collapse or show a request/response example.
+        */
+        toggleCollapseButton: undefined,
+
+        /*
+        // Collapse or show a navigation menu. It will not be hidden unless it
+        // is currently selected or `force` has been passed.
+        */
+        toggleCollapseNav: undefined,
+
+        /*
+        // Collapses all top-level items in the navigation menu
+        */
+        collapseAllNavItems: undefined,
+
+        /*
+        // Highlight the selected language, and turn highlight off on others
+        */
+        toggleLanguageLink: undefined,
+
+        /*
+        // Hide other syntax examples in favor of a single language
+        // All languages are shown by default
+        */
+        toggleLanguage: undefined,
+
+        /*
+        // Refresh the page after a live update from the server. This only
+        // works in live preview mode (using the `--server` parameter).
+        */
+        refresh: undefined,
+
+        /*
+        // Initialize the interactive functionality of the page.
+        */
+        init: undefined
+    };
+
+    collapseNavItem = function (el) {
+        el.className = el.className.replace(' in', '');
+        el.style.maxHeight = '0px';
+    };
+
+    expandNavItem = function (el) {
+        var inner = el.children[0];
+
+        docs.collapseAllNavItems();
+        el.className = el.className + ' in';
+        el.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    };
+
+    addLanguageHandle = function (handle) {
+        languageHandles[handle] = true;
+    };
+
+    makeLanguageHandler = function (el, handle) {
+        return function () {
+            var uri, newUrl;
+
+            docs.toggleLanguageLink(el);
+            docs.toggleLanguage(handle);
+
+            uri = window.location;
+            newUrl = uri.origin;
+            newUrl += '/?lang=' + handle;
+            newUrl += uri.hash;
+
+            history.pushState({ uri: newUrl }, document.title, newUrl);
+        };
+    };
+
+    parseQueryString = function () {
+        var parser = /(?:^|&)([^&=]*)=?([^&]*)/g,
+            queryString = (window.location.search + '').substring(1),
+            query = {},
+            link;
+
+        queryString.replace(parser,  function ($0, $1, $2) {
+            if ($1) {
+                query[$1] = $2;
+            }
+        });
+
+        if (query.lang) {
+            link = document.querySelector('a[data-pre-name="' + query.lang + '"]');
+            if (link) {
+                link.click();
+            }
+        }
+    };
+
+    docs.endsWith = function (str, suffix) {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
-    }
+    };
 
-    /*
-      Get an array [width, height] of the window.
-    */
-    function getWindowDimensions() {
-      var w = window,
-          d = document,
-          e = d.documentElement,
-          g = d.body,
-          x = w.innerWidth || e.clientWidth || g.clientWidth,
-          y = w.innerHeight || e.clientHeight || g.clientHeight;
+    docs.getWindowDimensions = function () {
+        var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.body,
+            x = w.innerWidth || e.clientWidth || g.clientWidth,
+            y = w.innerHeight || e.clientHeight || g.clientHeight;
 
-      return [x, y];
-    }
+        return [x, y];
+    };
 
-    /*
-      Collapse or show a request/response example.
-    */
-    function toggleCollapseButton(event) {
-        var button = event.target.parentNode;
-        var content = button.parentNode.nextSibling;
-        var inner = content.children[0];
+    docs.toggleCollapseButton = function (event) {
+        var button = event.target.parentNode,
+            content = button.parentNode.nextSibling,
+            inner = content.children[0];
 
         if (button.className.indexOf('collapse-button') === -1) {
-          // Clicked without hitting the right element?
-          return;
+            // Clicked without hitting the right element?
+            return;
         }
 
-        if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        if (button.className.indexOf('in') > -1) {
             // Currently showing, so let's hide it
-            button.className = 'collapse-button';
+            button.className = button.className.replace(' in', '');
+            content.className = content.className.replace(' in', '');
             content.style.maxHeight = '0px';
         } else {
             // Currently hidden, so let's show it
-            button.className = 'collapse-button show';
+            button.className = button.className + ' in';
+            content.className = content.className + ' in';
             content.style.maxHeight = inner.offsetHeight + 12 + 'px';
         }
-    }
+    };
 
-    /*
-      Collapse or show a navigation menu. It will not be hidden unless it
-      is currently selected or `force` has been passed.
-    */
-    function toggleCollapseNav(event, force) {
-        var heading = event.target.parentNode;
-        var content = heading.nextSibling;
-        var inner = content.children[0];
+    docs.toggleCollapseNav = function (event, force) {
+        var heading = event.target.parentNode,
+            content = heading.nextSibling;
 
-        if (heading.className.indexOf('heading') === -1) {
-          // Clicked without hitting the right element?
-          return;
+        if (heading.className.indexOf('heading') === -1 || content.className.indexOf('collapse-content') === -1) {
+            // Clicked without hitting the right element?
+            return;
         }
 
-        if (content.style.maxHeight && content.style.maxHeight !== '0px') {
-          // Currently showing, so let's hide it, but only if this nav item
-          // is already selected. This prevents newly selected items from
-          // collapsing in an annoying fashion.
-          if (force || window.location.hash && endsWith(event.target.href, window.location.hash)) {
-            content.style.maxHeight = '0px';
-          }
+        if (content.className.indexOf('in') > -1) {
+            // Currently showing, so let's hide it, but only if this nav item
+            // is already selected. This prevents newly selected items from
+            // collapsing in an annoying fashion.
+            if (force || window.location.hash && docs.endsWith(event.target.href, window.location.hash)) {
+                collapseNavItem(content);
+            }
         } else {
-          // Currently hidden, so let's show it
-          content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+            // Currently hidden, so let's show it
+            expandNavItem(content);
         }
-    }
+    };
 
-    /*
-      Refresh the page after a live update from the server. This only
-      works in live preview mode (using the `--server` parameter).
-    */
-    function refresh(body) {
+    docs.collapseAllNavItems = function () {
+        var navItems = document.querySelectorAll('.resource-group .heading'),
+            i;
+
+        for (i = 0; i < navItems.length; i += 1) {
+            collapseNavItem(navItems[i].nextSibling);
+        }
+    };
+
+    docs.toggleLanguageLink = function (el, lang) {
+        var links, i;
+
+        if (!el) {
+            return;
+        }
+
+        links = document.querySelectorAll('.lang');
+
+        for (i = 0; i < links.length; i += 1) {
+            if (links[i].dataset.preName !== 'lang') {
+                links[i].className = links[i].className.replace(' in', '');
+            }
+        }
+
+        el.className = el.className + ' in';
+    };
+
+    docs.toggleLanguage = function (lang) {
+        var allBlocks, currentBlock, currentPre, currentIsAnOption, currentIsSelected, currentIsShown, i, j, matchCount;
+
+        allBlocks = document.querySelectorAll('code[class^="language"]');
+
+        for (i = 0; i < allBlocks.length; i += 1) {
+            currentBlock = allBlocks[i];
+            currentPre = currentBlock.parentElement;
+            currentIsSelected = currentBlock.className.indexOf(lang) > -1;
+            currentIsShown = currentPre.className.indexOf('out') === -1;
+            // this isn't perfect - if the current block has more than one class, this will break
+            currentIsAnOption = languageHandles[currentBlock.className];
+
+            if (lang === 'language-any') {
+                currentPre.className = currentPre.className.replace(' out', '');
+            } else if ((currentIsSelected && currentIsShown) || !currentIsAnOption) {
+                // ignore
+            } else if (currentIsSelected && !currentIsShown) {
+                currentPre.className = currentPre.className.replace(' out', '');
+            } else if (currentIsShown) {
+                currentPre.className = currentPre.className + ' out';
+            }
+        }
+    };
+
+    docs.refresh = function (body) {
         document.querySelector('body').className = 'preload';
         document.body.innerHTML = body;
 
         // Re-initialize the page
-        init();
-        autoCollapse();
+        docs.init();
 
-        document.querySelector('body').className = '';
-    }
-
-    /*
-      Determine which navigation items should be auto-collapsed to show as many
-      as possible on the screen, based on the current window height. This also
-      collapses them.
-    */
-    function autoCollapse() {
-      var windowHeight = getWindowDimensions()[1];
-      var itemsHeight = 64; /* Account for some padding */
-      var itemsArray = Array.prototype.slice.call(
-        document.querySelectorAll('nav .resource-group .heading'));
-
-      // Get the total height of the navigation items
-      itemsArray.forEach(function (item) {
-        itemsHeight += item.parentNode.offsetHeight;
-      });
-
-      // Should we auto-collapse any nav items? Try to find the smallest item
-      // that can be collapsed to show all items on the screen. If not possible,
-      // then collapse the largest item and do it again. First, sort the items
-      // by height from smallest to largest.
-      var sortedItems = itemsArray.sort(function (a, b) {
-        return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
-      });
-
-      while (sortedItems.length && itemsHeight > windowHeight) {
-        for (var i = 0; i < sortedItems.length; i++) {
-          // Will collapsing this item help?
-          var itemHeight = sortedItems[i].nextSibling.offsetHeight;
-          if ((itemsHeight - itemHeight <= windowHeight) || i === sortedItems.length - 1) {
-            // It will, so let's collapse it, remove its content height from
-            // our total and then remove it from our list of candidates
-            // that can be collapsed.
-            itemsHeight -= itemHeight;
-            toggleCollapseNav({target: sortedItems[i].children[0]}, true);
-            sortedItems.splice(i, 1);
-            break;
-          }
-        }
-      }
-    }
-
-    /*
-      Initialize the interactive functionality of the page.
-    */
-    function init() {
-        var i;
-
-        // Make collapse buttons clickable
-        var buttons = document.querySelectorAll('.collapse-button');
-        for (i = 0; i < buttons.length; i++) {
-            buttons[i].onclick = toggleCollapseButton;
-
-            // Show by default? Then toggle now.
-            if (buttons[i].className.indexOf('show') !== -1) {
-                toggleCollapseButton({target: buttons[i].children[0]});
-            }
-        }
-
-        // Make nav items clickable to collapse/expand their content.
-        var navItems = document.querySelectorAll('nav .resource-group .heading');
-        for (i = 0; i < navItems.length; i++) {
-            navItems[i].onclick = toggleCollapseNav;
-
-            // Show all by default
-            toggleCollapseNav({target: navItems[i].children[0]});
-        }
-    }
-
-    // Initial call to set up buttons
-    init();
-
-    window.onload = function () {
-        autoCollapse();
-        // Remove the `preload` class to enable animations
         document.querySelector('body').className = '';
     };
 
-}(window));
+    docs.init = function () {
+        var navItems, buttons, languages, currentLang, queryStringLang, i;
+
+        // Make collapse buttons clickable
+        buttons = document.querySelectorAll('.collapse-button');
+        for (i = 0; i < buttons.length; i++) {
+            buttons[i].onclick = docs.toggleCollapseButton;
+        }
+
+        // Make nav items clickable to collapse/expand their content.
+        navItems = document.querySelectorAll('nav .resource-group .heading');
+        for (i = 0; i < navItems.length; i++) {
+            navItems[i].onclick = docs.toggleCollapseNav;
+        }
+
+        languages = document.querySelectorAll('.lang');
+        for (i = 0; i < languages.length; i++) {
+            currentLang = languages[i].getAttribute('data-pre-name');
+            addLanguageHandle(currentLang);
+            languages[i].onclick = makeLanguageHandler(languages[i], currentLang);
+        }
+
+        parseQueryString();
+    };
+
+
+    // Initial call to set up buttons
+    docs.init();
+
+    window.onload = function() {
+        // Remove the `preload` class to enable animations
+        document.querySelector('body').className = '';
+
+        if (window.location.hash) {
+            var link = document.querySelector('[href="' + window.location.hash + '"]'),
+                el = link.parentElement.nextSibling;
+
+            expandNavItem(el);
+        }
+    };
+
+}(window, document));

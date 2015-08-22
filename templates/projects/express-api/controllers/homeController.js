@@ -1,9 +1,18 @@
 module.exports.name = 'homeController';
-module.exports.dependencies = ['router', 'fs', 'aglio'];
-module.exports.factory = function (router, fs, aglio) {
+module.exports.dependencies = ['router', 'fs', 'aglio', 'environment'];
+module.exports.factory = function (router, fs, aglio, env) {
     'use strict';
 
-    var readDocIndex = function (filepath, callback) {
+    var aglioOptions, readDocIndex;
+
+    aglioOptions = {
+        themeTemplate: './views/docs.jade',
+        locals: {
+            languages: env.get('docs:languages')
+        }
+    };
+
+    readDocIndex = function (filepath, callback) {
         fs.readFile(filepath, function (err, blueprint) {
             if (err) {
                 callback(err);
@@ -17,7 +26,7 @@ module.exports.factory = function (router, fs, aglio) {
     /* GET home page. */
     router.get('/', function (req, res, next) {
         readDocIndex('./docs/index.apib', function (err, blueprint) {
-            aglio.render(blueprint, { themeTemplate: './views/docs.jade' }, function (err, html, warnings) {
+            aglio.render(blueprint, aglioOptions, function (err, html, warnings) {
                 if (err) {
                     console.log('aglio error:', err);
                     next(err);
