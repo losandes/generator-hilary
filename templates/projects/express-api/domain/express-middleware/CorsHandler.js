@@ -1,5 +1,5 @@
 module.exports.name = 'CorsHandler';
-module.exports.dependencies = [];
+module.exports.singleton = true;
 module.exports.factory = function () {
     'use strict';
 
@@ -12,16 +12,18 @@ module.exports.factory = function () {
 
         if (options.allowOrigin) {
             // Validate that the origin is on the whitelist
-            origin = req.headers.origin;
+            origin = req.headers.origin || null;
 
             if (options.allowOrigin(origin)) {
                 res.set('Access-Control-Allow-Origin', origin);
-            } else if (options.shortCircuit) {
+                res.set('Vary', 'Origin');
+            } else if (options.denialMessage) {
+                res.status(403).send(options.denialMessage.replace('{origin}', origin)).end();
+                return false;
+            } else {
                 res.status(403).end();
                 return false;
             }
-
-            res.set('Vary', 'Origin');
         } else {
             // The options do not provide a means of validating the origin, allow any origin
             // WE RECOMMEND NOT LETTING THIS HAPPEN IN PRODUCTION
@@ -57,13 +59,18 @@ module.exports.factory = function () {
         }
 
         // Chrome, Safari and Opera support a max of 5 minutes, Firefox supports up to 24 hours
-        res.set('Access-Control-Max-Age', options.maxAge || '120' /* 2 minutes */);
+        res.set('Access-Control-Max-Age', options.cacheDuration || '120' /* 2 minutes */);
 
         res.status(204).end();
     };
 
     return function (options) {
         return function (req, res, next) {
+            if (options.mode === 'off') {
+                next();
+                return;
+            }
+
             if (!validateOrigin(options, req, res)) {
                 // Do not allow the request to be processed; return the response (do not continue the pipeline)
                 return;

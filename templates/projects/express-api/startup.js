@@ -23,7 +23,6 @@ var Hilary = require('hilary'),
             less = require('less-middleware'),
             debug = require('debug')('expressdefault:server'),
             serveStatic = require('serve-static');
-            //isWin = /^win/.test(process.platform);
 
         /*
         // we'll use Hilary to wire up the node dependencies, for simplicity.
@@ -55,6 +54,7 @@ var Hilary = require('hilary'),
         //scope.define('http', function () { return require('http'); });
         //scope.define('path', function () { return require('path'); });
 
+        scope.autoRegister(require('./domain/express-middleware'));
         scope.register(require('./expressStartup.js'));         // configures middleware and controllers
         scope.register(require('./www.js'));                    // the HTTP server
     };
@@ -118,8 +118,6 @@ Hilary.scope('<%= scope %>').Bootstrapper({
 
         console.log('startup::composing application modules');
 
-        // example
-        scope.register({ name: 'application', factory: function () { return { compose: compose, start: start }; } });
         scope.register(require('./environment.js'));
         scope.register(require('./ExceptionHandler.js'));
 

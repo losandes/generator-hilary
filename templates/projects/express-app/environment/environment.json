@@ -1,3 +1,4 @@
 {
-    "example": "environment setting"
+    "port": 3000,
+    "storeThisConfigInMemory": true
 }

@@ -1,6 +1,6 @@
 module.exports.name = 'www';
-module.exports.dependencies = ['expressApp', 'http'];
-module.exports.factory = function (app, http) {
+module.exports.dependencies = ['expressApp', 'http', 'environment'];
+module.exports.factory = function (app, http, env) {
     'use strict';
 
     var port,
@@ -12,7 +12,7 @@ module.exports.factory = function (app, http) {
     /*
     // Get port from environment and store in Express.
     */
-    port = process.env.PORT || 3000;
+    port = process.env.PORT || env.get('port') || 3000;
     app.set('port', port);
 
 

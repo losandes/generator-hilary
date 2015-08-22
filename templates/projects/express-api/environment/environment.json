@@ -1,14 +1,17 @@
 {
+    "port": 3000,
+    "storeThisConfigInMemory": true,
     "corsOriginWhiteList": {
         "null": true,
         "http://localhost:3000": true
     },
     "corsOptions": {
+        "mode": "off",
         "allowCredentials": true,
-        "shortCircuit": true,
         "allowMethods": ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"],
         "allowHeaders": ["Authorization", "Accepts", "Content-Type", "If-Match", "If-Modified-Since", "If-None-Match", "If-Unmodified-Since", "Range", "X-Requested-With"],
         "exposeHeaders": ["Content-Length", "Date", "ETag", "Expires", "Last-Modified", "X-Powered-By"],
-        "maxAge": "120"
+        "cacheDuration": "120",
+        "denialMessage": { "status": 403, "message": "CORS Error: your origin, {origin}, is not whitelisted." }
     }
 }

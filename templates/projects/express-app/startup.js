@@ -116,8 +116,6 @@ Hilary.scope('<%= scope %>').Bootstrapper({
 
         console.log('startup::composing application modules');
 
-        // example
-        scope.register({ name: 'application', factory: function () { return { compose: compose, start: start }; } });
         scope.register(require('./environment.js'));
         scope.register(require('./ExceptionHandler.js'));
 

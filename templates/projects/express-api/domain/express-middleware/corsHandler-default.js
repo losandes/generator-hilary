@@ -34,11 +34,10 @@ module.exports.factory = function (env, CorsHandler) {
     whitelist = whitelist || defaultWhitelist;
 
     defaultCorsOptions = {
+        // When mode is set to "off", CORS will not operate
+        "mode": "on",
         // Set this to true if you want to allow cookies to be sent to your API
         "allowCredentials": true,
-        // Set this to true if you want the response to end when the origin is not valid
-        // You should always set this to true in Production!
-        "shortCircuit": true,
         // List only the verbs that your API supports/uses
         "allowMethods": ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"],
         // List the headers that are accepted by your api
@@ -47,7 +46,7 @@ module.exports.factory = function (env, CorsHandler) {
         // List the headers that can be exposed by the server
         "exposeHeaders": ["Content-Length", "Date", "ETag", "Expires", "Last-Modified", "X-Powered-By"],
         // Set the maxAge for pre-flight cache (default is 2 minutes / 120 seconds)
-        "maxAge": "120"
+        "cacheDuration": "120"
     };
     corsOptions = env.get('corsOptions');
     corsOptions = corsOptions || defaultCorsOptions;
