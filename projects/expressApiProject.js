@@ -51,17 +51,14 @@ module.exports.init = function (path) {
                 $this.fs.copy(path.join(templatePath, '/public/favicon.ico'), path.join(destinationPath, '/public/favicon.ico'));
                 $this.fs.copy(path.join(templatePath, '/public/css/_docs-variables.less'), path.join(destinationPath, '/public/css/_docs-variables.less'));
                 $this.fs.copy(path.join(templatePath, '/public/css/docs.less'), path.join(destinationPath, '/public/css/docs.less'));
-                $this.fs.copy(path.join(templatePath, '/public/scripts/lib/bower.json'), path.join(destinationPath, '/public/scripts/lib/bower.json'));
-                $this.fs.copyTpl(path.join(templatePath, '/public/scripts/src/ExceptionHandler.js'), path.join(destinationPath, '/public/scripts/src/ExceptionHandler.js'), $this.templatedata);
-                $this.fs.copyTpl(path.join(templatePath, '/public/scripts/src/startup.js'), path.join(destinationPath, '/public/scripts/src/startup.js'), $this.templatedata);
-                $this.fs.copyTpl(path.join(templatePath, '/public/scripts/src/ViewEngine.js'), path.join(destinationPath, '/public/scripts/src/ViewEngine.js'), $this.templatedata);
-                $this.fs.copyTpl(path.join(templatePath, '/public/scripts/src/controllers/homeController.js'), path.join(destinationPath, '/public/scripts/src/controllers/homeController.js'), $this.templatedata);
-                $this.fs.copyTpl(path.join(templatePath, '/public/scripts/src/controllers/exampleController.js'), path.join(destinationPath, '/public/scripts/src/controllers/exampleController.js'), $this.templatedata);
-                $this.fs.copyTpl(path.join(templatePath, '/public/scripts/src/locale/en_US.js'), path.join(destinationPath, '/public/scripts/src/locale/en_US.js'), $this.templatedata);
+                $this.fs.copy(path.join(templatePath, '/public/css/default.less'), path.join(destinationPath, '/public/css/default.less'));
+                $this.fs.copy(path.join(templatePath, '/public/css/default.css'), path.join(destinationPath, '/public/css/default.css'));
+                $this.fs.copyTpl(path.join(templatePath, '/public/scripts/docs.js'), path.join(destinationPath, '/public/scripts/docs.js'), $this.templatedata);
 
-                $this.fs.copy(path.join(templatePath, '/views/layout.hbs'), path.join(destinationPath, '/views/layout.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/index.hbs'), path.join(destinationPath, '/views/index.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/error.hbs'), path.join(destinationPath, '/views/error.hbs'));
+                $this.fs.copy(path.join(templatePath, '/views/layout.jade'), path.join(destinationPath, '/views/layout.jade'));
+                $this.fs.copy(path.join(templatePath, '/views/error.jade'), path.join(destinationPath, '/views/error.jade'));
+                $this.fs.copy(path.join(templatePath, '/views/docs.jade'), path.join(destinationPath, '/views/docs.jade'));
+                $this.fs.copy(path.join(templatePath, '/views/_docs-mixins.jade'), path.join(destinationPath, '/views/_docs-mixins.jade'));
 
                 $this.on('end', function () {
                     $this.spawnCommand('npm', ['run', 'install-dependencies'], { cwd: destinationPath });

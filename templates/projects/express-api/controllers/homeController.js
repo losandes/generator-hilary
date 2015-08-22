@@ -17,7 +17,7 @@ module.exports.factory = function (router, fs, aglio) {
     /* GET home page. */
     router.get('/', function (req, res, next) {
         readDocIndex('./docs/index.apib', function (err, blueprint) {
-            aglio.render(blueprint, { themeStyle: './public/css/docs.less' }, function (err, html, warnings) {
+            aglio.render(blueprint, { themeTemplate: './views/docs.jade' }, function (err, html, warnings) {
                 if (err) {
                     console.log('aglio error:', err);
                     next(err);
@@ -27,7 +27,7 @@ module.exports.factory = function (router, fs, aglio) {
                     console.log('aglio warning:', warnings);
                 }
 
-                res.render('index', { title: '<%= projectName %>', content: html });
+                res.send(html);
             });
         });
     });
