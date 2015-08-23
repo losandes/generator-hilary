@@ -73,7 +73,7 @@ module.exports.factory = function(router, fs, async, marked, highlight, env) {
                 }
 
                 res.render('docs', {
-                    title: 'api6',
+                    title: '<%= projectName %>',
                     content: html,
                     language: req.params.lang || 'any',
                     languages: JSON.stringify(env.get('docs:languages'))

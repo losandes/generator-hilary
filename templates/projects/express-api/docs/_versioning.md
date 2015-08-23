@@ -5,14 +5,14 @@ By default, all requests receive the latest version of the API. We encourage you
 > # Accept Header with Version and Content-Type Declaration
 
 ```
-Accept: application/vnd.acatar.20150820+json
+Accept: application/vnd..20150820+json
 ```
 
 > # Example Request
 
 ```bash
-curl "https://learn-api.acatar.com/users/abcd123" -I \
-    -H "Accept: application/vnd.acatar.20150820+json"
+curl "https://api.example.com/users/abcd123" -I \
+    -H "Accept: application/vnd.example.20150820+json"
 ```
 
 ```js
@@ -20,12 +20,12 @@ var https = require('https'),
     options;
 
 options = {
-    host: 'learn-api.acatar.com',
+    host: 'api.example.com',
     port: 443,
     path: '/users/abcd123',
     method: 'GET',
     headers: {
-        Accept: 'application/vnd.acatar.20150820+json'
+        Accept: 'application/vnd.example.20150820+json'
     }
 };
 
@@ -44,12 +44,12 @@ http.request(options, function(res) {
 > ## When the `-H` flag is used with `curl`, you can add a custom header to pass to the server.
 > &nbsp;
 
-You can check the current version through every response’s headers. Look for the `X-Acatar-Media-Type` header:
+You can check the current version through every response’s headers. Look for the `X-Example-Media-Type` header:
 
 > # Example Response Header
 
 ```http
-X-Acatar-Media-Type: acatar.learn-api.20150807; format=json
+X-Example-Media-Type: example.20150807; format=json
 ```
 
-#### Important: The default version of the API may change in the future. If you're building an application and care about the stability of the API, be sure to request a specific version in the <code>Accept</code> header as shown in the examples.
+#### **Important**: The default version of the API may change in the future. If you're building an application and care about the stability of the API, be sure to request a specific version in the `Accept` header as shown in the examples.

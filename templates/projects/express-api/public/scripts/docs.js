@@ -12,6 +12,7 @@
         Language,
         toggleLanguage,
         toggleLanguageByUri,
+        bootstrapperizeIt,
         init;
 
     NavVm = function (nav) {
@@ -24,13 +25,16 @@
         self.logo = nav.logoPath;
         self.menuItems = [];
         self.languages = [];
+        self.languageDict = {};
 
         self.addMenuItem = function (item) {
             self.menuItems.push(new MenuItemVm(item));
         };
 
         self.addLanguage = function (lang) {
-            self.languages.push(new Language(lang));
+            var language = new Language(lang);
+            self.languages.push(language);
+            self.languageDict[language.preName] = language;
         };
 
         self.setActiveLanguage = function (lang) {
@@ -123,11 +127,9 @@
 
     toggleLanguage = function (lang) {
         var activeVm = docsVm.activeVm,
-            langs = activeVm.languages,
             getHandles,
             hideAllLangBlocks,
-            showLangBlocks,
-            toggleCodeBlocks;
+            showLangBlocks;
 
         getHandles = function (langs) {
             var langHandles = [],
@@ -140,7 +142,7 @@
             return langHandles;
         };
 
-        hideAllLangBlocks = function () {
+        hideAllLangBlocks = function (langDict) {
             var pres, pre, block, i;
 
             pres = document.querySelectorAll('pre');
@@ -149,7 +151,14 @@
                 pre = pres[i];
                 block = $(pre).children('[class^="lang"]')[0];
 
-                if (block && block.className !== 'lang-no-highlight') {
+                if (block && langDict[block.className]) {
+                    // if the code block was processed by highlight.js
+                    // and the className is in our language dictionary
+                    // (which also implies it't not already "out")
+                    // (we only want to take action on the languages that
+                    // users can choose from, otherwise we'll hide things they
+                    // have not way of recovering)
+                    // hide it
                     $(pre).addClass('out');
                 }
             }
@@ -171,13 +180,9 @@
             }
         };
 
-        toggleCodeBlocks = function (langHandles, lang) {
-            hideAllLangBlocks();
-            showLangBlocks(langHandles, lang);
-        };
-
         activeVm.setActiveLanguage(lang);
-        toggleCodeBlocks(getHandles(langs), lang);
+        hideAllLangBlocks(activeVm.languageDict);
+        showLangBlocks(getHandles(activeVm.languages), lang);
     };
 
     toggleLanguageByUri = function () {
@@ -186,6 +191,12 @@
         if (path.indexOf('lang') > -1) {
             toggleLanguage(path.split('/').pop());
         }
+    };
+
+    bootstrapperizeIt = function () {
+        $('table').addClass('table').addClass('table-striped').addClass('table-bordered');
+        $('h4').addClass('alert').addClass('alert-info');
+        $('h5').addClass('alert').addClass('alert-danger');
     };
 
     init = function (options) {
@@ -197,7 +208,7 @@
 
         ko.applyBindings(vm, $('nav')[0]);
 
-        $('table').addClass('table').addClass('table-striped').addClass('table-bordered');
+        bootstrapperizeIt();
     };
 
 
