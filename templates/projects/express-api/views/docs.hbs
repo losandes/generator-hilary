@@ -22,16 +22,20 @@
             </div>
             <div class="buffer">&nbsp;</div>
             <div class="language-menu dropup">
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-default dropdown-toggle" type="button" id="lang-menu-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Languages
                 <span class="caret"></span>
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2" data-bind="foreach: languages">
+              <ul class="dropdown-menu" aria-labelledby="lang-menu-btn" data-bind="foreach: languages">
                 <li role="presentation" data-bind="attr: { class: css }"><a href="javascript:void(0)" data-bind="text: name, click: click, attr: { 'data-pre-name': preName }"></a></li>
               </ul>
             </div>
+            <a href="#docs" class="btn btn-default back-to-top">Back to top</a>
         </nav>
-        <main id="main" class="col-md-7">{{{content}}}</main>
+        <main id="main" class="col-md-7">
+            {{{content}}}
+            <div class="buffer">&nbsp;</div>
+        </main>
         <aside id="aside" class="col-md-3"></aside>
     </div>
 </div>
