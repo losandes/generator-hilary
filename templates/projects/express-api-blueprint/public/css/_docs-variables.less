@@ -1,0 +1,116 @@
+// main: docs.less
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:300|Roboto:400,700|Raleway:200,400);
+
+/* Page-wide variables */
+@padding: 12px;
+@border-radius: 0;
+@font-size: 14px;
+
+@base-font: 'Roboto', Helvetica, sans-serif;
+@title-font: 'Raleway', Helvetica, sans-serif;
+@code-font: 'Source Code Pro', monospace;
+
+/* Basic page-wide colors */
+@background-color: white;
+@text-color: black;
+
+// A3FF25
+// FF3275
+// FFF14B
+// FF8918
+// 4B6ABF
+
+@link-color: #428bca;
+
+@nav-background-color: #F9FBFF;// #F2FDFF; //#F8FDFF;
+@nav-text-color: #000;
+@nav-border-color: #ddd;
+
+@heading-text-color: @text-color;
+
+/* Notes and warnings */
+@note-text-color: @text-color;
+@note-title-text-color: @link-color;
+@note-background-color: mix(@link-color, @background-color, 8%);
+@note-border-color: @note-title-text-color;
+
+@warning-text-color: @text-color;
+@warning-title-text-color: darken(#d9534f, 10%);
+@warning-background-color: mix(@warning-title-text-color, @background-color, 7%);
+@warning-border-color: @warning-title-text-color;
+
+/* HTTP method-specific colors */
+@group-background-color: @background-color;
+@group-title-background-color: contrast(@background-color,
+                                        darken(@background-color, 5%),
+                                        lighten(@background-color, 5%));
+@group-border-color: transparent;
+@group-text-color: contrast(@group-background-color);
+
+/* HTTP GET */
+@get-color: darken(@get-background-color, 25%);
+@get-background-color: #04A8DF;
+@get-text-color: contrast(@get-background-color);
+@get-badge-text-color: darken(@get-background-color, 25%);
+@get-border-color: darken(spin(@get-background-color, -10), 7%);
+
+/* HTTP HEAD */
+@head-color: @get-color;
+@head-background-color: @get-background-color;
+@head-text-color: @get-text-color;
+@head-badge-text-color: @get-badge-text-color;
+@head-border-color: @get-border-color;
+
+/* HTTP OPTIONS */
+@options-color: @get-color;
+@options-background-color: @get-background-color;
+@options-text-color: @get-text-color;
+@options-badge-text-color: @get-badge-text-color;
+@options-border-color: @get-border-color;
+
+/* HTTP PUT */
+@put-color: darken(#f0ad4e, 8%);
+@put-background-color: #F2E307;
+@put-text-color: contrast(@put-background-color);
+@put-badge-text-color: darken(@put-background-color, 25%);
+@put-border-color: darken(spin(@put-background-color, -10), 5%);
+
+/* HTTP PATCH */
+@patch-color: @put-color;
+@patch-background-color: @put-background-color;
+@patch-text-color: @put-text-color;
+@patch-badge-text-color: @put-badge-text-color;
+@patch-border-color: @put-border-color;
+
+/* HTTP POST */
+@post-color: #5cb85c;
+@post-background-color: #B5D932;
+@post-text-color: contrast(@post-background-color);
+@post-badge-text-color: darken(@post-background-color, 25%);
+@post-border-color: darken(spin(@post-background-color, -10), 5%);
+
+/* HTTP DELETE */
+@delete-color: #d9534f;
+@delete-background-color: #A23152;
+@delete-text-color: contrast(@delete-background-color);
+@delete-badge-text-color: darken(@delete-background-color, 25%);
+@delete-border-color: darken(spin(@delete-background-color, -10), 5%);
+
+/* Code colors */
+@inline-code-background-color: #f5f5f5;
+@inline-code-text-color: #444;
+@inline-code-border-color: #eee;
+
+@code-block-background-color: #161616;
+@code-block-text-color: #ddd;
+@code-block-border-color: #000;
+@code-block-radius: 4px;
+
+@title-code-background-color: @inline-code-background-color;
+@title-code-text-color: @inline-code-text-color;
+@title-code-border-color: @inline-code-border-color;
+
+@quote-border-color: #aaa;
+
+// highlight.js monokai-sublime theme
+.hljs{display:block;overflow-x:auto;padding:0.5em;background:#23241f;-webkit-text-size-adjust:none}.hljs,.hljs-tag,.css .hljs-rule,.css .hljs-value,.aspectj .hljs-function,.css .hljs-function .hljs-preprocessor,.hljs-pragma{color:#f8f8f2}.hljs-strongemphasis,.hljs-strong,.hljs-emphasis{color:#a8a8a2}.hljs-bullet,.hljs-blockquote,.hljs-horizontal_rule,.hljs-number,.hljs-regexp,.alias .hljs-keyword,.hljs-literal,.hljs-hexcolor{color:#ae81ff}.hljs-tag .hljs-value,.hljs-code,.hljs-title,.css .hljs-class,.hljs-class .hljs-title:last-child{color:#a6e22e}.hljs-link_url{font-size:80%}.hljs-strong,.hljs-strongemphasis{font-weight:bold}.hljs-emphasis,.hljs-strongemphasis,.hljs-class .hljs-title:last-child,.hljs-typename{font-style:italic}.hljs-keyword,.ruby .hljs-class .hljs-keyword:first-child,.ruby .hljs-function .hljs-keyword,.hljs-function,.hljs-change,.hljs-winutils,.hljs-flow,.nginx .hljs-title,.tex .hljs-special,.hljs-header,.hljs-attribute,.hljs-symbol,.hljs-symbol .hljs-string,.hljs-tag .hljs-title,.hljs-value,.alias .hljs-keyword:first-child,.css .hljs-tag,.css .unit,.css .hljs-important{color:#f92672}.hljs-function .hljs-keyword,.hljs-class .hljs-keyword:first-child,.hljs-aspect .hljs-keyword:first-child,.hljs-constant,.hljs-typename,.hljs-name,.css .hljs-attribute{color:#66d9ef}.hljs-variable,.hljs-params,.hljs-class .hljs-title,.hljs-aspect .hljs-title{color:#f8f8f2}.hljs-string,.css .hljs-id,.hljs-subst,.hljs-type,.ruby .hljs-class .hljs-parent,.hljs-built_in,.django .hljs-template_tag,.django .hljs-variable,.smalltalk .hljs-class,.django .hljs-filter .hljs-argument,.smalltalk .hljs-localvars,.smalltalk .hljs-array,.hljs-attr_selector,.hljs-pseudo,.hljs-addition,.hljs-stream,.hljs-envvar,.apache .hljs-tag,.apache .hljs-cbracket,.tex .hljs-command,.hljs-prompt,.hljs-link_label,.hljs-link_url{color:#e6db74}.hljs-comment,.hljs-annotation,.hljs-decorator,.hljs-pi,.hljs-doctype,.hljs-deletion,.hljs-shebang,.apache .hljs-sqbracket,.tex .hljs-formula{color:#75715e}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata,.xml .php,.php .xml{opacity:0.5}

@@ -1,48 +1,88 @@
 module.exports.name = 'homeController';
-module.exports.dependencies = ['router', 'fs', 'aglio', 'environment'];
-module.exports.factory = function (router, fs, aglio, env) {
+module.exports.dependencies = ['router', 'fs', 'async', 'marked', 'highlight.js', 'environment'];
+module.exports.factory = function(router, fs, async, marked, highlight, env) {
     'use strict';
 
-    var aglioOptions, readDocIndex;
+    var readDocs, makeReader;
 
-    aglioOptions = {
-        themeTemplate: './views/docs.jade',
-        locals: {
-            languages: env.get('docs:languages')
+    marked.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false,
+        highlight: function(code, lang, callback) {
+            var content = highlight.highlightAuto(code).value;
+            callback(null, content);
         }
+    });
+
+    makeReader = function(filepath) {
+        return function(callback) {
+            fs.readFile(filepath, function(err, markdown) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+
+                callback(null, markdown + '');
+            });
+        };
     };
 
-    readDocIndex = function (filepath, callback) {
-        fs.readFile(filepath, function (err, blueprint) {
+    readDocs = function(callback) {
+        var files = env.get('docs:files'),
+            fileReaders = [],
+            i;
+
+        for (i = 0; i < files.length; i += 1) {
+            fileReaders.push(makeReader(files[i]));
+        }
+
+        async.parallel(fileReaders, function(err, result) {
             if (err) {
                 callback(err);
                 return;
             }
 
-            callback(null, blueprint + '');
+            var markdown = '',
+                i;
+
+            for (i = 0; i < result.length; i += 1) {
+                markdown += result[i];
+            }
+
+            callback(null, markdown);
         });
     };
 
     /* GET home page. */
-    router.get('/', function (req, res, next) {
-        readDocIndex('./docs/index.apib', function (err, blueprint) {
-            aglio.render(blueprint, aglioOptions, function (err, html, warnings) {
+    router.get('/', function(req, res, next) {
+        readDocs(function(err, markdown) {
+            if (err) {
+                next(err);
+                return;
+            }
+
+            marked(markdown, function (err, html) {
                 if (err) {
-                    console.log('aglio error:', err);
                     next(err);
                     return;
                 }
-                if (warnings) {
-                    console.log('aglio warning:', warnings);
-                }
 
-                res.send(html);
+                res.render('docs', {
+                    title: '<%= projectName %>',
+                    content: html
+                });
             });
         });
     });
 
     /* Throw an example error. */
-    router.get('/hilary/example/error', function (req, res, next) {
+    router.get('/hilary/example/error', function(req, res, next) {
         next('threw example error');
     });
 

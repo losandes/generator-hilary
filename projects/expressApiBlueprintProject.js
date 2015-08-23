@@ -2,7 +2,7 @@ module.exports.init = function (path) {
     'use strict';
 
     return {
-        name: 'Node express API project',
+        name: 'Node express API project (with API Blueprint docs)',
         callback: function ($this) {
             var done = $this.async(),
                 prompts;
@@ -22,7 +22,7 @@ module.exports.init = function (path) {
                 var templatePath, destinationPath;
 
                 $this.templatedata.scope = props.scope;
-                $this.sourceRoot(path.join(__dirname, '../templates/projects/express-api'));
+                $this.sourceRoot(path.join(__dirname, '../templates/projects/express-api-blueprint'));
                 templatePath = $this.templatePath();
                 destinationPath = path.join($this.destinationPath(), $this.templatedata.projectName);
 
@@ -42,10 +42,9 @@ module.exports.init = function (path) {
                 $this.fs.copyTpl(path.join(templatePath, '/controllers/homeController.js'), path.join(destinationPath, '/controllers/homeController.js'), $this.templatedata);
                 $this.fs.copy(path.join(templatePath, '/controllers/index.js'), path.join(destinationPath, '/controllers/index.js'));
 
-                $this.fs.copyTpl(path.join(templatePath, '/docs/index.md'), path.join(destinationPath, '/docs/index.md'), $this.templatedata);
-                $this.fs.copy(path.join(templatePath, '/docs/_versioning.md'), path.join(destinationPath, '/docs/_versioning.md'));
-                $this.fs.copy(path.join(templatePath, '/docs/_cors.md'), path.join(destinationPath, '/docs/_cors.md'));
+                $this.fs.copyTpl(path.join(templatePath, '/docs/index.apib'), path.join(destinationPath, '/docs/index.apib'), $this.templatedata);
                 $this.fs.copy(path.join(templatePath, '/docs/_errors.md'), path.join(destinationPath, '/docs/_errors.md'));
+                $this.fs.copy(path.join(templatePath, '/docs/_schema-example.json'), path.join(destinationPath, '/docs/_schema-example.json'));
 
                 $this.fs.copy(path.join(templatePath, '/environment/environment.json'), path.join(destinationPath, '/environment/environment.json'));
 
@@ -56,12 +55,10 @@ module.exports.init = function (path) {
                 $this.fs.copy(path.join(templatePath, '/public/css/default.css'), path.join(destinationPath, '/public/css/default.css'));
                 $this.fs.copyTpl(path.join(templatePath, '/public/scripts/docs.js'), path.join(destinationPath, '/public/scripts/docs.js'), $this.templatedata);
 
-                $this.fs.copy(path.join(templatePath, '/views/layout.hbs'), path.join(destinationPath, '/views/layout.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/index.hbs'), path.join(destinationPath, '/views/index.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/error.hbs'), path.join(destinationPath, '/views/error.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/docs.hbs'), path.join(destinationPath, '/views/docs.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/templates/empty.hbs'), path.join(destinationPath, '/views/templates/empty.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/templates/error.hbs'), path.join(destinationPath, '/views/templates/error.hbs'));
+                $this.fs.copy(path.join(templatePath, '/views/layout.jade'), path.join(destinationPath, '/views/layout.jade'));
+                $this.fs.copy(path.join(templatePath, '/views/error.jade'), path.join(destinationPath, '/views/error.jade'));
+                $this.fs.copy(path.join(templatePath, '/views/docs.jade'), path.join(destinationPath, '/views/docs.jade'));
+                $this.fs.copy(path.join(templatePath, '/views/_docs-mixins.jade'), path.join(destinationPath, '/views/_docs-mixins.jade'));
 
                 $this.on('end', function () {
                     $this.spawnCommand('npm', ['run', 'install-dependencies'], { cwd: destinationPath });

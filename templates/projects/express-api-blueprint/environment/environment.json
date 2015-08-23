@@ -15,11 +15,6 @@
         "denialMessage": { "status": 403, "message": "CORS Error: your origin, {origin}, is not whitelisted." }
     },
     "docs": {
-        "files": [
-            "./docs/index.md",
-            "./docs/_versioning.md",
-            "./docs/_errors.md"
-        ],
         "languages": [
             { "name": "All", "preName": "language-any" },
             { "name": "Shell", "preName": "language-bash" },

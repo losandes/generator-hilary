@@ -6,10 +6,9 @@ module.exports.dependencies = [
     'bodyParser',
     'serve-static',
     'less',
-    'hbs',
     'favicon'
 ];
-module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, favicon) {
+module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, favicon) {
     'use strict';
 
     var before,
@@ -18,7 +17,7 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
     before = function () {
         // view engine setup
         app.set('views', path.join(__dirname, 'views'));
-        app.set('view engine', 'hbs');
+        app.set('view engine', 'jade');
 
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,8 +25,6 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
         app.use(less(path.join(__dirname, 'public')));
         app.use(serveStatic(path.join(__dirname, 'public')));
         app.use(favicon(__dirname + '/public/favicon.ico'));
-
-        hbs.registerPartials(__dirname + '/views/templates');
     };
 
     after = function () {
