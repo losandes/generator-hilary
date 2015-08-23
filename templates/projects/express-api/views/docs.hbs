@@ -21,6 +21,7 @@
                 </ul>
             </div>
             <div class="buffer">&nbsp;</div>
+            <!-- ko if: showLanguageMenu -->
             <div class="language-menu dropup">
               <button class="btn btn-default dropdown-toggle" type="button" id="lang-menu-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Languages
@@ -30,6 +31,7 @@
                 <li role="presentation" data-bind="attr: { class: css }"><a href="javascript:void(0)" data-bind="text: name, click: click, attr: { 'data-pre-name': preName }"></a></li>
               </ul>
             </div>
+            <!-- /ko -->
             <a href="#docs" class="btn btn-default back-to-top">Back to top</a>
         </nav>
         <main id="main" class="col-md-7">

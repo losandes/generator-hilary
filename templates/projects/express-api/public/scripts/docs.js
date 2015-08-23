@@ -26,6 +26,9 @@
         self.menuItems = [];
         self.languages = [];
         self.languageDict = {};
+        self.showLanguageMenu = ko.computed(function () {
+            return self.languages.length > 0;
+        });
 
         self.addMenuItem = function (item) {
             self.menuItems.push(new MenuItemVm(item));
@@ -56,7 +59,11 @@
         }
 
         if (typeof nav.languages === 'string') {
-            languages = JSON.parse(nav.languages.replace(/&quot;/g, '"'));
+            try {
+                languages = JSON.parse(nav.languages.replace(/&quot;/g, '"'));
+            } catch (e) {
+                // ignore
+            }
         } else if (Array.isArray(nav.languages)) {
             languages = nav.languages;
         }
