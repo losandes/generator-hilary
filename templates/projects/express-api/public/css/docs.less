@@ -17,13 +17,14 @@ body {
     top: 0;
     bottom: 0;
     overflow: auto;
+    width: 240px;
 
     #logo {
         background-color: @nav-bg-color;
         position: fixed;
         top: 0;
         left: 0;
-        width: 16.66666667%;
+        //width: 16.66666667%;
         min-height: 80px;
         z-index: 1;
 
@@ -99,7 +100,7 @@ body {
 #docs main {
     background-color: transparent;
     color: @main-text-color;
-    margin-left: 16.66666667%;
+    margin-left: 280px;
     overflow: auto;
 
     .buffer {
@@ -170,13 +171,15 @@ body {
 @media (max-width: 850px) {
     #docs nav {
         position: relative;
+        width: 100%;
+        border-right: none;
 
         #logo {
             position: relative;
         }
 
         .nav-menu {
-            margin-top: 0;
+            margin-top: 10px;
         }
 
         .language-menu {
