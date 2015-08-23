@@ -25,5 +25,24 @@
             { "name": "Shell", "preName": "lang-bash" },
             { "name": "JavaScript", "preName": "lang-js" }
         ]
+    },
+    "versions": {
+        "beta": [
+            { "name": "20150828-beta", "comparable": 20150828, "number": "v2b2", "responseHeader": "application/vnd.example.20150828-beta+json" },
+            { "name": "20150825-beta", "comparable": 20150825, "number": "v2b1", "responseHeader": "application/vnd.example.20150825-beta+json" }
+        ],
+        "alpha": [
+            { "name": "20150828-alpha", "comparable": 20150828, "number": "v2a2", "responseHeader": "application/vnd.example.20150828-alpha+json" },
+            { "name": "20150825-alpha", "comparable": 20150825, "number": "v2a1", "responseHeader": "application/vnd.example.20150825-alpha+json" }
+        ],
+        "rc": [
+            { "name": "20150828-rc", "comparable": 20150828, "number": "v2rc2", "responseHeader": "application/vnd.example.20150828-rc+json" },
+            { "name": "20150825-rc", "comparable": 20150825, "number": "v2rc1", "responseHeader": "application/vnd.example.20150825-rc+json" }
+        ],
+        "prod": [
+            { "name": "20150820", "comparable": 20150820, "number": "v2", "responseHeader": "application/vnd.example.20150820+json" },
+            { "name": "20150807", "comparable": 20150807, "number": "v1", "responseHeader": "application/vnd.example.20150807+json" }
+        ],
+        "responseHeader": "X-<%= projectName %>-Media-Type"
     }
 }

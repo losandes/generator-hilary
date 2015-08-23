@@ -73,12 +73,14 @@ var Hilary = require('hilary'),
     // Executes configureRoutes - so all controllers get registered.
     */
     configureApplicationLifecycle = function (scope) {
-        var corsHandler = scope.resolve('defaultCorsHandler');
+        var corsHandler = scope.resolve('defaultCorsHandler'),
+            versionHandler = scope.resolve('versionHandler');
 
         return function (expressApp) {
             // BEFORE
             (function () {
                 expressApp.use(corsHandler);
+                expressApp.use(versionHandler);
             }());
 
             configureRoutes(scope, expressApp);

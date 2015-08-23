@@ -38,6 +38,7 @@ module.exports.init = function (path) {
                 $this.fs.copy(path.join(templatePath, '/domain/express-middleware/corsHandler-default.js'), path.join(destinationPath, '/domain/express-middleware/corsHandler-default.js'));
                 $this.fs.copy(path.join(templatePath, '/domain/express-middleware/CorsHandler.js'), path.join(destinationPath, '/domain/express-middleware/CorsHandler.js'));
                 $this.fs.copy(path.join(templatePath, '/domain/express-middleware/hbsBlocks.js'), path.join(destinationPath, '/domain/express-middleware/hbsBlocks.js'));
+                $this.fs.copy(path.join(templatePath, '/domain/express-middleware/versionHandler.js'), path.join(destinationPath, '/domain/express-middleware/versionHandler.js'));
                 $this.fs.copy(path.join(templatePath, '/domain/express-middleware/index.js'), path.join(destinationPath, '/domain/express-middleware/index.js'));
 
                 $this.fs.copyTpl(path.join(templatePath, '/controllers/homeController.js'), path.join(destinationPath, '/controllers/homeController.js'), $this.templatedata);
@@ -48,7 +49,7 @@ module.exports.init = function (path) {
                 $this.fs.copy(path.join(templatePath, '/docs/_cors.md'), path.join(destinationPath, '/docs/_cors.md'));
                 $this.fs.copy(path.join(templatePath, '/docs/_errors.md'), path.join(destinationPath, '/docs/_errors.md'));
 
-                $this.fs.copy(path.join(templatePath, '/environment/environment.json'), path.join(destinationPath, '/environment/environment.json'));
+                $this.fs.copyTpl(path.join(templatePath, '/environment/environment.json'), path.join(destinationPath, '/environment/environment.json'), $this.templatedata);
 
                 $this.fs.copy(path.join(templatePath, '/public/favicon.ico'), path.join(destinationPath, '/public/favicon.ico'));
                 $this.fs.copy(path.join(templatePath, '/public/content/logo.png'), path.join(destinationPath, '/public/content/logo.png'));
