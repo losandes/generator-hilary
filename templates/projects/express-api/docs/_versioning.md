@@ -15,6 +15,31 @@ curl "https://learn-api.acatar.com/users/abcd123" -I \
     -H "Accept: application/vnd.acatar.20150820+json"
 ```
 
+```js
+var https = require('https'),
+    options;
+
+options = {
+    host: 'learn-api.acatar.com',
+    port: 443,
+    path: '/users/abcd123',
+    method: 'GET',
+    headers: {
+        Accept: 'application/vnd.acatar.20150820+json'
+    }
+};
+
+http.request(options, function(res) {
+    console.log('STATUS: ' + res.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
+
+    res.setEncoding('utf8');
+    res.on('data', function (chunk) {
+        console.log('BODY: ' + chunk);
+    });
+}).end();
+```
+
 > ## When the `-I` flag is used with `curl`, only the document info is displayed (HEAD).
 > ## When the `-H` flag is used with `curl`, you can add a custom header to pass to the server.
 > &nbsp;

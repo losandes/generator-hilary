@@ -1,0 +1,96 @@
+// out: docs-slate.css, sourcemap: true, compress: true
+
+@import "_variables.less";
+@import "_mixins.less";
+
+body {
+    font-family: @body-font;
+    font-size: 14px;
+}
+
+#docs nav {
+    background-color: @nav-bg-color;
+    color: @nav-text-color;
+    border-right: 1px solid @border-color;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+}
+
+#docs main {
+    background-color: transparent;
+    color: @main-text-color;
+    position: fixed;
+    left: 16.66666667%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    overflow: auto;
+}
+
+#docs aside {
+    background-color: @aside-bg-color;
+    color: @aside-text-color;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#docs {
+    h1, h2, h3, h4, h5,
+    p, pre, blockquote, table {
+        width: 49%;
+    }
+
+    h1 {
+        margin-top: 20px;
+    }
+
+    h1, h2, h3, h4, h5, p {
+        float: left;
+        clear: left;
+    }
+
+    pre, blockquote, table {
+        float: right;
+        clear: right;
+    }
+
+    blockquote, table {
+        color: @aside-text-color;
+    }
+
+    pre {
+        background-color: @pre-bg-color;
+        color: @pre-text-color;
+        font-family: @code-font;
+        border: 1px solid @border-color-dark;
+    }
+
+    blockquote {
+        border-left: none;
+        padding: 0;
+
+        h1, h2, h3, h4, h5 {
+            width: 100%;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 20px;
+        }
+
+        h2 {
+            font-size: 14px;
+        }
+    }
+
+    h1, h2, h3 {
+        font-family: @title-font;
+        font-weight: 200;
+    }
+}

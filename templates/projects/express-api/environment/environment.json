@@ -21,9 +21,9 @@
             "./docs/_errors.md"
         ],
         "languages": [
-            { "name": "All", "preName": "language-any" },
-            { "name": "Shell", "preName": "language-bash" },
-            { "name": "JavaScript", "preName": "language-js" }
+            { "name": "All", "preName": "lang-all" },
+            { "name": "Shell", "preName": "lang-bash" },
+            { "name": "JavaScript", "preName": "lang-js" }
         ]
     }
 }

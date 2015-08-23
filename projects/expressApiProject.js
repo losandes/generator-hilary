@@ -37,6 +37,7 @@ module.exports.init = function (path) {
 
                 $this.fs.copy(path.join(templatePath, '/domain/express-middleware/corsHandler-default.js'), path.join(destinationPath, '/domain/express-middleware/corsHandler-default.js'));
                 $this.fs.copy(path.join(templatePath, '/domain/express-middleware/CorsHandler.js'), path.join(destinationPath, '/domain/express-middleware/CorsHandler.js'));
+                $this.fs.copy(path.join(templatePath, '/domain/express-middleware/hbsBlocks.js'), path.join(destinationPath, '/domain/express-middleware/hbsBlocks.js'));
                 $this.fs.copy(path.join(templatePath, '/domain/express-middleware/index.js'), path.join(destinationPath, '/domain/express-middleware/index.js'));
 
                 $this.fs.copyTpl(path.join(templatePath, '/controllers/homeController.js'), path.join(destinationPath, '/controllers/homeController.js'), $this.templatedata);
@@ -50,10 +51,14 @@ module.exports.init = function (path) {
                 $this.fs.copy(path.join(templatePath, '/environment/environment.json'), path.join(destinationPath, '/environment/environment.json'));
 
                 $this.fs.copy(path.join(templatePath, '/public/favicon.ico'), path.join(destinationPath, '/public/favicon.ico'));
-                $this.fs.copy(path.join(templatePath, '/public/css/_docs-variables.less'), path.join(destinationPath, '/public/css/_docs-variables.less'));
-                $this.fs.copy(path.join(templatePath, '/public/css/docs.less'), path.join(destinationPath, '/public/css/docs.less'));
+                $this.fs.copy(path.join(templatePath, '/public/content/logo.png'), path.join(destinationPath, '/public/content/logo.png'));
+                $this.fs.copy(path.join(templatePath, '/public/css/_variables.less'), path.join(destinationPath, '/public/css/_variables.less'));
+                $this.fs.copy(path.join(templatePath, '/public/css/_mixins.less'), path.join(destinationPath, '/public/css/_mixins.less'));
                 $this.fs.copy(path.join(templatePath, '/public/css/default.less'), path.join(destinationPath, '/public/css/default.less'));
                 $this.fs.copy(path.join(templatePath, '/public/css/default.css'), path.join(destinationPath, '/public/css/default.css'));
+                $this.fs.copy(path.join(templatePath, '/public/css/docs.less'), path.join(destinationPath, '/public/css/docs.less'));
+                $this.fs.copy(path.join(templatePath, '/public/css/docs.css'), path.join(destinationPath, '/public/css/docs.css'));
+                $this.fs.copy(path.join(templatePath, '/public/css/docs-slate.less'), path.join(destinationPath, '/public/css/docs-slate.less'));
                 $this.fs.copyTpl(path.join(templatePath, '/public/scripts/docs.js'), path.join(destinationPath, '/public/scripts/docs.js'), $this.templatedata);
 
                 $this.fs.copy(path.join(templatePath, '/views/layout.hbs'), path.join(destinationPath, '/views/layout.hbs'));

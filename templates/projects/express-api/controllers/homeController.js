@@ -3,7 +3,7 @@ module.exports.dependencies = ['router', 'fs', 'async', 'marked', 'highlight.js'
 module.exports.factory = function(router, fs, async, marked, highlight, env) {
     'use strict';
 
-    var readDocs, makeReader;
+    var readDocs, makeReader, getHandler;
 
     marked.setOptions({
         renderer: new marked.Renderer(),
@@ -59,8 +59,7 @@ module.exports.factory = function(router, fs, async, marked, highlight, env) {
         });
     };
 
-    /* GET home page. */
-    router.get('/', function(req, res, next) {
+    getHandler = function(req, res, next) {
         readDocs(function(err, markdown) {
             if (err) {
                 next(err);
@@ -74,12 +73,19 @@ module.exports.factory = function(router, fs, async, marked, highlight, env) {
                 }
 
                 res.render('docs', {
-                    title: '<%= projectName %>',
-                    content: html
+                    title: 'api6',
+                    content: html,
+                    language: req.params.lang || 'any',
+                    languages: JSON.stringify(env.get('docs:languages'))
                 });
             });
         });
-    });
+    };
+
+    /* GET home page. */
+    router.get('/', getHandler);
+    router.get('/docs/:lang', getHandler);
+
 
     /* Throw an example error. */
     router.get('/hilary/example/error', function(req, res, next) {
