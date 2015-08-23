@@ -8,6 +8,6 @@ This API is a REST API. It is built on HTTP standards, with intuitive URIs, leve
 https://api.example.com
 ```
 
-#### **Example Info**: We convert h4 elements `####` to info alerts
+#### **Example Info**: We convert h4 elements `####` to info alerts. If you don't like that, set `docs.useHeadingAlerts` to `false` in your `environment.json` file.
 
-##### **Example Warning**: We convert h5 elements `#####` to danger alerts
+##### **Example Warning**: We convert h5 elements `#####` to danger alerts. If you don't like that, set `docs.useHeadingAlerts` to `false` in your `environment.json` file.

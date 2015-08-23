@@ -72,11 +72,14 @@ module.exports.factory = function(router, fs, async, marked, highlight, env) {
                     return;
                 }
 
+                var docOptions = env.get('docs') || {};
+
                 res.render('docs', {
                     title: '<%= projectName %>',
                     content: html,
                     language: req.params.lang || 'any',
-                    languages: JSON.stringify(env.get('docs:languages'))
+                    languages: JSON.stringify(docOptions.languages),
+                    useHeadingAlerts: docOptions.useHeadingAlerts !== false
                 });
             });
         });

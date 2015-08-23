@@ -26,9 +26,7 @@
         self.menuItems = [];
         self.languages = [];
         self.languageDict = {};
-        self.showLanguageMenu = ko.computed(function () {
-            return self.languages.length > 0;
-        });
+        self.showLanguageMenu = ko.observable(false);
 
         self.addMenuItem = function (item) {
             self.menuItems.push(new MenuItemVm(item));
@@ -38,6 +36,7 @@
             var language = new Language(lang);
             self.languages.push(language);
             self.languageDict[language.preName] = language;
+            self.showLanguageMenu(true);
         };
 
         self.setActiveLanguage = function (lang) {
@@ -200,10 +199,13 @@
         }
     };
 
-    bootstrapperizeIt = function () {
+    bootstrapperizeIt = function (options) {
         $('table').addClass('table').addClass('table-striped').addClass('table-bordered');
-        $('h4').addClass('alert').addClass('alert-info');
-        $('h5').addClass('alert').addClass('alert-danger');
+
+        if (options.useHeadingAlerts !== false) {
+            $('h4').addClass('alert').addClass('alert-info');
+            $('h5').addClass('alert').addClass('alert-danger');
+        }
     };
 
     init = function (options) {
@@ -215,7 +217,7 @@
 
         ko.applyBindings(vm, $('nav')[0]);
 
-        bootstrapperizeIt();
+        bootstrapperizeIt(options);
     };
 
 
