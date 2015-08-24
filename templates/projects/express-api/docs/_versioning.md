@@ -5,46 +5,33 @@ By default, all requests receive the latest version of the API. We encourage you
 > # Accept Header with Version and Content-Type Declaration
 
 ```
-Accept: application/vnd..20150820+json
+Accept: application/vnd.<%= projectName %>.20150820+json
 ```
 
 > # Example Request
 
 ```bash
-curl "https://api.example.com/users/abcd123" -I \
-    -H "Accept: application/vnd.example.20150820+json"
+# When the `-I` flag is used with `curl`, only the document info is displayed (HEAD).
+# When the `-H` flag is used with `curl`, you can add a custom header to pass to the server.
+curl "http://localhost:3000/example/legos" -I \
+    -H "Accept: application/vnd.<%= projectName %>.20150820+json"
 ```
 
 ```js
-var https = require('https'),
-    options;
-
-options = {
-    host: 'api.example.com',
-    port: 443,
-    path: '/users/abcd123',
-    method: 'GET',
+$.ajax({
+    type: 'GET',
+    url: '/example/legos/',
+    dataType: 'json',
+    crossDomain: true,
     headers: {
-        Accept: 'application/vnd.example.20150820+json'
+        "Accept": "application/vnd.<%= projectName %>.20150820+json"
     }
-};
-
-http.request(options, function(res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-
-    res.setEncoding('utf8');
-    res.on('data', function (chunk) {
-        console.log('BODY: ' + chunk);
-    });
-}).end();
+}).done(function (data, status, jqXhr) {
+    console.log(jqXhr.getAllResponseHeaders());
+});
 ```
 
-> ## When the `-I` flag is used with `curl`, only the document info is displayed (HEAD).
-> ## When the `-H` flag is used with `curl`, you can add a custom header to pass to the server.
-> &nbsp;
-
-You can check the current version through every response’s headers. Look for the `X-Example-Media-Type` header:
+You can check the current version through every response’s headers. Look for the `X-<%= projectName %>-Media-Type` header:
 
 > # Example Response Header
 

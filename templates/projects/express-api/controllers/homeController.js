@@ -89,11 +89,5 @@ module.exports.factory = function(router, fs, async, marked, highlight, env) {
     router.get('/', getHandler);
     router.get('/docs/:lang', getHandler);
 
-
-    /* Throw an example error. */
-    router.get('/hilary/example/error', function(req, res, next) {
-        next('threw example error');
-    });
-
     return router;
 };

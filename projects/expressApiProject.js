@@ -42,12 +42,15 @@ module.exports.init = function (path) {
                 $this.fs.copy(path.join(templatePath, '/domain/express-middleware/index.js'), path.join(destinationPath, '/domain/express-middleware/index.js'));
 
                 $this.fs.copyTpl(path.join(templatePath, '/controllers/homeController.js'), path.join(destinationPath, '/controllers/homeController.js'), $this.templatedata);
+                $this.fs.copyTpl(path.join(templatePath, '/controllers/exampleController.js'), path.join(destinationPath, '/controllers/exampleController.js'), $this.templatedata);
                 $this.fs.copy(path.join(templatePath, '/controllers/index.js'), path.join(destinationPath, '/controllers/index.js'));
 
                 $this.fs.copyTpl(path.join(templatePath, '/docs/index.md'), path.join(destinationPath, '/docs/index.md'), $this.templatedata);
-                $this.fs.copy(path.join(templatePath, '/docs/_versioning.md'), path.join(destinationPath, '/docs/_versioning.md'));
+                $this.fs.copyTpl(path.join(templatePath, '/docs/_versioning.md'), path.join(destinationPath, '/docs/_versioning.md'), $this.templatedata);
                 $this.fs.copy(path.join(templatePath, '/docs/_cors.md'), path.join(destinationPath, '/docs/_cors.md'));
-                $this.fs.copy(path.join(templatePath, '/docs/_errors.md'), path.join(destinationPath, '/docs/_errors.md'));
+                $this.fs.copy(path.join(templatePath, '/docs/_status-codes.md'), path.join(destinationPath, '/docs/_status-codes.md'));
+                $this.fs.copy(path.join(templatePath, '/docs/_legos.md'), path.join(destinationPath, '/docs/_legos.md'));
+                $this.fs.copy(path.join(templatePath, '/docs/_about.md'), path.join(destinationPath, '/docs/_about.md'));
 
                 $this.fs.copyTpl(path.join(templatePath, '/environment/environment.json'), path.join(destinationPath, '/environment/environment.json'), $this.templatedata);
 

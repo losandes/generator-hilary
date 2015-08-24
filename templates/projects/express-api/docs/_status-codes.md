@@ -1,9 +1,12 @@
-# Errors
+# HTTP Status Codes
 
-This API uses these HTTP Status codes for errors
+This API uses these HTTP Status codes
 
 Error Code | Meaning
 ---------- | -------
+200 | Success -- rejoice
+201 | Created -- a new resource was created successfully
+202 | Accepted -- The request was accepted and queued, actual success will be delivered via notifications
 400 | Bad Request -- Umm. I don't know. Who am I?
 401 | Unauthorized -- Did you authenticate first? Do you have a JWT token in your headers?
 403 | Forbidden -- You are not authorized to access the resource you requested

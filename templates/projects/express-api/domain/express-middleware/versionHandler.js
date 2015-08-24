@@ -42,9 +42,13 @@ module.exports.factory = function (env) {
     };
 
     return function (req, res, next) {
-        var accept = req.get('Accept');
+        var accept = req.get('Accept'),
+            vendorPrefix = env.get('versions:vendorPrefix');
 
-        if (!accept || !versions) {
+        if (!accept || !versions || (vendorPrefix && accept.indexOf(vendorPrefix) === -1)) {
+            // give latest to any request that does not have the accept Header
+            // or if there are no versions to speak of
+            // or if we're validating a vendor prefix and it's not present in the accept Header
             return setVersion(req, res, next, latest);
         }
 

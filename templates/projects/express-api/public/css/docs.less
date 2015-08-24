@@ -8,6 +8,74 @@ body {
     font-size: 14px;
 }
 
+#docs {
+    h1, h2, h3, h4, h5,
+    p, pre, blockquote, table {
+        //width: 69%;
+    }
+
+    h1 {
+        margin-top: 60px;
+
+        &:first-child {
+            margin-top: 10px;
+        }
+    }
+
+    h2 {
+        font-weight: 200;
+        font-size: 26px;
+        margin-top: 60px;
+        line-height: 35px;
+        padding: 5px;
+        padding-left: 10px;
+        background-color: @main-h2-bg-color;
+        border-bottom: 1px solid @border-color;
+    }
+
+    h4, h5 {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 18px;
+    }
+
+    pre {
+        background-color: @pre-bg-color;
+        color: @pre-text-color;
+        font-family: @code-font;
+        border: 1px solid @border-color-dark;
+
+        &.out {
+            display: none;
+        }
+    }
+
+    blockquote {
+        border-left: none;
+        padding: 0;
+        margin-top: 20px;
+        margin-bottom: 3px;
+
+        h1, h2, h3, h4, h5 {
+            width: 100%;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 20px;
+        }
+
+        h2 {
+            font-size: 14px;
+        }
+    }
+
+    h1, h2, h3 {
+        font-family: @title-font;
+        font-weight: 200;
+    }
+}
+
 #docs nav {
     background-color: @nav-bg-color;
     color: @nav-text-color;
@@ -115,63 +183,6 @@ body {
     right: 0;
     top: 0;
     bottom: 0;
-}
-
-#docs {
-    h1, h2, h3, h4, h5,
-    p, pre, blockquote, table {
-        //width: 69%;
-    }
-
-    h1 {
-        margin-top: 60px;
-
-        &:first-child {
-            margin-top: 10px;
-        }
-    }
-
-    h4, h5 {
-        font-size: 14px;
-        font-weight: normal;
-        line-height: 18px;
-    }
-
-    pre {
-        background-color: @pre-bg-color;
-        color: @pre-text-color;
-        font-family: @code-font;
-        border: 1px solid @border-color-dark;
-
-        &.out {
-            display: none;
-        }
-    }
-
-    blockquote {
-        border-left: none;
-        padding: 0;
-        margin-top: 20px;
-        margin-bottom: 3px;
-
-        h1, h2, h3, h4, h5 {
-            width: 100%;
-            margin: 0;
-        }
-
-        h1 {
-            font-size: 20px;
-        }
-
-        h2 {
-            font-size: 14px;
-        }
-    }
-
-    h1, h2, h3 {
-        font-family: @title-font;
-        font-weight: 200;
-    }
 }
 
 @media (max-width: 850px) {
