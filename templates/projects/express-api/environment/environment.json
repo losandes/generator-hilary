@@ -23,9 +23,9 @@
             "./docs/_about.md"
         ],
         "languages": [
-            { "name": "All", "preName": "lang-all" },
-            { "name": "Shell", "preName": "lang-bash" },
-            { "name": "JavaScript", "preName": "lang-js" }
+            { "name": "All", "highlightClass": "lang-all" },
+            { "name": "Shell", "highlightClass": "lang-bash" },
+            { "name": "JavaScript", "highlightClass": "lang-js" }
         ]
     },
     "versions": {

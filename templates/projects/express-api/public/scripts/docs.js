@@ -35,7 +35,7 @@
         self.addLanguage = function (lang) {
             var language = new Language(lang);
             self.languages.push(language);
-            self.languageDict[language.preName] = language;
+            self.languageDict[language.highlightClass] = language;
             self.showLanguageMenu(true);
         };
 
@@ -43,7 +43,7 @@
             var i;
 
             for (i = 0; i < self.languages.length; i += 1) {
-                if (self.languages[i].preName === lang) {
+                if (self.languages[i].highlightClass === lang) {
                     self.languages[i].setStatus(true);
                 } else {
                     self.languages[i].setStatus(false);
@@ -81,15 +81,15 @@
         self.link = item.link || '#';
     };
 
-    // { "name": "All", "preName": "language-any" },
-    // { "name": "Shell", "preName": "language-bash" },
-    // { "name": "JavaScript", "preName": "language-js" }
+    // { "name": "All", "highlightClass": "language-any" },
+    // { "name": "Shell", "highlightClass": "language-bash" },
+    // { "name": "JavaScript", "highlightClass": "language-js" }
     Language = function (lang) {
         var self = this;
 
         self.name = lang.name;
-        self.preName = lang.preName;
-        self.link = '/docs/' + self.preName;
+        self.highlightClass = lang.highlightClass;
+        self.link = '/docs/' + self.highlightClass;
         self.css = ko.observable();
         self.click = function () {
             var link = self.link;
@@ -99,8 +99,8 @@
             }
 
             history.pushState({ uri: link }, document.title, link);
-            toggleLanguage(self.preName);
-            //docsVm.activeVm.setActiveLanguage(self.preName);
+            toggleLanguage(self.highlightClass);
+            //docsVm.activeVm.setActiveLanguage(self.highlightClass);
         };
 
         self.setStatus = function (isActive) {
@@ -142,7 +142,7 @@
                 i;
 
             for (i = 0; i < langs.length; i += 1) {
-                langHandles.push(langs[i].preName);
+                langHandles.push(langs[i].highlightClass);
             }
 
             return langHandles;
