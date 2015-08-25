@@ -12,7 +12,7 @@ module.exports.factory = function (app, http, env) {
     /*
     // Get port from environment and store in Express.
     */
-    port = process.env.PORT || env.get('port') || 3000;
+    port = env.get('PORT') || 3000;
     app.set('port', port);
 
 

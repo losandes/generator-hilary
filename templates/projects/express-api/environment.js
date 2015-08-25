@@ -5,7 +5,10 @@ module.exports.factory = function (nconf) {
 
     var useMemory;
 
-    nconf.env().file('./environment/environment.json');
+    nconf
+        .env()
+        .argv()
+        .file('./environment/environment.json');
 
     // check to see if the configuration turns memory off (default is true)
     useMemory = nconf.get('storeThisConfigInMemory');
