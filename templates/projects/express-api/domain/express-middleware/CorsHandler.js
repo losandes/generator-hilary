@@ -18,7 +18,7 @@ module.exports.factory = function () {
                 res.set('Access-Control-Allow-Origin', origin);
                 res.set('Vary', 'Origin');
             } else if (options.denialMessage) {
-                res.status(403).send(options.denialMessage.replace('{origin}', origin)).end();
+                res.status(403).send(options.denialMessage.message.replace('{origin}', origin)).end();
                 return false;
             } else {
                 res.status(403).end();
