@@ -72,7 +72,8 @@ module.exports.factory = function () {
             }
 
             if (!validateOrigin(options, req, res)) {
-                // Do not allow the request to be processed; return the response (do not continue the pipeline)
+                // Do not allow the request to be processed
+                // return the response (do not continue the pipeline)
                 return;
             }
 

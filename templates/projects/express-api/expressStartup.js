@@ -8,9 +8,10 @@ module.exports.dependencies = [
     'less',
     'hbs',
     'hbsBlocks',
-    'favicon'
+    'favicon',
+    'defaultCorsHandler'
 ];
-module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, extendHbs, favicon) {
+module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, extendHbs, favicon, cors) {
     'use strict';
 
     var before,
@@ -23,6 +24,7 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
         hbs.registerPartials(__dirname + '/views/templates');
         extendHbs(hbs);
 
+        app.use(cors);
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use(cookieParser());
