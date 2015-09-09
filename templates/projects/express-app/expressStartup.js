@@ -21,7 +21,7 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
         app.set('view engine', 'hbs');
 
         app.use(bodyParser.json());
-        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(bodyParser.urlencoded({ extended: true }));
         app.use(cookieParser());
         app.use(less(path.join(__dirname, 'public')));
         app.use(serveStatic(path.join(__dirname, 'public')));
