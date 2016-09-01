@@ -72,9 +72,9 @@ module.exports.factory = function (is) {
         };
 
         self.throwWithInnerException = function (exception, innerException, data) {
-            var exc = self.makeException(exception, data);
-            exc.innerException = self.makeException(innerException);
-            onError(exc);
+            var err = self.makeException(exception, data);
+            err.innerException = self.makeException(innerException);
+            onError(err);
         };
 
         return self;
