@@ -26,6 +26,8 @@ module.exports.factory = function (app, http, env) {
     // Event listener for HTTP server "error" event.
     */
     onError = function (error) {
+        var err;
+
         if (error.syscall !== 'listen') {
             throw error;
         }
@@ -33,13 +35,13 @@ module.exports.factory = function (app, http, env) {
         // handle specific listen errors with friendly messages
         switch (error.code) {
         case 'EACCES':
-            console.error('Port ' + port + ' requires elevated privileges');
-            process.exit(1);
-            break;
+            err = new Error('Port ' + port + ' requires elevated privileges');
+            err.innerError = error;
+            throw err;
         case 'EADDRINUSE':
-            console.error('Port ' + port + ' is already in use');
-            process.exit(1);
-            break;
+            err = new Error('Port ' + port + ' is already in use');
+            err.innerError = error;
+            throw err;
         default:
             throw error;
         }

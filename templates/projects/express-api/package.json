@@ -2,9 +2,9 @@
   "name": "<%= projectName %>-express-app",
   "description": "The <%= projectName %> web app",
   "version": "0.0.1",
-  "main": "startup.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon startup.js -e js,hbs",
+    "start": "nodemon app.js -e js,hbs",
     "install-dependencies": "npm install"
   },
   "dependencies": {
