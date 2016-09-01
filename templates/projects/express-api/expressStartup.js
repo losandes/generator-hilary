@@ -6,10 +6,12 @@ module.exports.dependencies = [
     'bodyParser',
     'serve-static',
     'less',
+    'hbs',
+    'hbsBlocks',
     'favicon',
     'defaultCorsHandler'
 ];
-module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, favicon, cors) {
+module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, extendHbs, favicon, cors) {
     'use strict';
 
     var before,
@@ -33,9 +35,15 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
     };
 
     before = function () {
+        // view engine setup
+        app.set('views', path.join(__dirname, 'views'));
+        app.set('view engine', 'hbs');
+        hbs.registerPartials(__dirname + '/views/templates');
+        extendHbs(hbs);
+
         app.use(cors);
         app.use(bodyParser.json());
-        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(bodyParser.urlencoded({ extended: true }));
         app.use(cookieParser());
         app.use(less(path.join(__dirname, 'public')));
         app.use(serveStatic(path.join(__dirname, 'public')));
