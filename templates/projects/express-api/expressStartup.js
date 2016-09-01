@@ -14,18 +14,24 @@ module.exports.dependencies = [
 module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, extendHbs, favicon, cors) {
     'use strict';
 
-    var before,
-        after,
-        init;
+    var init,
+        beforeAllRoutes,
+        afterAllRoutes,
+        paths = {
+            views: path.join(__dirname, 'views'),
+            partials: __dirname + '/views/templates',
+            public: path.join(__dirname, 'public'),
+            favicon: __dirname + '/public/favicon.ico'
+        };
 
     init = function (applicationLifecycle, next) {
-        before();
+        beforeAllRoutes();
 
         if (typeof applicationLifecycle === 'function') {
             applicationLifecycle(app);
         }
 
-        after();
+        afterAllRoutes();
 
         if (typeof next === 'function') {
             next(app);
@@ -34,23 +40,23 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
         return app;
     };
 
-    before = function () {
+    beforeAllRoutes = function () {
         // view engine setup
-        app.set('views', path.join(__dirname, 'views'));
+        app.set('views', paths.views);
         app.set('view engine', 'hbs');
-        hbs.registerPartials(__dirname + '/views/templates');
+        hbs.registerPartials(paths.partials);
         extendHbs(hbs);
 
         app.use(cors);
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use(cookieParser());
-        app.use(less(path.join(__dirname, 'public')));
-        app.use(serveStatic(path.join(__dirname, 'public')));
-        app.use(favicon(__dirname + '/public/favicon.ico'));
+        app.use(less(paths.public));
+        app.use(serveStatic(paths.public));
+        app.use(favicon(paths.favicon));
     };
 
-    after = function () {
+    afterAllRoutes = function () {
         // make 404's a greedy index route for the SPA
         app.use(function (req, res, next) {
             res.status(404).send({

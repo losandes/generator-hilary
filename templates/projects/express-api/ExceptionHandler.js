@@ -12,9 +12,9 @@ module.exports.factory = function (is) {
             throwArgumentException: undefined
         };
 
-        onError = (typeof onError === 'function') ? onError : function (exception) {
-            console.error(exception);
-            throw exception;
+        onError = (typeof onError === 'function') ? onError : function (error) {
+            console.error(error);
+            throw error;
         };
 
         self.makeException = function (messageOrError, data) {
@@ -44,7 +44,7 @@ module.exports.factory = function (is) {
                 err.data = data;
             }
 
-            err.type = err.type || 'exception';
+            err.type = err.type || 'error';
 
             return err;
         };
@@ -63,17 +63,17 @@ module.exports.factory = function (is) {
             }
         };
 
-        self.throw = function (exception, data) {
-            onError(self.makeException(exception, data));
+        self.throw = function (error, data) {
+            onError(self.makeException(error, data));
         };
 
         self.throwArgumentException = function (error, argument, data) {
             onError(self.makeArgumentException(error, argument, data));
         };
 
-        self.throwWithInnerException = function (exception, innerException, data) {
-            var err = self.makeException(exception, data);
-            err.innerException = self.makeException(innerException);
+        self.throwWithInnerError = function (error, innerError, data) {
+            var err = self.makeException(error, data);
+            err.innerError = self.makeException(innerError);
             onError(err);
         };
 

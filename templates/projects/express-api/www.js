@@ -36,11 +36,11 @@ module.exports.factory = function (app, http, env) {
         switch (error.code) {
         case 'EACCES':
             err = new Error('Port ' + port + ' requires elevated privileges');
-            err.innerException = error;
+            err.innerError = error;
             throw err;
         case 'EADDRINUSE':
             err = new Error('Port ' + port + ' is already in use');
-            err.innerException = error;
+            err.innerError = error;
             throw err;
         default:
             throw error;

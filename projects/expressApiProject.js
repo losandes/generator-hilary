@@ -26,6 +26,7 @@ module.exports.init = function (path) {
                 templatePath = $this.templatePath();
                 destinationPath = path.join($this.destinationPath(), $this.templatedata.projectName);
 
+                $this.fs.copy(path.join(templatePath, 'app.js'), path.join(destinationPath, 'app.js'));
                 $this.fs.copy(path.join(templatePath, 'environment.js'), path.join(destinationPath, 'environment.js'));
                 $this.fs.copy(path.join(templatePath, 'ExceptionHandler.js'), path.join(destinationPath, 'ExceptionHandler.js'));
                 $this.fs.copyTpl(path.join(templatePath, 'expressStartup.js'), path.join(destinationPath, 'expressStartup.js'), $this.templatedata);
@@ -41,9 +42,9 @@ module.exports.init = function (path) {
                 $this.fs.copy(path.join(templatePath, '/domain/express-middleware/versionHandler.js'), path.join(destinationPath, '/domain/express-middleware/versionHandler.js'));
                 $this.fs.copy(path.join(templatePath, '/domain/express-middleware/index.js'), path.join(destinationPath, '/domain/express-middleware/index.js'));
 
-                $this.fs.copyTpl(path.join(templatePath, '/controllers/homeController.js'), path.join(destinationPath, '/controllers/homeController.js'), $this.templatedata);
-                $this.fs.copyTpl(path.join(templatePath, '/controllers/exampleController.js'), path.join(destinationPath, '/controllers/exampleController.js'), $this.templatedata);
-                $this.fs.copy(path.join(templatePath, '/controllers/index.js'), path.join(destinationPath, '/controllers/index.js'));
+                $this.fs.copyTpl(path.join(templatePath, '/domain/controllers/homeController.js'), path.join(destinationPath, '/domain/controllers/homeController.js'), $this.templatedata);
+                $this.fs.copyTpl(path.join(templatePath, '/domain/controllers/exampleController.js'), path.join(destinationPath, '/domain/controllers/exampleController.js'), $this.templatedata);
+                $this.fs.copy(path.join(templatePath, '/domain/controllers/index.js'), path.join(destinationPath, '/domain/controllers/index.js'));
 
                 $this.fs.copyTpl(path.join(templatePath, '/docs/index.md'), path.join(destinationPath, '/docs/index.md'), $this.templatedata);
                 $this.fs.copyTpl(path.join(templatePath, '/docs/_versioning.md'), path.join(destinationPath, '/docs/_versioning.md'), $this.templatedata);
