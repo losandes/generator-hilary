@@ -7,11 +7,9 @@ module.exports.dependencies = [
     'serve-static',
     'less',
     'hbs',
-    'hbsBlocks',
-    'favicon',
-    'defaultCorsHandler'
+    'favicon'
 ];
-module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, extendHbs, favicon, cors) {
+module.exports.factory = function (app, path, cookieParser, bodyParser, serveStatic, less, hbs, favicon) {
     'use strict';
 
     var init,
@@ -19,6 +17,7 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
         afterAllRoutes,
         paths = {
             views: path.join(__dirname, 'views'),
+            partials: __dirname + '/views/templates',
             public: path.join(__dirname, 'public'),
             favicon: __dirname + '/public/favicon.ico'
         };
@@ -43,9 +42,8 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
         // view engine setup
         app.set('views', paths.views);
         app.set('view engine', 'hbs');
-        extendHbs(hbs);
+        hbs.registerPartials(paths.partials);
 
-        app.use(cors);
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use(cookieParser());
@@ -57,9 +55,7 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
     afterAllRoutes = function () {
         // make 404's a greedy index route for the SPA
         app.use(function (req, res, next) {
-            res.status(404).send({
-                status: 404
-            });
+            res.render('index', { title: '<%= projectName %>' });
         });
 
         // error handlers
@@ -73,7 +69,7 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
                 }
 
                 res.status(err.status || 500);
-                res.send({ title: 'error', message: err.message, error: err });
+                res.render('error', { title: 'Whoops!', message: err.message, error: err });
             });
         } else {
             // production error handler
@@ -84,7 +80,7 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
                 }
                 
                 res.status(err.status || 500);
-                res.send({ title: 'error', message: err.message, error: {} });
+                res.render('error', { title: 'Whoops!', message: err.message, error: { stack: {} } });
             });
         }
     };

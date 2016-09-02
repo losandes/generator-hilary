@@ -1,0 +1,13 @@
+<main id="main">
+    <!-- ko if: viewModel() -->
+    <div data-bind="template: { name: 't-nav', data: viewModel().data, afterRender: afterRender }">
+    </div>
+    <div data-bind="template: { name: viewModel().template, data: viewModel().data, afterRender: afterRender }">
+    </div>
+    <!-- /ko -->
+    <!-- ko ifnot: viewModel() -->
+    <div>
+        <!-- no view model -->
+    </div>
+    <!-- /ko -->
+</main>
