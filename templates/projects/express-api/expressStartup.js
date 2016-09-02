@@ -19,7 +19,6 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
         afterAllRoutes,
         paths = {
             views: path.join(__dirname, 'views'),
-            partials: __dirname + '/views/templates',
             public: path.join(__dirname, 'public'),
             favicon: __dirname + '/public/favicon.ico'
         };
@@ -44,7 +43,6 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
         // view engine setup
         app.set('views', paths.views);
         app.set('view engine', 'hbs');
-        hbs.registerPartials(paths.partials);
         extendHbs(hbs);
 
         app.use(cors);
@@ -70,6 +68,10 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
         // will print stacktrace
         if (app.get('env') === 'development') {
             app.use(function (err, req, res, next) {
+                if (typeof err === 'string') {
+                    err = new Error(err);
+                }
+
                 res.status(err.status || 500);
                 res.send({ title: 'error', message: err.message, error: err });
             });
@@ -77,6 +79,10 @@ module.exports.factory = function (app, path, cookieParser, bodyParser, serveSta
             // production error handler
             // no stacktraces leaked to user
             app.use(function (err, req, res, next) {
+                if (typeof err === 'string') {
+                    err = new Error(err);
+                }
+                
                 res.status(err.status || 500);
                 res.send({ title: 'error', message: err.message, error: {} });
             });

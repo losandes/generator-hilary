@@ -66,12 +66,7 @@ module.exports.init = function (path) {
                 $this.fs.copy(path.join(templatePath, '/public/css/docs-slate.less'), path.join(destinationPath, '/public/css/docs-slate.less'));
                 $this.fs.copyTpl(path.join(templatePath, '/public/scripts/docs.js'), path.join(destinationPath, '/public/scripts/docs.js'), $this.templatedata);
 
-                $this.fs.copy(path.join(templatePath, '/views/layout.hbs'), path.join(destinationPath, '/views/layout.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/index.hbs'), path.join(destinationPath, '/views/index.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/error.hbs'), path.join(destinationPath, '/views/error.hbs'));
                 $this.fs.copy(path.join(templatePath, '/views/docs.hbs'), path.join(destinationPath, '/views/docs.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/templates/empty.hbs'), path.join(destinationPath, '/views/templates/empty.hbs'));
-                $this.fs.copy(path.join(templatePath, '/views/templates/error.hbs'), path.join(destinationPath, '/views/templates/error.hbs'));
 
                 $this.on('end', function () {
                     $this.spawnCommand('npm', ['run', 'install-dependencies'], { cwd: destinationPath });

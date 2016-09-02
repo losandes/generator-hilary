@@ -1,6 +1,6 @@
 Hilary.scope('<%= scope %>').register({
     name: 'ViewEngine',
-    dependencies: ['jQuery', 'ko', 'is', 'locale', 'exceptions'],
+    dependencies: ['jQuery', 'ko', 'hilary::is', 'locale', 'exceptions'],
     factory: function ($, ko, is, locale, exceptions) {
         'use strict';
 
@@ -19,7 +19,7 @@ Hilary.scope('<%= scope %>').register({
 
             setVM = function (viewModel) {
                 if (is.not.object(viewModel)) {
-                    exceptions.throwException(exceptions.argumentException(locale.js.ViewEngine['setVM.viewModelRequired'], 'viewModel'));
+                    exceptions.throwArgumentException(locale.js.ViewEngine['setVM.viewModelRequired'], 'viewModel');
                 }
 
                 var afterRender = function () {

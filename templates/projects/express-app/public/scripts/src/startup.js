@@ -24,7 +24,7 @@
                 scope.register({ name: 'Blueprint',         factory: function () { return Hilary.Blueprint; }});
 
                 scope.register({
-                    name: 'is',
+                    name: 'hilary::is',
                     factory: function () {
                         if (!is) {
                             is = scope.getContext().is;
@@ -77,8 +77,18 @@
         },
         composeLifecycle: function (err, gidgetApp, pipeline) {
             pipeline.on.error(function (err) {
-                console.log('gidget::error', err);
-                throw err;
+                if (err.data) {
+                    gidgetApp.routeEngine.post(
+                        '/error',
+                        err.data,
+                        function (req, payload) {
+                            console.log(req, payload);
+                        }
+                    );
+                } else {
+                    console.log('gidget::error', err);
+                    throw err;
+                }
             });
         },
         composeRoutes: function (err, gidgetApp) {

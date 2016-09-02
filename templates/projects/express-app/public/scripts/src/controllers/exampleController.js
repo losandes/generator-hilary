@@ -10,8 +10,9 @@ Hilary.scope('<%= scope %>').register({
                 viewEngine.setVM({
                     template: 't-empty',
                     data: {
-                        heading: locale.pages.home.empty.heading,
-                        body: 'Route: "/gidget/example"'
+                        heading: locale.pages.example.heading,
+                        body: 'Route: "/gidget/example"',
+                        nav: locale.nav
                     },
                     after: function (vm) {
                         console.log('view model:', vm);
@@ -35,8 +36,9 @@ Hilary.scope('<%= scope %>').register({
             viewEngine.setVM({
                 template: 't-empty',
                 data: {
-                    heading: locale.pages.home.empty.heading,
-                    body: body
+                    heading: req.params.beer,
+                    body: body,
+                    nav: locale.nav
                 }
             });
 

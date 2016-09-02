@@ -143,6 +143,8 @@ function init() {
             composeExpress(scope);
         },
         onComposed: function (err, scope) {
+            console.log('startup::composing application');
+
             scope.resolve('expressStartup').init(configureApplicationLifecycle(scope), function (app) {
                 var server;
 
@@ -163,8 +165,6 @@ function init() {
                 // start the HTTP services
                 server = scope.resolve('www');
             });
-
-            console.log('startup::starting application');
 
             // perform startup tasks (resolve modules here)
 
