@@ -8,7 +8,7 @@ var Generator = require('../YoGenerator.js'),
 choices = {
     console: require('./consoleProject.js').init(path),
     domain: require('./domainProject.js').init(path),
-    expressApp: require('./expressAppProject.js').init(path),
+    expressApp: require('./expressWebAppGidgetKoProject.js').init(path),
     expressApi: require('./expressApiProject.js').init(path)
     //expressApiBlueprint: require('./expressApiBlueprintProject.js').init(path)
 };

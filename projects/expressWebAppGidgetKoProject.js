@@ -22,7 +22,7 @@ module.exports.init = function (path) {
                 var templatePath, destinationPath;
 
                 $this.templatedata.scope = props.scope;
-                $this.sourceRoot(path.join(__dirname, '../templates/projects/express-app'));
+                $this.sourceRoot(path.join(__dirname, '../templates/projects/express-app-gidget-ko'));
                 templatePath = $this.templatePath();
                 destinationPath = path.join($this.destinationPath(), $this.templatedata.projectName);
 
