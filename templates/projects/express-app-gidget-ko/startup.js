@@ -66,14 +66,10 @@ function configureRoutes (scope, expressApp) {
 // Executes configureRoutes - so all controllers get registered.
 */
 function configureApplicationLifecycle (scope) {
-    var corsHandler = scope.resolve('defaultCorsHandler'),
-        versionHandler = scope.resolve('versionHandler');
-
     return function (expressApp) {
         // BEFORE
         (function () {
-            expressApp.use(corsHandler);
-            expressApp.use(versionHandler);
+
         }());
 
         configureRoutes(scope, expressApp);
@@ -115,7 +111,6 @@ function init() {
 
             scope.register(require('./environment.js'));
             scope.register(require('./ExceptionHandler.js'));
-            scope.autoRegister(require('./domain/express-middleware'));
 
             scope.register({
                 name: 'hilary::is',
@@ -165,6 +160,8 @@ function init() {
                 // start the HTTP services
                 server = scope.resolve('www');
             });
+
+
 
             // perform startup tasks (resolve modules here)
 

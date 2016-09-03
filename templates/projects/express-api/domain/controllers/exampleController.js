@@ -40,7 +40,7 @@ module.exports.factory = function(router) {
 
     /* Throw an example error. */
     router.get('/example/error', function(req, res, next) {
-        next('threw example error');
+        next(new Error('threw example error'));
     });
 
     return router;
