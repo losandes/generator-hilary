@@ -36,7 +36,7 @@ You can check the current version through every response’s headers. Look for t
 > # Example Response Header
 
 ```http
-X-Example-Media-Type: example.20150807; format=json
+X-<%= projectName %>-Media-Type: <%= projectName %>.20150820; format=json
 ```
 
 #### **Important**: The default version of the API may change in the future. If you're building an application and care about the stability of the API, be sure to request a specific version in the `Accept` header as shown in the examples.
