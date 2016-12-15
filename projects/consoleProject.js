@@ -5,7 +5,8 @@ module.exports.init = function (path) {
         name: 'Node console project',
         callback: function ($this) {
             var done = $this.async(),
-                prompts;
+                prompts,
+                files;
 
             prompts = [{
                 "name": 'scope',
@@ -13,30 +14,40 @@ module.exports.init = function (path) {
                 "default": 'myScope'
             }];
 
+            files = [
+                { src: 'gitignore.txt', dest: '.gitignore' },
+                { src: 'jshintrc.txt', dest: '.jshintrc' },
+                { src: 'index.js' },
+                { src: 'package.json', template: true },
+                { src: 'npm-install-all.sh' },
+                { src: 'README.md', template: true },
+                { src: '/app/startup.js', template: true },
+                { src: '/app/package.json', template: true },
+                { src: '/build/package.json', template: true },
+                { src: '/build/gruntfile.js' },
+                { src: '/build/tasks/test-task.js' },
+                { src: '/tests/package.json', template: true },
+                { src: '/tests/example.fixture.js' },
+            ];
+
             $this.prompt(prompts, function (props) {
-                var templatePath, destinationPath;
+                var templatePath, destinationPath, src, dest, i;
 
                 $this.templatedata.scope = props.scope;
                 $this.sourceRoot(path.join(__dirname, '../templates/projects/console'));
                 templatePath = $this.templatePath();
                 destinationPath = path.join($this.destinationPath(), $this.templatedata.projectName);
 
-                $this.fs.copy(path.join(templatePath, 'gitignore.txt'), path.join(destinationPath, '.gitignore'));
-                $this.fs.copy(path.join(templatePath, 'jshintrc.txt'), path.join(destinationPath, '.jshintrc'));
-                $this.fs.copy(path.join(templatePath, 'index.js'), path.join(destinationPath, 'index.js'));
-                $this.fs.copyTpl(path.join(templatePath, 'package.json'), path.join(destinationPath, 'package.json'), $this.templatedata);
-                $this.fs.copy(path.join(templatePath, 'npm-install-all.sh'), path.join(destinationPath, 'npm-install-all.sh'));
-                $this.fs.copyTpl(path.join(templatePath, 'README.md'), path.join(destinationPath, 'README.md'), $this.templatedata);
+                for (i = 0; i < files.length; i += 1) {
+                    src = path.join(templatePath, files[i].src);
+                    dest = path.join(destinationPath, (files[i].dest || files[i].src));
 
-                $this.fs.copyTpl(path.join(templatePath, '/app/startup.js'), path.join(destinationPath, '/app/startup.js'), $this.templatedata);
-                $this.fs.copyTpl(path.join(templatePath, '/app/package.json'), path.join(destinationPath, '/app/package.json'), $this.templatedata);
-
-                $this.fs.copyTpl(path.join(templatePath, '/build/package.json'), path.join(destinationPath, '/build/package.json'), $this.templatedata);
-                $this.fs.copy(path.join(templatePath, '/build/gruntfile.js'), path.join(destinationPath, '/build/gruntfile.js'));
-                $this.fs.copy(path.join(templatePath, '/build/tasks/test-task.js'), path.join(destinationPath, '/build/tasks/test-task.js'));
-
-                $this.fs.copyTpl(path.join(templatePath, '/tests/package.json'), path.join(destinationPath, '/tests/package.json'), $this.templatedata);
-                $this.fs.copy(path.join(templatePath, '/tests/example.fixture.js'), path.join(destinationPath, '/tests/example.fixture.js'));
+                    if (files[i].template) {
+                        $this.fs.copyTpl(src, dest, $this.templatedata);
+                    } else {
+                        $this.fs.copy(src, dest);
+                    }
+                }
 
                 done();
             }.bind($this));

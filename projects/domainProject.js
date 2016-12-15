@@ -1,6 +1,6 @@
 module.exports.init = function (path) {
     'use strict';
-    
+
     return {
         name: 'Node domain project',
         callback: function ($this) {
