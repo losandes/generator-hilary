@@ -1,32 +1,46 @@
-module.exports.init = function (path) {
+module.exports.prompts = Prompts();
+module.exports.files = Files();
+module.exports.template = Template();
+
+var Prompter = require('./Prompter');
+
+function Prompts () {
+    'use strict';
+
+    return [{
+        "name": 'namedModule',
+        "message": 'What is the name of the first module you want to create?',
+        "default": 'myModule'
+    }];
+}
+
+function Files () {
+    'use strict';
+
+    return [
+        { src: 'index.js', template: true },
+        { src: 'package.json', template: true },
+        { src: 'untitled.js', template: true }
+    ];
+}
+
+function Template () {
     'use strict';
 
     return {
         name: 'Node domain project',
         callback: function ($this) {
-            var done = $this.async(),
-                prompts;
+            var done = $this.async();
 
-            prompts = [{
-                "name": 'namedModule',
-                "message": 'What is the name of the first module you want to create?',
-                "default": 'myModule'
-            }];
-
-            $this.prompt(prompts, function (props) {
-                var templatePath, destinationPath;
-
-                $this.templatedata.namedModule = props.namedModule;
-                $this.sourceRoot(path.join(__dirname, '../templates/projects/domain'));
-                templatePath = $this.templatePath();
-                destinationPath = path.join($this.destinationPath(), $this.templatedata.projectName);
-
-                $this.fs.copyTpl(path.join(templatePath, 'index.js'), path.join(destinationPath, 'index.js'), $this.templatedata);
-                $this.fs.copyTpl(path.join(templatePath, 'package.json'), path.join(destinationPath, 'package.json'), $this.templatedata);
-                $this.fs.copyTpl(path.join(templatePath, 'untitled.js'), path.join(destinationPath, props.namedModule + '.js'), $this.templatedata);
-
-                done();
-            }.bind($this));
-        }
+            new Prompter({
+                scope: $this,
+                templatesPath: '../templates/projects/domain',
+                prompts: new Prompts(),
+                files: new Files(),
+                done: function (/*destinationPath*/) {
+                    done();
+                }
+            }).prompt();
+        } // /callback
     };
-};
+}
