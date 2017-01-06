@@ -1,40 +1,39 @@
-/*jshint quotmark: false*/
-'use strict';
-var Generator = require('../YoGenerator.js'),
-    path = require('path'),
-    choices,
-    namePrompt;
+module.exports = new Projects(require('../YoGenerator.js'));
 
-choices = {
-    console: require('./consoleProject.js').init(path),
-    domain: require('./domainProject.js').init(path),
-    expressApp: require('./expressWebAppGidgetKoProject.js').init(path),
-    expressApi: require('./expressApiProject.js').init(path)
-};
+function Projects (Generator) {
+    'use strict';
+    var namePrompt,
+        choices = {
+            expressApi: require('./expressApiProject.js').template,
+            expressApp: require('./expressWebAppGidgetKoProject.js').template,
+            console: require('./consoleProject.js').template,
+            domain: require('./domainProject.js').template
+        };
 
-namePrompt = function () {
-    var $this = this,
-        done = $this.async(),
-        app = '',
-        prompts;
+    namePrompt = function () {
+        var $this = this,
+            done = $this.async(),
+            app = '',
+            prompts;
 
-    switch ($this.type) {
-    case 'domain':
-        app = 'domain';
-        break;
-    }
+        switch ($this.type) {
+        case 'domain':
+            app = 'domain';
+            break;
+        }
 
-    prompts = [{
-        "name": 'projectName',
-        "message": 'What is the name of your project?',
-        "default": app
-    }];
+        prompts = [{
+            "name": 'projectName',
+            "message": 'What is the name of your project?',
+            "default": app
+        }];
 
-    $this.prompt(prompts, function (props) {
-        $this.templatedata.projectName = props.projectName;
-        $this.templatedata.name = props.projectName;
-        done();
-    }.bind($this));
-};
+        $this.prompt(prompts, function (props) {
+            $this.templatedata.projectName = props.projectName;
+            $this.templatedata.name = props.projectName;
+            done();
+        }.bind($this));
+    };
 
-module.exports = new Generator(choices, namePrompt);
+    return new Generator(choices, namePrompt);
+}

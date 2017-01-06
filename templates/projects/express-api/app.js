@@ -1,6 +1,6 @@
 'use strict';
 
-var startup = require('./startup.js');
+var startup = require('./composition.js');
 
 /*
 // uncaughtExceptions should ALWAYS `process.exit(1)`. This is just a
