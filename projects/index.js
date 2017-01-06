@@ -4,10 +4,10 @@ function Projects (Generator) {
     'use strict';
     var namePrompt,
         choices = {
-            console: require('./consoleProject.js').template,
-            domain: require('./domainProject.js').template,
+            expressApi: require('./expressApiProject.js').template,
             expressApp: require('./expressWebAppGidgetKoProject.js').template,
-            expressApi: require('./expressApiProject.js').template
+            console: require('./consoleProject.js').template,
+            domain: require('./domainProject.js').template
         };
 
     namePrompt = function () {

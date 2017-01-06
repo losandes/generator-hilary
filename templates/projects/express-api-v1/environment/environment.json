@@ -16,9 +16,11 @@
     },
     "docs": {
         "files": [
-            "./api/README.md",
-            "./api/legos/README.md",
-            "./api/home/README.md"
+            "./docs/index.md",
+            "./docs/_versioning.md",
+            "./docs/_legos.md",
+            "./docs/_status-codes.md",
+            "./docs/_about.md"
         ],
         "languages": [
             { "name": "All", "highlightClass": "lang-all" },

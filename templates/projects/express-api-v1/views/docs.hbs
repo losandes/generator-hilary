@@ -1,0 +1,56 @@
+{{#extend "head"}}
+    <link rel="stylesheet" href="/css/docs.css" />
+{{/extend}}
+
+<div id="docs" class="container-fluid">
+    <div class="row">
+        <nav id="nav" class="col-md-2">
+            <div id="logo">
+                <a href="/">
+                    <!-- ko if: logo -->
+                    <img data-bind="attr: { src: logo }">
+                    <!-- /ko -->
+                    <!-- ko ifnot: logo -->
+                    <span data-bind="text: title"></span>
+                    <!-- /ko -->
+                </a>
+            </div>
+            <div class="nav-menu">
+                <ul data-bind="foreach: menuItems">
+                    <li><a data-bind="text: name, attr: { href: link }"></a></li>
+                </ul>
+            </div>
+            <div class="buffer">&nbsp;</div>
+            <!-- ko if: showLanguageMenu -->
+            <div class="language-menu dropup">
+              <button class="btn btn-default dropdown-toggle" type="button" id="lang-menu-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Languages
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="lang-menu-btn" data-bind="foreach: languages">
+                <li role="presentation" data-bind="attr: { class: css }"><a href="javascript:void(0)" data-bind="text: name, click: click, attr: { 'data-highlight': highlightClass }"></a></li>
+              </ul>
+            </div>
+            <!-- /ko -->
+            <a href="#docs" class="btn btn-default back-to-top">Back to top</a>
+        </nav>
+        <main id="main" class="col-md-7">
+            {{{content}}}
+            <div class="buffer">&nbsp;</div>
+        </main>
+        <aside id="aside" class="col-md-3"></aside>
+    </div>
+</div>
+
+{{#extend "scripts"}}
+    <script src="/scripts/docs.js"></script>
+    <script>
+        docsVm.init({
+            // logoPath: "/content/logo.png",
+            title: '{{title}}',
+            language: '{{language}}',
+            languages: '{{languages}}',
+            useHeadingAlerts: {{useHeadingAlerts}}
+        });
+    </script>
+{{/extend}}
