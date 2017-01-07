@@ -35,7 +35,7 @@ module.exports.factory = function(router, Lego, polyn) {
     });
 
     // curl "http://localhost:3000/example/legos/1" -X PUT -H "Content-Type: application/json" -d '{"color":"yellow","width":2,"length":6,"height":2}'
-    router.put('/example/legos/:i', function (req, res, next) {
+    router.put('/example/legos/:i', function (req, res) {
         var lego = new Lego(req.body);
 
         if (!lego.isException) {

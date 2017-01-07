@@ -3,6 +3,8 @@ module.exports.name = 'hbsBlocks';
 module.exports.dependencies = [];
 module.exports.singleton = true;
 module.exports.factory = function (hbs) {
+    'use strict';
+    
     var blocks = {};
 
     hbs.registerHelper('extend', function(name, context) {

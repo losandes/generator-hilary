@@ -34,8 +34,6 @@ function init() {
         },
         composeModules: function (err, scope) {
             // perform composition tasks (register modules here)
-            var exceptions;
-
             log('startup::composing application modules');
 
             scope.register(environment);

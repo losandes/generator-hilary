@@ -41,7 +41,7 @@ function Prompter (options) {
                 }
             }
 
-            options.done(destinationPath);
+            options.done(destinationPath, props);
         }.bind($this));
     };
 

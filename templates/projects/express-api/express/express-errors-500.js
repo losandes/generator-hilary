@@ -1,3 +1,4 @@
+/*jshint unused:false*/
 module.exports.name = 'express-errors-500';
 module.exports.singleton = true;
 module.exports.dependencies = [];
@@ -5,7 +6,7 @@ module.exports.factory = function () {
     'use strict';
 
     var env = process.env.NODE_ENV || 'development';
-    
+
     return function (err, req, res, next) {
         var errorBody;
 
