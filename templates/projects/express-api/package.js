@@ -28,5 +28,12 @@ module.exports = {
             "grunt-contrib-jshint": "^1.1.0",
             "jshint-stylish": "^2.2.1"
         }
+    },
+    "mocha": {
+        "devDependencies": {
+            "chai": "^3.5.0",
+            "grunt-mocha-test": "^0.13.2",
+            "mocha": "^3.2.0"
+        }
     }
 };

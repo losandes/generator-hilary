@@ -13,7 +13,7 @@ function Prompter (options) {
         !options.scope ||
         typeof options.templatesPath !== 'string' ||
         !Array.isArray(options.prompts) ||
-        !Array.isArray(options.files) ||
+        (!Array.isArray(options.files) && typeof options.files !== 'function') ||
         typeof options.done !== 'function'
     ) {
         throw new Error('options are not valid');
@@ -22,10 +22,17 @@ function Prompter (options) {
     self.prompt = function () {
         var $this = options.scope;
 
-        $this.prompt(options.prompts, function (props) {
-            var files = options.files, templatePath, destinationPath, src, dest, i;
+        $this.prompt(options.prompts, function (choices) {
+            var files, templatePath, destinationPath, src, dest, i;
 
-            $this.templatedata.scope = props.scope;
+            if (typeof options.files === 'function') {
+                console.log(choices);
+                files = options.files(choices);
+            } else {
+                files = options.files;
+            }
+
+            $this.templatedata.scope = choices.scope;
             $this.sourceRoot(path.join(__dirname, options.templatesPath));
             templatePath = $this.templatePath();
             destinationPath = path.join($this.destinationPath(), $this.templatedata.projectName);
@@ -41,7 +48,7 @@ function Prompter (options) {
                 }
             }
 
-            options.done(destinationPath, props);
+            options.done(destinationPath, choices);
         }.bind($this));
     };
 

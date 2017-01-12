@@ -5,7 +5,7 @@ module.exports.init = init;
 var Hilary = require('hilary'),
     express = require('express'),
     environment = require('./environment.js'),
-    errorHandling = require('./errorHandling'),
+    errorHandling = require('./error-handling'),
     api = require('./api'),
     expressConfig = require('./express'),
     log = console.log;
@@ -27,8 +27,8 @@ function init() {
 
                     exceptions.throw(err);
                 } catch (e) {
-                    log(e);
                     log(err);
+                    log(e);
                 }
             });
         },
@@ -45,14 +45,6 @@ function init() {
                 name: 'appDir',
                 singleton: true,
                 factory: __dirname
-            });
-
-            scope.register({
-                name: 'hilary::is',
-                singleton: true,
-                factory: function () {
-                    return scope.getContext().is;
-                }
             });
 
             composeExpress(scope);

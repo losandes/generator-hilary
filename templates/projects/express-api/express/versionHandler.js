@@ -1,7 +1,7 @@
 module.exports.name = "versionHandler";
 module.exports.singleton = true;
-module.exports.dependencies = ['environment'];
-module.exports.factory = function (env) {
+module.exports.dependencies = ['environment', 'exceptions'];
+module.exports.factory = function (env, exceptions) {
     'use strict';
 
     var versions = env.get('versions'),
@@ -28,7 +28,7 @@ module.exports.factory = function (env) {
                 }
             }
 
-            throw new Error('No version was found to satisfy this request\'s Accept Header');
+            exceptions.throw(new Error('No version was found to satisfy this request\'s Accept Header'));
         } catch (e) {
             console.log(e);
             return setVersion(req, res, next, latest);

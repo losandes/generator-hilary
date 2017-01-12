@@ -1,6 +1,6 @@
 'use strict';
 module.exports.prompts = Prompts();
-module.exports.files = Files();
+module.exports.files = Files;
 module.exports.template = Template();
 
 var Prompter = require('./Prompter'),
@@ -19,14 +19,18 @@ function Prompts () {
         "message": 'Do you want to install grunt?',
         "default": 'yes'
     }, {
+        "name": 'mocha',
+        "message": 'Do you want to install mocha for unit tests (requires grunt)?',
+        "default": 'yes'
+    }, {
         "name": 'instructions',
         "message": 'This generator will create your project and install dependencies. When it is complete, you can run the app with ``npm start``. Checkout the README.md for more info.',
         "default": 'OK'
     }];
 }
 
-function Files () {
-    return [
+function Files (choices) {
+    var files = [
         // root
         { src: 'app.js'},
         { src: 'composition.js'},
@@ -54,10 +58,12 @@ function Files () {
         { src: '/api/legos/README.md', template: true },
         // environment
         { src: '/environment/environment.json', template: true },
-        // errorHandling
-        { src: '/errorHandling/index.js' },
-        { src: '/errorHandling/ExceptionHandler.js' },
-        { src: '/errorHandling/exceptions.js' },
+        // error-handling
+        { src: '/error-handling/index.js' },
+        { src: '/error-handling/Exception.js' },
+        { src: '/error-handling/ExceptionHandler.js' },
+        { src: '/error-handling/exceptions.js' },
+        { src: '/error-handling/logger.js' },
         //express
         { src: '/express/index.js' },
         { src: '/express/defaultCorsHandler.js' },
@@ -83,18 +89,35 @@ function Files () {
         { src: '/views/layout.hbs' },
         { src: '/views/docs.hbs' }
     ];
+
+    if (choices.mocha) {
+        files.push({ src: '/build-tasks/test.js' });
+        files.push({ src: '/tests/composition-helpers/register-bdd.js' });
+        files.push({ src: '/tests/composition-helpers/register-log-suppressor.js' });
+        files.push({ src: '/tests/error-handling/fixture.js' });
+        files.push({ src: '/tests/error-handling/ExceptionHandler-spec.js' });
+    }
+
+    return files;
 }
 
 function savePackage(choices, destinationPath, callback) {
     var gruntConfig = pkg.grunt,
-        fileName = path.join(destinationPath, 'package.json');
+        mochaConfig = pkg.mocha,
+        fileName = path.join(destinationPath, 'package.json'),
+        yes = /yes|y|true/i;
 
     delete pkg.grunt;
+    delete pkg.mocha;
     pkg.name = choices.scope;
     pkg.description = choices.scope + ' API built on hilary, polyn, and express';
 
-    if (/yes|y|true/i.test(choices.grunt)) {
+    if (yes.test(choices.grunt) || yes.test(choices.mocha)) {
         copyDevDependencies(gruntConfig, pkg);
+    }
+
+    if (yes.test(choices.mocha)) {
+        copyDevDependencies(mochaConfig, pkg);
     }
 
     fs.writeFile(fileName, JSON.stringify(pkg, null, 4), callback);
@@ -123,7 +146,7 @@ function Template () {
                 scope: $this,
                 templatesPath: templatePath,
                 prompts: new Prompts(),
-                files: new Files(),
+                files: Files,
                 done: function (destinationPath, choices) {
                     $this.on('end', function () {
                         savePackage(choices, destinationPath, function (err) {
