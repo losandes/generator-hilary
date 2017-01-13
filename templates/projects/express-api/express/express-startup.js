@@ -9,11 +9,11 @@ module.exports.dependencies = [
     'hbs',
     'hbsBlocks',
     'defaultCorsHandler',
-    'versionHandler',
+    'VersionHandler',
     'express-errors-404',
     'express-errors-500'
 ];
-module.exports.factory = function (app, path, appDir, bodyParser, favicon, serveStatic, hbs, extendHbs, corsHandler, versionHandler, on404, on500) {
+module.exports.factory = function (app, path, appDir, bodyParser, favicon, serveStatic, hbs, extendHbs, corsHandler, VersionHandler, on404, on500) {
     'use strict';
 
     var init,
@@ -45,7 +45,18 @@ module.exports.factory = function (app, path, appDir, bodyParser, favicon, serve
 
         // custom middleware
         app.use(corsHandler);
-        app.use(versionHandler);
+        app.use(new VersionHandler({
+            branches: [{
+                name: 'alpha'
+            }, {
+                name: 'beta'
+            }, {
+                name: 'rc'
+            }, {
+                name: 'ga',
+                default: true
+            }]
+        }));
 
         // 3rd party middleware
         app.use(bodyParser.json());

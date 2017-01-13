@@ -39,7 +39,7 @@
             { "name": "20150828-rc", "comparable": 20150828, "number": "v2rc2", "responseHeader": "application/vnd.<%= projectName %>.20150828-rc+json" },
             { "name": "20150725-rc", "comparable": 20150725, "number": "v2rc1", "responseHeader": "application/vnd.<%= projectName %>.20150725-rc+json" }
         ],
-        "prod": [
+        "ga": [
             { "name": "20150920", "comparable": 20150920, "number": "v2", "responseHeader": "application/vnd.<%= projectName %>.20150920+json" },
             { "name": "20150807", "comparable": 20150807, "number": "v1", "responseHeader": "application/vnd.<%= projectName %>.20150807+json" }
         ],

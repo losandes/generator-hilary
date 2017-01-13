@@ -72,7 +72,7 @@ function Files (choices) {
         { src: '/express/express-errors-500.js' },
         { src: '/express/express-startup.js' },
         { src: '/express/hbsBlocks.js' },
-        { src: '/express/versionHandler.js' },
+        { src: '/express/VersionHandler.js', template: true },
         { src: '/express/www.js' },
         // public
         { src: '/public/favicon.ico' },
@@ -96,6 +96,9 @@ function Files (choices) {
         files.push({ src: '/tests/composition-helpers/register-log-suppressor.js' });
         files.push({ src: '/tests/error-handling/fixture.js' });
         files.push({ src: '/tests/error-handling/ExceptionHandler-spec.js' });
+        files.push({ src: '/tests/express/fixture.js' });
+        files.push({ src: '/tests/express/mockEnvironment.js' });
+        files.push({ src: '/tests/express/VersionHandler-spec.js' });
     }
 
     return files;
