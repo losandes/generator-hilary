@@ -33,7 +33,7 @@ function Files (choices) {
     var files = [
         // root
         { src: 'app.js'},
-        { src: 'composition.js'},
+        { src: 'composition.js' },
         { src: 'environment.js'},
         { src: 'gruntfile.js'},
         { src: 'README.md', template: true },
@@ -49,7 +49,7 @@ function Files (choices) {
         { src: '/build-tasks/Spawner.js'},
         { src: '/build-tasks/start.js'},
         // api/home
-        { src: '/api/home/docRenderer.js', template: true},
+        { src: '/api/home/docRenderer.js' },
         { src: '/api/home/homeController.js'},
         { src: '/api/home/README.md', template: true },
         // api/legos
@@ -72,7 +72,7 @@ function Files (choices) {
         { src: '/express/express-errors-500.js' },
         { src: '/express/express-startup.js' },
         { src: '/express/hbsBlocks.js' },
-        { src: '/express/VersionHandler.js', template: true },
+        { src: '/express/VersionHandler.js' },
         { src: '/express/www.js' },
         // public
         { src: '/public/favicon.ico' },

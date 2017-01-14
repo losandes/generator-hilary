@@ -5,6 +5,7 @@ module.exports.factory = function (env, logger) {
     'use strict';
 
     var versions = env.get('versions'),
+        projectName = env.get('projectName'),
         getVersion,
         setVersion,
         getBranches,
@@ -69,7 +70,7 @@ module.exports.factory = function (env, logger) {
                 "name": "20170101",
                 "comparable": 20170101,
                 "number": "v1",
-                "responseHeader": "application/vnd.<%= projectName %>.20170101+json"
+                "responseHeader": "application/vnd." + projectName + ".20170101+json"
             };
     };
 

@@ -4,7 +4,9 @@ module.exports.dependencies = ['fs', 'async', 'marked', 'highlight.js', 'environ
 module.exports.factory = function(fs, async, marked, highlight, env) {
     'use strict';
 
-    var readDocs, makeReader, render, rendered;
+    var readDocs, makeReader, render, rendered, projectName;
+
+    projectName = env.get('projectName');
 
     marked.setOptions({
         renderer: new marked.Renderer(),
@@ -76,7 +78,7 @@ module.exports.factory = function(fs, async, marked, highlight, env) {
         });
         tasks.push(function (html, callback) {
             rendered = {
-                title: '<%= projectName %>',
+                title: projectName,
                 content: html,
                 language: options.language || 'any',
                 languages: JSON.stringify(options.languages),

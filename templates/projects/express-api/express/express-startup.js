@@ -26,15 +26,23 @@ module.exports.factory = function (app, path, appDir, bodyParser, favicon, serve
         };
 
     init = function (router, next) {
-        beforeAllRoutes();
-        app.use(router);
-        afterAllRoutes();
+        try {
+            beforeAllRoutes();
+            app.use(router);
+            afterAllRoutes();
 
-        if (typeof next === 'function') {
-            next(app);
+            if (typeof next === 'function') {
+                next(null, app);
+            }
+
+            return app;
+        } catch (e) {
+            if (typeof next === 'function') {
+                next(e);
+            } else {
+                throw e;
+            }
         }
-
-        return app;
     };
 
     beforeAllRoutes = function () {

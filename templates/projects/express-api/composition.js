@@ -3,20 +3,25 @@
 module.exports.init = init;
 
 var Hilary = require('hilary'),
+    async = require('async'),
     express = require('express'),
+    nconf = require('nconf'),
     environment = require('./environment.js'),
+    env = environment.factory(nconf),
     errorHandling = require('./error-handling'),
     api = require('./api'),
     expressConfig = require('./express'),
-    log = console.log;
+    scopeId = env.get('projectName');
+    // log and various other function defined at bottom
+
 
 function init() {
-    Hilary.scope('myScope').Bootstrapper({
+    Hilary.scope(scopeId).Bootstrapper({
         composeLifecycle: function (err, scope, pipeline) {
             var exceptions;
 
-            log('startup::@' + new Date().toISOString());
-            log('startup::composing application lifecycle');
+            log('@' + new Date().toISOString());
+            log('composing application lifecycle');
 
             pipeline.on.error(function (err) {
                 try {
@@ -34,9 +39,9 @@ function init() {
         },
         composeModules: function (err, scope) {
             // perform composition tasks (register modules here)
-            log('startup::composing application modules');
+            log('composing application modules');
 
-            scope.register(environment);
+            scope.register({ name: 'environment', factory: function () { return env; }});
             scope.autoRegister(errorHandling);
             scope.autoRegister(expressConfig);
             scope.autoRegister(api);
@@ -50,36 +55,38 @@ function init() {
             composeExpress(scope);
         },
         onComposed: function (err, scope) {
-            var router = registerRoutes(scope);
+            var startupTasks = [];
 
-            log('startup::composing application');
+            // NOTE: Order matters here
 
-            scope.resolve('express-startup').init(router, function (app) {
-                var server;
+            // regiser the controllers / routes
+            startupTasks.push(makeRouteRegistrationTask(scope));
+            // start / configure the express app
+            startupTasks.push(makeExpressStartupTask(scope));
+            // register the express app
+            startupTasks.push(makeExpressRegistrationTask(scope));
 
-                scope.register({
-                    name: 'express-app',
-                    factory: function () {
-                        return app;
-                    }
-                });
+            // NOTE: Add any other necessary composition tasks here;
+            // BEFORE adding makeHttpServerStartupTask
 
-                scope.register({
-                    name: 'server',
-                    factory: function () {
-                        return server;
-                    }
-                });
+            // register a singleton HTTP server, and start listening
+            startupTasks.push(makeHttpServerStartupTask(scope));
 
-                // start the HTTP services
-                server = scope.resolve('www');
+            log('composing application');
+
+            async.waterfall(startupTasks, function (err) {
+                if (err) {
+                    throw err;
+                }
+
+                log('application running');
             });
-
-            // perform startup tasks (resolve modules here)
-
-            log('startup::application running');
         }
     });
+}
+
+function log (message) {
+    console.log('startup::' + scopeId + '::' + message);
 }
 
 /*
@@ -95,13 +102,65 @@ function composeExpress (scope) {
 }
 
 /*
-// Last chance to add before and after handlers.
+// Make an async task that registers the routes / controllers
 */
-function registerRoutes (scope) {
-    var router = scope.resolve('router');
+function makeRouteRegistrationTask (scope) {
+    return function (callback) {
+        var router = scope.resolve('router');
 
-    // executes the controller modules to register routes on the router
-    scope.autoResolve(api);
+        // executes the controller modules to register routes on the router
+        scope.autoResolve(api);
 
-    return router;
+        callback(null, router);
+    };
+}
+
+/*
+// Make an async task that configures / starts the express app
+// @expects: an express router to be passed in by the previous task
+*/
+function makeExpressStartupTask (scope) {
+    return function (router, callback) {
+        scope.resolve('express-startup').init(router, callback);
+    };
+}
+
+/*
+// Make an async task that registers the express app
+// so other modules can depend on it (required for `www`)
+// @expects: a configured express app to be passed in by the previous task
+*/
+function makeExpressRegistrationTask (scope) {
+    return function (expressApp, callback) {
+        scope.register({
+            name: 'express-app',
+            factory: function () {
+                return expressApp;
+            }
+        });
+
+        callback();
+    };
+}
+
+/*
+// Make an async task that starts the HTTP server (starts listening)
+// and registers a singleton `server`, so other modules can depend on it
+*/
+function makeHttpServerStartupTask (scope) {
+    return function (callback) {
+        var server;
+
+        scope.register({
+            name: 'server',
+            factory: function () {
+                return server;
+            }
+        });
+
+        // start the HTTP services
+        server = scope.resolve('www');
+
+        callback();
+    };
 }

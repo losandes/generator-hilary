@@ -10,6 +10,10 @@ To start the app:
 npm start
 ```
 
+> NOTE: npm start depends on a global installation of _nodemon_: `npm install -g nodemon`. If you don't wish to install _nodemon_, you car start the app with: `node app.js -e js,hbs`
+>
+> NOTE: If you chose to install grunt, you must also have grunt installed globally: `npm install -g grunt`. Then you can also start the app with `grunt start`. To find out what else you can do with grunt, run grunt without any arguments: `grunt`.
+
 ## Directories
 
 ### root
@@ -24,6 +28,9 @@ The api directory is where you put the app code, including controllers, and mode
 
 The homeController renders the README files as HTML. Visit the home page of this API and click, _About_ to learn more.
 
+### build-tasks
+If you chose to install grunt, the build-tasks folder will contain all of the grunt tasks.
+
 ### environment
 This, git-ignored folder, is where you can define your environment-specific variables. It's also where you register app versions, and README rendering for the home page.
 
@@ -35,6 +42,9 @@ This API is built on [express](http://expressjs.com), which is configured in thi
 
 ### public
 This folder is accessible by the client. This is where you should put any scripts, CSS, or assets that you want clients to have access to.
+
+### tests
+If you chose to install the tests, the tests folder contains all of the test fixtures and specifications.
 
 ### views
 This folder contains the HBS files, for rendering web pages.

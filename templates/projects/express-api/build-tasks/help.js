@@ -16,6 +16,7 @@ function help (grunt) {
         console.log('');
 
         printHeader('Test/Lint Commands');
+        printDefinition('grunt test', 'Runs the unit tests (if you installed the test features)');
         printDefinition('grunt lint', 'Lints the JavaScript, using JSHint');
         console.log('');
     });

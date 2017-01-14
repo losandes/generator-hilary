@@ -25,11 +25,14 @@ module.exports.factory = function () {
 
     return {
         get: function (key) {
-            if (key === 'versions') {
-                return versions;
+            switch (key) {
+                case 'versions':
+                    return versions;
+                case 'projectName':
+                    return 'test';
+                default:
+                    throw new Error('The Mock Environment isn\'t configured for the key you are trying to retrieve: ' + key);
             }
-
-            throw new Error('The Mock Environment isn\'t configured for the key you are trying to retrieve: ' + key);
         }
     };
 };

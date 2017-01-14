@@ -1,33 +1,33 @@
 {
-    "name": "generator-hilary",
-    "version": "1.5.0",
-    "description": "Yeoman generator for projects that use hilary IoC (DI)",
-    "keywords": [
-        "yeoman-generator",
-        "hilary",
-        "dependency",
-        "injection",
-        "injector",
-        "inversion",
-        "control",
-        "IoC",
-        "DI",
-        "node",
-        "javascript",
-        "autowire",
-        "configuration",
-        "low",
-        "ceremony"
-    ],
-    "author": "Andy Wright <andes.collab@gmail.com> (https://github.com/losandes)",
-    "license": "MIT",
-    "dependencies": {
-        "chalk": "^1.0.0",
-        "yeoman-generator": "^0.20.1",
-        "yosay": "^1.0.4"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/losandes/generator-hilary.git"
-    }
+  "name": "generator-hilary",
+  "version": "1.6.0",
+  "description": "Yeoman generator for projects that use hilary IoC (DI)",
+  "keywords": [
+    "yeoman-generator",
+    "hilary",
+    "dependency",
+    "injection",
+    "injector",
+    "inversion",
+    "control",
+    "IoC",
+    "DI",
+    "node",
+    "javascript",
+    "autowire",
+    "configuration",
+    "low",
+    "ceremony"
+  ],
+  "author": "Andy Wright <andes.collab@gmail.com> (https://github.com/losandes)",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "yeoman-generator": "^0.20.1",
+    "yosay": "^1.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/losandes/generator-hilary.git"
+  }
 }

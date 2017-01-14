@@ -1,5 +1,6 @@
 {
     "PORT": 3000,
+    "projectName": "<%= projectName %>",
     "storeThisConfigInMemory": true,
     "cors": {
         "mode": "off",

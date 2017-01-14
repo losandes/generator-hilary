@@ -6,7 +6,8 @@ module.exports.factory = function (app, http, env) {
     var port,
         server,
         onError,
-        onListening;
+        onListening,
+        scopeId = env.get('projectName');
 
     /*
     // Get port from environment and store in Express.
@@ -49,7 +50,7 @@ module.exports.factory = function (app, http, env) {
     // Event listener for HTTP server "listening" event.
     */
     onListening = function () {
-        console.log('startup::listening on port ' + port);
+        console.log('startup::' + scopeId + '::listening on port ' + port);
     };
 
     /*
