@@ -23,11 +23,19 @@
         ],
         "languages": [
             { "name": "All", "highlightClass": "lang-all" },
-            { "name": "Shell", "highlightClass": "lang-bash" },
+            { "name": "cURL", "highlightClass": "lang-bash" },
             { "name": "JavaScript", "highlightClass": "lang-js" }
         ]
     },
     "versions": {
+        "ga": [
+            { "name": "20150920", "comparable": 20150920, "number": "v2", "responseHeader": "application/vnd.<%= projectName %>.20150920+json" },
+            { "name": "20150807", "comparable": 20150807, "number": "v1", "responseHeader": "application/vnd.<%= projectName %>.20150807+json" }
+        ],
+        "rc": [
+            { "name": "20150828-rc", "comparable": 20150828, "number": "v2rc2", "responseHeader": "application/vnd.<%= projectName %>.20150828-rc+json" },
+            { "name": "20150725-rc", "comparable": 20150725, "number": "v2rc1", "responseHeader": "application/vnd.<%= projectName %>.20150725-rc+json" }
+        ],
         "beta": [
             { "name": "20150828-beta", "comparable": 20150828, "number": "v2b2", "responseHeader": "application/vnd.<%= projectName %>.20150828-beta+json" },
             { "name": "20150725-beta", "comparable": 20150725, "number": "v2b1", "responseHeader": "application/vnd.<%= projectName %>.20150725-beta+json" }
@@ -35,14 +43,6 @@
         "alpha": [
             { "name": "20150828-alpha", "comparable": 20150828, "number": "v2a2", "responseHeader": "application/vnd.<%= projectName %>.20150828-alpha+json" },
             { "name": "20150725-alpha", "comparable": 20150725, "number": "v2a1", "responseHeader": "application/vnd.<%= projectName %>.20150725-alpha+json" }
-        ],
-        "rc": [
-            { "name": "20150828-rc", "comparable": 20150828, "number": "v2rc2", "responseHeader": "application/vnd.<%= projectName %>.20150828-rc+json" },
-            { "name": "20150725-rc", "comparable": 20150725, "number": "v2rc1", "responseHeader": "application/vnd.<%= projectName %>.20150725-rc+json" }
-        ],
-        "ga": [
-            { "name": "20150920", "comparable": 20150920, "number": "v2", "responseHeader": "application/vnd.<%= projectName %>.20150920+json" },
-            { "name": "20150807", "comparable": 20150807, "number": "v1", "responseHeader": "application/vnd.<%= projectName %>.20150807+json" }
         ],
         "vendorPrefix": "vnd.<%= projectName %>",
         "responseHeader": "X-<%= projectName %>-Media-Type"
