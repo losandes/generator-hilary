@@ -43,7 +43,7 @@ new Hilary().Bootstrapper({
             factory: function (describe) {
 
                 describe('express middleware,', function () {
-                    scope.register(expressRequestIdsSpec);
+                    scope.resolve('express-request-ids-spec');
                     scope.resolve('VersionHandler-spec');
                 });
 

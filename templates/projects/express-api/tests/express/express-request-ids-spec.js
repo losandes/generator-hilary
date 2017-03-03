@@ -5,7 +5,7 @@ module.exports.factory = function (sut, ObjectID, describe, when, and, it, expec
 
     describe('express-request-ids', function () {
         when('when the middleware is executed', function () {
-            and('and a valid X-Request-ID header is present', function () {
+            and('and a BSON ObjectID X-Request-ID header is present', function () {
                 it('it should set res.locals.requestIds.clientId to the given X-Request-ID', function (done) {
                     var expected = new ObjectID().toString(),
                         req = makeMockReq({ 'X-Request-ID': expected }),
@@ -43,7 +43,7 @@ module.exports.factory = function (sut, ObjectID, describe, when, and, it, expec
                 });
             });
 
-            and('and an INVALID X-Request-ID header is present', function () {
+            and('and an UNKNOWN type of X-Request-ID header is present', function () {
                 it('it should set res.locals.requestIds.serverId to a DIFFERENT id', function (done) {
                     var header = '12345',
                         req = makeMockReq({ 'X-Request-ID': header }),
@@ -51,32 +51,33 @@ module.exports.factory = function (sut, ObjectID, describe, when, and, it, expec
 
                     sut(req, res, function () {
                         expect(typeof res.locals.requestIds).to.equal('object');
-                        expect(res.locals.requestIds.clientId.toString()).to.not.equal(header);
-                        expect(ObjectID.isValid(res.locals.requestIds.clientId)).to.equal(true);
+                        expect(res.locals.requestIds.serverId.toString()).to.not.equal(header);
                         done();
                     });
                 });
 
-                it('it should set res.locals.requestIds.clientId to the serverId', function (done) {
-                    var req = makeMockReq({ 'X-Request-ID': '12345' }),
+                it('it should set res.locals.requestIds.clientId to the clientId', function (done) {
+                    var header = '12345',
+                        req = makeMockReq({ 'X-Request-ID': header }),
                         res = makeMockRes();
 
                     sut(req, res, function () {
                         expect(typeof res.locals.requestIds).to.equal('object');
-                        expect(res.locals.requestIds.clientId.toString())
-                            .to.equal(res.locals.requestIds.serverId.toString());
+                        expect(res.locals.requestIds.clientId)
+                            .to.equal(header);
                         done();
                     });
                 });
 
-                it('it should set the response header to the serverId', function (done) {
-                    var req = makeMockReq({ 'X-Request-ID': '12345' }),
+                it('it should set the response header to the clientId', function (done) {
+                    var header = '12345',
+                        req = makeMockReq({ 'X-Request-ID': header }),
                         res = makeMockRes();
 
                     sut(req, res, function () {
                         expect(typeof res.locals.requestIds).to.equal('object');
                         expect(res._headers['X-Request-ID'])
-                            .to.equal(res.locals.requestIds.serverId.toString());
+                            .to.equal(res.locals.requestIds.clientId);
                         done();
                     });
                 });

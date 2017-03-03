@@ -8,7 +8,7 @@ module.exports.factory = function (ObjectID, makeReadOnly) {
 
     return function (req, res, next) {
             // the server request ID is guaranteed to be unique per request
-        var serverId = makeRequestId(),
+        var serverId = new ObjectID(),
             // the client request ID _can_ be defined by the client.
             // this is NOT guaranteed to be unique per request, if the client
             // actually sets it. The server request ID is used if the client
@@ -29,11 +29,16 @@ module.exports.factory = function (ObjectID, makeReadOnly) {
         next();
     };
 
-    function makeRequestId (uid, defaultId) {
-        if (!uid || !ObjectID.isValid(uid)) {
-            return defaultId ? defaultId : new ObjectID();
-        } else {
+    function makeRequestId (uid, serverId) {
+        if (!uid) {
+            // the client did not present a request ID, use the serverId
+            return serverId;
+        } else if (ObjectID.isValid(uid)) {
+            // the client presented a BSON ObjectID as the request ID
             return new ObjectID(uid);
+        } else {
+            // the client presented an unknown type of request ID
+            return uid;
         }
     }
 };
