@@ -10,6 +10,7 @@ module.exports = {
     "dependencies": {
         "async": "^2.1.4",
         "body-parser": "^1.15.2",
+        "bson-objectid": "^1.1.5",
         "express": "^4.14.0",
         "hbs": "^4.0.1",
         "helmet": "^3.4.0",
@@ -18,7 +19,7 @@ module.exports = {
         "hpp": "^0.2.1",
         "marked": "^0.3.6",
         "nconf": "^0.8.4",
-        "polyn": "^1.6.1",
+        "polyn": "^1.6.*",
         "serve-favicon": "^2.3.2",
         "serve-static": "^1.11.1"
     },

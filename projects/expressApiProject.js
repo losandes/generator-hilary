@@ -43,6 +43,10 @@ function Files (choices) {
         // api
         { src: '/api/index.js'},
         { src: '/api/README.md', template: true },
+        // common
+        { src: '/common/index.js'},
+        { src: '/common/idFactory.js'},
+        { src: '/common/makeReadOnly.js'},
         // build-tasks
         { src: '/build-tasks/help.js'},
         { src: '/build-tasks/lint.js'},
@@ -70,6 +74,7 @@ function Files (choices) {
         { src: '/express/CorsHandler.js' },
         { src: '/express/express-errors-404.js' },
         { src: '/express/express-errors-500.js' },
+        { src: '/express/express-request-ids.js' },
         { src: '/express/express-startup.js' },
         { src: '/express/hbsBlocks.js' },
         { src: '/express/VersionHandler.js' },
@@ -92,11 +97,15 @@ function Files (choices) {
 
     if (choices.mocha) {
         files.push({ src: '/build-tasks/test.js' });
+        files.push({ src: '/tests/common/fixture.js' });
+        files.push({ src: '/tests/common/makeReadOnly-spec.js' });
         files.push({ src: '/tests/composition-helpers/register-bdd.js' });
+        files.push({ src: '/tests/composition-helpers/register-log-memory.js' });
         files.push({ src: '/tests/composition-helpers/register-log-suppressor.js' });
         files.push({ src: '/tests/error-handling/fixture.js' });
         files.push({ src: '/tests/error-handling/ExceptionHandler-spec.js' });
         files.push({ src: '/tests/express/fixture.js' });
+        files.push({ src: '/tests/express/express-request-ids-spec.js' });
         files.push({ src: '/tests/express/mockEnvironment.js' });
         files.push({ src: '/tests/express/VersionHandler-spec.js' });
     }
