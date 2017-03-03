@@ -7,21 +7,23 @@ module.exports.factory = function (ObjectID, exceptions) {
 
     var idFactory = {
         /*
-        // Generates a new bson ObjectID, or converts a string into one
-        // @param uid (optional)(string): when a uid is supplied, it will attempt to convert that string into a MongoUid
-        // @returns (MongoUid): the mongo unique identifier
+        // Generates a new BSON ObjectID, or converts a string into one
+        // @param uid (optional)(string): when a uid is supplied, it will
+        //      attempt to convert that string into a BSON ObjectID
+        // @returns (BSON ObjectID): the unique identifier
         */
         makeObjectId: makeObjectId,
         /*
         // Generates a new unqiue identifer
-        // @param length (optional)(int)(default = 8): when supplied the generated uid will be the length desired
+        // @param length (optional)(int)(default = 8): when supplied the
+        //      generated uid will be the length desired
         // @returns (string): the unique identifier
         */
         makeUid: makeUid,
         /*
-        // Generates a 32 character Globally Unique Identifier
+        // Generates a 32 character Universally Unique Identifier
         */
-        makeGuid: makeGuid
+        makeUuid: makeUuid
     };
 
     function createRandomString (templateString) {
@@ -52,7 +54,7 @@ module.exports.factory = function (ObjectID, exceptions) {
         return createRandomString(template);
     }
 
-    function makeGuid () {
+    function makeUuid () {
         return createRandomString('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx');
     }
 
