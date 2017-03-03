@@ -3,13 +3,17 @@
 module.exports.init = init;
 
 var Hilary = require('hilary'),
+    polyn = require('polyn'),
     async = require('async'),
     express = require('express'),
     nconf = require('nconf'),
+    ObjectID = require('bson-objectid'),
+    // directories
+    api = require('./api'),
+    common = require('./common'),
     environment = require('./environment.js'),
     env = environment.factory(nconf),
     errorHandling = require('./error-handling'),
-    api = require('./api'),
     expressConfig = require('./express'),
     scopeId = env.get('projectName');
     // log and various other function defined at bottom
@@ -41,16 +45,16 @@ function init() {
             // perform composition tasks (register modules here)
             log('composing application modules');
 
+            scope.register({ name: 'appDir', singleton: true, factory: __dirname });
+            scope.register({ name: 'ObjectID', singletong: true, factory: ObjectID, dependencies: [] });
+            scope.register({ name: 'polyn::Immutable', singleton: true, factory: polyn.Immutable, dependencies: [] });
+            scope.register({ name: 'polyn::is', singleton: true, factory: polyn.is, dependencies: [] });
+
             scope.register({ name: 'environment', factory: function () { return env; }});
+            scope.autoRegister(api);
+            scope.autoRegister(common);
             scope.autoRegister(errorHandling);
             scope.autoRegister(expressConfig);
-            scope.autoRegister(api);
-
-            scope.register({
-                name: 'appDir',
-                singleton: true,
-                factory: __dirname
-            });
 
             composeExpress(scope);
         },

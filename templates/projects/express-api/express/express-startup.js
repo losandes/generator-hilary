@@ -13,9 +13,10 @@ module.exports.dependencies = [
     'defaultCorsHandler',
     'VersionHandler',
     'express-errors-404',
-    'express-errors-500'
+    'express-errors-500',
+    'express-request-ids'
 ];
-module.exports.factory = function (app, path, appDir, bodyParser, favicon, serveStatic, hbs, extendHbs, helmet, hpp, corsHandler, VersionHandler, on404, on500) {
+module.exports.factory = function (app, path, appDir, bodyParser, favicon, serveStatic, hbs, extendHbs, helmet, hpp, corsHandler, VersionHandler, on404, on500, requestIds) {
     'use strict';
 
     var init,
@@ -53,6 +54,7 @@ module.exports.factory = function (app, path, appDir, bodyParser, favicon, serve
         app.set('view engine', 'hbs');
         extendHbs(hbs);
 
+        app.use(requestIds);
         app.use(corsHandler);
         app.use(helmet.hsts({
             maxAge: 10886400000,        // Must be at least 18 weeks to be approved by Google

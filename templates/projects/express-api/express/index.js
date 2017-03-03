@@ -3,6 +3,7 @@ module.exports = [
     require('./defaultCorsHandler.js'),
     require('./express-errors-404.js'),
     require('./express-errors-500.js'),
+    require('./express-request-ids.js'),
     require('./express-startup.js'),
     require('./hbsBlocks.js'),
     require('./versionHandler.js'),
