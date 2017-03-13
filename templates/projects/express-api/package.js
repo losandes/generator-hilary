@@ -19,7 +19,7 @@ module.exports = {
         "hpp": "^0.2.1",
         "marked": "^0.3.6",
         "nconf": "^0.8.4",
-        "polyn": "^1.6.*",
+        "polyn": "^1.*",
         "serve-favicon": "^2.3.2",
         "serve-static": "^1.11.1"
     },
