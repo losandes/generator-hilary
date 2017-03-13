@@ -15,7 +15,8 @@ var Hilary = require('hilary'),
     env = environment.factory(nconf),
     errorHandling = require('./error-handling'),
     expressConfig = require('./express'),
-    scopeId = env.get('projectName');
+    scopeId = env.get('projectName'),
+    appInitialized = false;
     // log and various other function defined at bottom
 
 
@@ -28,6 +29,12 @@ function init() {
             log('composing application lifecycle');
 
             pipeline.on.error(function (err) {
+                if (!appInitialized) {
+                    // if the app isn't initialized yet, we shouldn't try
+                    // to resolve exceptions
+                    return console.log(err);
+                }
+
                 try {
                     // try, in case this is triggered before exceptions are registered
                     if (!exceptions) {
@@ -36,8 +43,8 @@ function init() {
 
                     exceptions.throw(err);
                 } catch (e) {
-                    log(err);
-                    log(e);
+                    console.log(err);
+                    console.log(e);
                 }
             });
         },
@@ -83,6 +90,7 @@ function init() {
                     throw err;
                 }
 
+                appInitialized = true;
                 log('application running');
             });
         }
