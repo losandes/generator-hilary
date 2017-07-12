@@ -52,6 +52,9 @@ function init() {
             /*
             // Register the routes / controllers, by resolving them
             */
+
+            log('registering routes');
+
             api.forEach(mod => {
                 if (mod.name.toLowerCase().indexOf('controller') > -1) {
                     // execute the controller modules to register routes on the router
@@ -66,6 +69,8 @@ function init() {
             // Configure and start the express app, and then register it
             // so other modules can depend on it (required for `www`)
             */
+
+            log('starting express');
 
             scope.resolve('express-startup').init(router, function (err, app) {
                 if (err) {
@@ -98,6 +103,8 @@ function init() {
                     return server;
                 }
             });
+
+            log('starting the HTTP server');
 
             // start the HTTP services
             server = scope.resolve('www');
