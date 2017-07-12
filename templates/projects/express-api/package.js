@@ -15,7 +15,7 @@ module.exports = {
         "hbs": "^4.0.1",
         "helmet": "^3.4.0",
         "highlight.js": "^9.9.0",
-        "hilary": "^4.3.1",
+        "hilary": "^5.0.0",
         "hpp": "^0.2.1",
         "marked": "^0.3.6",
         "nconf": "^0.8.4",

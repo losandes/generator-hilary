@@ -1,6 +1,6 @@
 module.exports.name = 'common-makeReadOnly';
 module.exports.singleton = true;
-module.exports.dependencies = ['polyn::is', 'logger'];
+module.exports.dependencies = ['polyn { is }', 'logger'];
 module.exports.factory = function (is, logger) {
     'use strict';
 

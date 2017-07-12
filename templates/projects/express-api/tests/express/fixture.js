@@ -1,6 +1,6 @@
 'use strict';
 
-var Hilary = require('hilary'),
+var scope = require('hilary').scope('express', { logging: { level: 'error' } }),
     polyn = require('polyn'),
     ObjectID = require('bson-objectid'),
     errorHandling = require(relativeToRoot('error-handling')),
@@ -15,43 +15,33 @@ var Hilary = require('hilary'),
 
 function relativeToRoot(path) { return '../../' + path; }
 
-new Hilary().Bootstrapper({
-    composeLifecycle: function (err, scope, pipeline) {
-        pipeline.register.on.error(function (err) {
-            console.log(err);
+scope.register(errorHandling);
+scope.register(express);
+scope.register(env);
+scope.register(makeReadOnly);
+scope.register({name: 'VersionHandlerFactory', factory: function () { return VersionHandler.factory; }});
+
+scope.register({ name: 'ObjectID', dependencies: [], factory: ObjectID });
+scope.register({ name: 'polyn', dependencies: [], factory: polyn });
+
+registerBdd(scope);
+registerLogSuppressor(scope);
+
+scope.register(expressRequestIdsSpec);
+scope.register(VersionHandlerSpec);
+
+scope.register({
+    name: 'fixture',
+    dependencies: ['describe'],
+    factory: function (describe) {
+
+        describe('express middleware,', function () {
+            scope.resolve('express-request-ids-spec');
+            scope.resolve('VersionHandler-spec');
         });
-    },
-    composeModules: function (err, scope) {
-        scope.autoRegister(errorHandling);
-        scope.autoRegister(express);
-        scope.register(env);
-        scope.register(makeReadOnly);
-        scope.register({name: 'VersionHandlerFactory', factory: function () { return VersionHandler.factory; }});
 
-        scope.register({ name: 'ObjectID', singleton: true, dependencies: [], factory: ObjectID });
-        scope.register({ name: 'polyn::is', singleton: true, dependencies: [], factory: polyn.is });
-
-        registerBdd(scope);
-        registerLogSuppressor(scope);
-
-        scope.register(expressRequestIdsSpec);
-        scope.register(VersionHandlerSpec);
-
-        scope.register({
-            name: 'fixture',
-            dependencies: ['describe'],
-            factory: function (describe) {
-
-                describe('express middleware,', function () {
-                    scope.resolve('express-request-ids-spec');
-                    scope.resolve('VersionHandler-spec');
-                });
-
-                return true;
-            }
-        });
-    },
-    onComposed: function (err, scope) {
-        scope.resolve('fixture');
+        return true;
     }
 });
+
+scope.resolve('fixture');

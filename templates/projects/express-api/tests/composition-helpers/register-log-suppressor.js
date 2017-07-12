@@ -5,7 +5,7 @@ var log = function () { /*suppressed*/ };
 function register (scope) {
     'use strict';
 
-    scope.register({ name: 'logger', singleton: true, factory: {
+    scope.register({ name: 'logger', factory: {
             debug: log,
             trace: log,
             info: log,
