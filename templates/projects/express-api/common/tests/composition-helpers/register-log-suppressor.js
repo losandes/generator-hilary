@@ -1,8 +1,4 @@
-module.exports = register;
-
-var log = function () { /*suppressed*/ };
-
-function register (scope) {
+module.exports = function (scope, next) {
     'use strict';
 
     scope.register({ name: 'logger', factory: {
@@ -14,4 +10,8 @@ function register (scope) {
             fatal: log
         }
     });
-}
+
+    next(null, scope);
+};
+
+var log = function () { /*suppressed*/ };

@@ -7,8 +7,8 @@ var hilary = require('hilary'),
     nconf = require('nconf'),
     ObjectID = require('bson-objectid'),
     // directories
-    api = require('./api'),
-    environment = require('./environment.js'),
+    apis = require('./apis.js'),
+    environment = require('./common/environment/environment.js'),
     env = environment.factory(nconf),
     scopeId = env.get('projectName');
     // log and various other function defined at bottom
@@ -16,7 +16,7 @@ var hilary = require('hilary'),
 function init() {
     var scope = hilary.scope(scopeId, {
             logging: {
-                level: 'info',
+                level: 'info', // trace|debug|info|warn|error|fatal|off
                 // printer: function (entry) {
                 //
                 // }
@@ -25,13 +25,13 @@ function init() {
 
     scope.bootstrap([
         function (scope, next) { log('composing application'); next(null, scope); },
-        scope.makeRegistrationTask(api),
+        scope.makeRegistrationTask(apis),
         scope.makeRegistrationTask(require('./common')),
-        scope.makeRegistrationTask(require('./error-handling')),
-        scope.makeRegistrationTask(require('./express')),
+        scope.makeRegistrationTask(require('./common/error-handling')),
+        scope.makeRegistrationTask(require('./common/express')),
         function composeUtils (scope, next) {
-            scope.register({ name: 'appDir', singleton: true, factory: __dirname });
-            scope.register({ name: 'ObjectID', singletong: true, factory: ObjectID, dependencies: [] });
+            scope.register({ name: 'appDir', factory: __dirname });
+            scope.register({ name: 'ObjectID', factory: ObjectID, dependencies: [] });
             scope.register({ name: 'environment', factory: function () { return env; }});
             next(null, scope);
         },
@@ -55,7 +55,7 @@ function init() {
 
             log('registering routes');
 
-            api.forEach(mod => {
+            apis.forEach(mod => {
                 if (mod.name.toLowerCase().indexOf('controller') > -1) {
                     // execute the controller modules to register routes on the router
                     scope.resolve(mod.name);

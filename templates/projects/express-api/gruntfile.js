@@ -12,8 +12,8 @@ module.exports = function (grunt) {
 
     grunt.config('path-root', '.');
     grunt.config('path-to-scripts', './public/scripts');
-    grunt.config('path-to-environment', './environment');
+    grunt.config('path-to-environment', './common/environment');
 
-    grunt.loadTasks('build-tasks');
+    grunt.loadTasks('./common/build-tasks');
     grunt.registerTask('default', ['help']);
 };

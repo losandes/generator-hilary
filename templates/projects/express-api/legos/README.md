@@ -29,14 +29,14 @@ This endpoint retrieves all Legos `GET http://api.example.com/legos/`.
 > # Example Request
 
 ```bash
-curl "http://localhost:3000/example/legos/" -H "Accept: application/vnd.example.20150828+json"
+curl "http://localhost:3000/example/legos/" -H "Accept: application/json;version=20150828"
 ```
 
 ```js
 fetch('/example/legos', {
     method: 'GET',
     headers: new Headers({
-        "Accept": "application/vnd.<%= projectName %>.20150828+json"
+        "Accept": "application/json;version=20150828"
     }),
     mode: 'cors',
 }).then(function (res) {
@@ -70,14 +70,14 @@ id | int | The id of the lego you wish to retrieve
 > # Example Request
 
 ```bash
-curl "http://localhost:3000/example/legos/0" -H "Accept: application/vnd.example.20150828+json"
+curl "http://localhost:3000/example/legos/0" -H "Accept: application/json;version=20150828"
 ```
 
 ```js
 fetch('/example/legos/1', {
     method: 'GET',
     headers: new Headers({
-        "Accept": "application/vnd.<%= projectName %>.20150828+json"
+        "Accept": "application/json;version=20150828"
     }),
     mode: 'cors',
 }).then(function (res) {
@@ -112,7 +112,7 @@ The body of your request should include a [Lego](#legos).
 ```bash
 curl "http://localhost:3000/example/legos/" /
     -H "Content-Type: application/json" /
-    -H "Accept: application/vnd.example.20150828+json" /
+    -H "Accept: application/json;version=20150828" /
     -d '{"color":"yellow","width":2,"length":6,"height":2}'
 ```
 
@@ -121,7 +121,7 @@ fetch('/example/legos', {
     method: 'POST',
     headers: new Headers({
         "Content-Type": "application/json",
-        "Accept": "application/vnd.<%= projectName %>.20150828+json"
+        "Accept": "application/json;version=20150828"
     }),
     mode: 'cors',
     body: JSON.stringify({ color: 'yellow', width: 2, length: 6, height: 2 })
@@ -168,7 +168,7 @@ The body of your request should include a [Lego](#legos).
 curl "http://localhost:3000/example/legos/1" \
     -X PUT \
     -H "Content-Type: application/json" \
-    -H "Accept: application/vnd.example.20150828+json" \
+    -H "Accept: application/json;version=20150828" \
     -d '{"color":"yellow","width":2,"length":6,"height":2}'
 ```
 
@@ -176,7 +176,7 @@ curl "http://localhost:3000/example/legos/1" \
 fetch('/example/legos/0', {
     method: 'PUT',
     headers: new Headers({
-        "Accept": "application/vnd.<%= projectName %>.20150828+json",
+        "Accept": "application/json;version=20150828",
         "Content-Type": "application/json"
     }),
     mode: 'cors',
@@ -219,14 +219,14 @@ This endpoint deletes a Lego `DELETE http://api.example.com/legos/:id`.
 ```bash
 curl "http://localhost:3000/example/legos/0" \
     -X DELETE \
-    -H "Accept: application/vnd.example.20150828+json"
+    -H "Accept: application/json;version=20150828"
 ```
 
 ```js
 fetch('/example/legos/0', {
     method: 'DELETE',
     headers: new Headers({
-        "Accept": "application/vnd.<%= projectName %>.20150828+json"
+        "Accept": "application/json;version=20150828"
     }),
     mode: 'cors'
 }).then(function (res) {

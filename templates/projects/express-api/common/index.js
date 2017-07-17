@@ -1,4 +1,3 @@
 module.exports = [
-    require('./idFactory.js'),
-    require('./makeReadOnly.js')
+    require('./idFactory.js')
 ];

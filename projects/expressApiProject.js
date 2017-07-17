@@ -19,8 +19,8 @@ function Prompts () {
         "message": 'Do you want to install grunt?',
         "default": 'yes'
     }, {
-        "name": 'mocha',
-        "message": 'Do you want to install mocha for unit tests (requires grunt)?',
+        "name": 'tests',
+        "message": 'Do you want to install vows for unit tests (requires grunt)?',
         "default": 'yes'
     }, {
         "name": 'instructions',
@@ -32,53 +32,58 @@ function Prompts () {
 function Files (choices) {
     var files = [
         // root
+        { src: 'apis.js'},
         { src: 'app.js'},
         { src: 'composition.js' },
-        { src: 'environment.js'},
         { src: 'gruntfile.js'},
         { src: 'README.md', template: true },
         { src: 'gitignore.txt', dest: '.gitignore' },
         { src: 'jshintrc.txt', dest: '.jshintrc' },
 
-        // api
-        { src: '/api/index.js'},
-        { src: '/api/README.md', template: true },
         // common
         { src: '/common/index.js'},
         { src: '/common/idFactory.js'},
-        { src: '/common/makeReadOnly.js'},
-        // build-tasks
-        { src: '/build-tasks/help.js'},
-        { src: '/build-tasks/lint.js'},
-        { src: '/build-tasks/Spawner.js'},
-        { src: '/build-tasks/start.js'},
-        // api/home
-        { src: '/api/home/docRenderer.js' },
-        { src: '/api/home/homeController.js'},
-        { src: '/api/home/README.md', template: true },
-        // api/legos
-        { src: '/api/legos/Lego.js'},
-        { src: '/api/legos/legoController.js'},
-        { src: '/api/legos/README.md', template: true },
-        // environment
-        { src: '/environment/environment.json', template: true },
-        // error-handling
-        { src: '/error-handling/index.js' },
-        { src: '/error-handling/Exception.js' },
-        { src: '/error-handling/ExceptionHandler.js' },
-        { src: '/error-handling/exceptions.js' },
-        { src: '/error-handling/logger.js' },
-        //express
-        { src: '/express/index.js' },
-        { src: '/express/defaultCorsHandler.js' },
-        { src: '/express/CorsHandler.js' },
-        { src: '/express/express-errors-404.js' },
-        { src: '/express/express-errors-500.js' },
-        { src: '/express/express-request-ids.js' },
-        { src: '/express/express-startup.js' },
-        { src: '/express/hbsBlocks.js' },
-        { src: '/express/VersionHandler.js' },
-        { src: '/express/www.js' },
+        { src: '/common/README.md', template: true },
+
+        // common/build-tasks
+        { src: '/common/build-tasks/help.js'},
+        { src: '/common/build-tasks/lint.js'},
+        { src: '/common/build-tasks/Spawner.js'},
+        { src: '/common/build-tasks/start.js'},
+
+        // common/environment
+        { src: '/common/environment/environment.js'},
+        { src: '/common/environment/environment.json', template: true },
+
+        // common/error-handling
+        { src: '/common/error-handling/index.js' },
+        { src: '/common/error-handling/Exception.js' },
+        { src: '/common/error-handling/ExceptionHandler.js' },
+        { src: '/common/error-handling/exceptions.js' },
+        { src: '/common/error-handling/logger.js' },
+
+        // common/express
+        { src: '/common/express/index.js' },
+        { src: '/common/express/defaultCorsHandler.js' },
+        { src: '/common/express/CorsHandler.js' },
+        { src: '/common/express/express-errors-404.js' },
+        { src: '/common/express/express-errors-500.js' },
+        { src: '/common/express/express-request-ids.js' },
+        { src: '/common/express/express-startup.js' },
+        { src: '/common/express/hbsBlocks.js' },
+        { src: '/common/express/versionHandler.js' },
+        { src: '/common/express/www.js' },
+
+        // home
+        { src: '/home/docRenderer.js' },
+        { src: '/home/homeController.js'},
+        { src: '/home/README.md', template: true },
+
+        // legos
+        { src: '/legos/Lego.js'},
+        { src: '/legos/legoController.js'},
+        { src: '/legos/README.md', template: true },
+
         // public
         { src: '/public/favicon.ico' },
         { src: '/public/content/logo.png' },
@@ -95,19 +100,23 @@ function Files (choices) {
         { src: '/views/docs.hbs' }
     ];
 
-    if (choices.mocha) {
-        files.push({ src: '/build-tasks/test.js' });
-        files.push({ src: '/tests/common/fixture.js' });
-        files.push({ src: '/tests/common/makeReadOnly-spec.js' });
-        files.push({ src: '/tests/composition-helpers/register-bdd.js' });
-        files.push({ src: '/tests/composition-helpers/register-log-memory.js' });
-        files.push({ src: '/tests/composition-helpers/register-log-suppressor.js' });
-        files.push({ src: '/tests/error-handling/fixture.js' });
-        files.push({ src: '/tests/error-handling/ExceptionHandler-spec.js' });
-        files.push({ src: '/tests/express/fixture.js' });
-        files.push({ src: '/tests/express/express-request-ids-spec.js' });
-        files.push({ src: '/tests/express/mockEnvironment.js' });
-        files.push({ src: '/tests/express/VersionHandler-spec.js' });
+    if (choices.tests) {
+        files.push({ src: '/common/build-tasks/test.js' });
+        files.push({ src: '/common/tests/composition-helpers/register-log-memory.js' });
+        files.push({ src: '/common/tests/composition-helpers/register-log-suppressor.js' });
+        files.push({ src: '/common/tests/testComposition.js' });
+        files.push({ src: '/common/tests/README.md' });
+
+        // common/error-handling
+        files.push({ src: '/common/error-handling/tests/error-handling-vows.js' });
+        files.push({ src: '/common/error-handling/tests/ExceptionHandler-spec.js' });
+
+        // common/express
+        files.push({ src: '/common/express/tests/express-vows.js' });
+        files.push({ src: '/common/express/tests/ApiVersion-which-spec.js' });
+        files.push({ src: '/common/express/tests/ApiVersion-get-spec.js' });
+        files.push({ src: '/common/express/tests/express-request-ids-spec.js' });
+        files.push({ src: '/common/express/tests/versionHandler-spec.js' });
     }
 
     return files;
@@ -115,21 +124,21 @@ function Files (choices) {
 
 function savePackage(choices, destinationPath, callback) {
     var gruntConfig = pkg.grunt,
-        mochaConfig = pkg.mocha,
+        testsConfig = pkg.tests,
         fileName = path.join(destinationPath, 'package.json'),
         yes = /yes|y|true/i;
 
     delete pkg.grunt;
-    delete pkg.mocha;
+    delete pkg.tests;
     pkg.name = choices.scope;
     pkg.description = choices.scope + ' API built on hilary, polyn, and express';
 
-    if (yes.test(choices.grunt) || yes.test(choices.mocha)) {
+    if (yes.test(choices.grunt) || yes.test(choices.tests)) {
         copyDevDependencies(gruntConfig, pkg);
     }
 
-    if (yes.test(choices.mocha)) {
-        copyDevDependencies(mochaConfig, pkg);
+    if (yes.test(choices.tests)) {
+        copyDevDependencies(testsConfig, pkg);
     }
 
     fs.writeFile(fileName, JSON.stringify(pkg, null, 4), callback);

@@ -1,7 +1,7 @@
 module.exports.name = 'express-request-ids';
 module.exports.singleton = true;
-module.exports.dependencies = ['ObjectID', 'common-makeReadOnly'];
-module.exports.factory = function (ObjectID, makeReadOnly) {
+module.exports.dependencies = ['ObjectID'];
+module.exports.factory = function (ObjectID) {
     'use strict';
 
     var header = 'X-Request-ID';
@@ -13,14 +13,13 @@ module.exports.factory = function (ObjectID, makeReadOnly) {
             // this is NOT guaranteed to be unique per request, if the client
             // actually sets it. The server request ID is used if the client
             // does not set it.
-            clientId = makeRequestId(req.get(header), serverId),
-            requestIds = {};
+            clientId = makeRequestId(req.get(header), serverId);
 
-        makeReadOnly('clientId', clientId).on(requestIds);
-        makeReadOnly('serverId', serverId).on(requestIds);
-
-        // puts read-only request IDs on res.locals
-        makeReadOnly('requestIds', requestIds).on(res.locals);
+        // puts the read-only requestIds on res.locals
+        res.locals.requestIds = Object.freeze({
+            clientId: clientId,
+            serverId: serverId
+        });
 
         // puts the client request ID in the response headers, so the client
         // can use it for continuity checks, logging, support calls, etc.

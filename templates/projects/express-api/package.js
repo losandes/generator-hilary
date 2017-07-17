@@ -8,20 +8,20 @@ module.exports = {
         "install-dependencies": "npm install"
     },
     "dependencies": {
-        "async": "^2.1.4",
-        "body-parser": "^1.15.2",
+        "async": "^2.5.0",
+        "body-parser": "^1.17.2",
         "bson-objectid": "^1.1.5",
-        "express": "^4.14.0",
+        "express": "^4.15.3",
         "hbs": "^4.0.1",
-        "helmet": "^3.4.0",
-        "highlight.js": "^9.9.0",
+        "helmet": "^3.6.1",
+        "highlight.js": "^9.12.0",
         "hilary": "^5.0.0",
-        "hpp": "^0.2.1",
+        "hpp": "^0.2.2",
         "marked": "^0.3.6",
         "nconf": "^0.8.4",
         "polyn": "^1.*",
-        "serve-favicon": "^2.3.2",
-        "serve-static": "^1.11.1"
+        "serve-favicon": "^2.4.3",
+        "serve-static": "^1.12.3"
     },
     "grunt": {
         "devDependencies": {
@@ -32,11 +32,10 @@ module.exports = {
             "jshint-stylish": "^2.2.1"
         }
     },
-    "mocha": {
+    "tests": {
         "devDependencies": {
-            "chai": "^3.5.0",
-            "grunt-mocha-test": "^0.13.2",
-            "mocha": "^3.2.0"
+            "grunt-vows": "^0.4.2",
+            "vows": "^0.8.1"
         }
     }
 };

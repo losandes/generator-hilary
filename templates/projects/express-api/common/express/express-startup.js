@@ -11,12 +11,12 @@ module.exports.dependencies = [
     'helmet',
     'hpp',
     'defaultCorsHandler',
-    'VersionHandler',
+    'versionHandler',
     'express-errors-404',
     'express-errors-500',
     'express-request-ids'
 ];
-module.exports.factory = function (app, path, appDir, bodyParser, favicon, serveStatic, hbs, extendHbs, helmet, hpp, corsHandler, VersionHandler, on404, on500, requestIds) {
+module.exports.factory = function (app, path, appDir, bodyParser, favicon, serveStatic, hbs, extendHbs, helmet, hpp, corsHandler, versionHandler, on404, on500, requestIds) {
     'use strict';
 
     var init,
@@ -66,18 +66,7 @@ module.exports.factory = function (app, path, appDir, bodyParser, favicon, serve
         app.use(helmet.ieNoOpen());
         app.use(helmet.noSniff());
         app.use(helmet.noCache());
-        app.use(new VersionHandler({
-            branches: [{
-                name: 'alpha'
-            }, {
-                name: 'beta'
-            }, {
-                name: 'rc'
-            }, {
-                name: 'ga',
-                default: true
-            }]
-        }));
+        app.use(versionHandler);
         app.use(bodyParser.json());
         // app.use(bodyParser.urlencoded({ extended: true }));
         app.use(hpp()); // NOTE: this MUST come directly after bodyParser; hpp: Protect against HTTP Parameter Pollution attacks
