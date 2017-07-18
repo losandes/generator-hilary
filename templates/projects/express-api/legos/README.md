@@ -28,22 +28,17 @@ This endpoint retrieves all Legos `GET http://api.example.com/legos/`.
 
 > # Example Request
 
-```bash
-curl "http://localhost:3000/example/legos/" -H "Accept: application/json;version=20150828"
-```
-
-```js
-fetch('/example/legos', {
-    method: 'GET',
-    headers: new Headers({
-        "Accept": "application/json;version=20150828"
-    }),
-    mode: 'cors',
-}).then(function (res) {
-    return res.json();
-}).then(function (res) {
-    console.log(res);
-});
+```endpoint
+{
+    "method": "GET",
+    "protocol": "http",
+    "host": "localhost:3000",
+    "path": "/example/legos",
+    "headers": {
+        "Accept": "application/json;version=20150828",
+        "Cache-Control": "no-cache"
+    }
+}
 ```
 
 > # Example Response `200`
@@ -69,22 +64,17 @@ id | int | The id of the lego you wish to retrieve
 
 > # Example Request
 
-```bash
-curl "http://localhost:3000/example/legos/0" -H "Accept: application/json;version=20150828"
-```
-
-```js
-fetch('/example/legos/1', {
-    method: 'GET',
-    headers: new Headers({
-        "Accept": "application/json;version=20150828"
-    }),
-    mode: 'cors',
-}).then(function (res) {
-    return res.json();
-}).then(function (res) {
-    console.log(res);
-});
+```endpoint
+{
+    "method": "GET",
+    "protocol": "http",
+    "host": "localhost:3000",
+    "path": "/example/legos/1",
+    "headers": {
+        "Accept": "application/json;version=20150828",
+        "Cache-Control": "no-cache"
+    }
+}
 ```
 
 > # Example Response `200`
@@ -109,27 +99,18 @@ The body of your request should include a [Lego](#legos).
 
 > # Example Request
 
-```bash
-curl "http://localhost:3000/example/legos/" /
-    -H "Content-Type: application/json" /
-    -H "Accept: application/json;version=20150828" /
-    -d '{"color":"yellow","width":2,"length":6,"height":2}'
-```
-
-```js
-fetch('/example/legos', {
-    method: 'POST',
-    headers: new Headers({
-        "Content-Type": "application/json",
-        "Accept": "application/json;version=20150828"
-    }),
-    mode: 'cors',
-    body: JSON.stringify({ color: 'yellow', width: 2, length: 6, height: 2 })
-}).then(function (res) {
-    return res.json();
-}).then(function (res) {
-    console.log(res);
-});
+```endpoint
+{
+    "method": "POST",
+    "protocol": "http",
+    "host": "localhost:3000",
+    "path": "/example/legos",
+    "headers": {
+        "Accept": "application/json;version=20150828",
+        "Cache-Control": "no-cache"
+    },
+    "body": "{ \"color\": \"yellow\", \"width\": 2, \"length\": 6, \"height\": 2 }"
+}
 ```
 
 > # Example Response `201`
@@ -164,28 +145,18 @@ The body of your request should include a [Lego](#legos).
 
 > # Example Request
 
-```bash
-curl "http://localhost:3000/example/legos/1" \
-    -X PUT \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json;version=20150828" \
-    -d '{"color":"yellow","width":2,"length":6,"height":2}'
-```
-
-```js
-fetch('/example/legos/0', {
-    method: 'PUT',
-    headers: new Headers({
+```endpoint
+{
+    "method": "PUT",
+    "protocol": "http",
+    "host": "localhost:3000",
+    "path": "/example/legos/1",
+    "headers": {
         "Accept": "application/json;version=20150828",
-        "Content-Type": "application/json"
-    }),
-    mode: 'cors',
-    body: JSON.stringify({ color: 'yellow', width: 2, length: 6, height: 2 })
-}).then(function (res) {
-    return res.json();
-}).then(function (res) {
-    console.log(res);
-});
+        "Cache-Control": "no-cache"
+    },
+    "body": "{ \"color\": \"yellow\", \"width\": 2, \"length\": 6, \"height\": 2 }"
+}
 ```
 
 > # Example Response `200`
@@ -216,22 +187,17 @@ This endpoint deletes a Lego `DELETE http://api.example.com/legos/:id`.
 
 > # Example Request
 
-```bash
-curl "http://localhost:3000/example/legos/0" \
-    -X DELETE \
-    -H "Accept: application/json;version=20150828"
-```
-
-```js
-fetch('/example/legos/0', {
-    method: 'DELETE',
-    headers: new Headers({
-        "Accept": "application/json;version=20150828"
-    }),
-    mode: 'cors'
-}).then(function (res) {
-    console.log(res.status);
-});
+```endpoint
+{
+    "method": "DELETE",
+    "protocol": "http",
+    "host": "localhost:3000",
+    "path": "/example/legos/1",
+    "headers": {
+        "Accept": "application/json;version=20150828",
+        "Cache-Control": "no-cache"
+    }
+}
 ```
 
 > # Example Response `200`

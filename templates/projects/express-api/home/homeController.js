@@ -1,5 +1,5 @@
 module.exports.name = 'homeController';
-module.exports.dependencies = ['router', 'docRenderer', 'environment'];
+module.exports.dependencies = ['router', 'home-docRenderer', 'environment'];
 module.exports.factory = function(router, docRenderer, env) {
     'use strict';
 

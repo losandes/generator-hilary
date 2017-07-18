@@ -24,7 +24,9 @@
         "languages": [
             { "name": "All", "highlightClass": "lang-all" },
             { "name": "cURL", "highlightClass": "lang-bash" },
-            { "name": "JavaScript", "highlightClass": "lang-js" }
+            { "name": "JavaScript (Browser)", "highlightClass": "lang-js" },
+            { "name": "JavaScript (Node.js)", "highlightClass": "lang-node" },
+            { "name": "Go", "highlightClass": "lang-go" }
         ]
     }
 }

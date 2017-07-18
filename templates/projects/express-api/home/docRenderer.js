@@ -1,12 +1,18 @@
-module.exports.name = 'docRenderer';
+module.exports.name = 'home-docRenderer';
 module.exports.singleton = true;
-module.exports.dependencies = ['fs', 'async', 'marked', 'highlight.js', 'environment'];
-module.exports.factory = function(fs, async, marked, highlight, env) {
+module.exports.dependencies = ['fs', 'async', 'marked', 'highlight.js', 'environment', 'home-mdParser'];
+module.exports.factory = function(fs, async, marked, highlight, env, mdParser) {
     'use strict';
 
     var readDocs, makeReader, render, rendered, projectName;
 
     projectName = env.get('projectName');
+
+    // create an alias for node, so we can differentiate between server-side
+    // and client-side examples
+    highlight.registerLanguage('node', function () {
+        return highlight.getLanguage('js');
+    });
 
     marked.setOptions({
         renderer: new marked.Renderer(),
@@ -73,6 +79,9 @@ module.exports.factory = function(fs, async, marked, highlight, env) {
         options = options || {};
 
         tasks.push(readDocs);
+        tasks.push(function (markdown, callback) {
+            mdParser.parse(markdown, callback);
+        });
         tasks.push(function (markdown, callback) {
             marked(markdown, callback);
         });

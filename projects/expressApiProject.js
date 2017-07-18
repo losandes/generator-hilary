@@ -77,7 +77,13 @@ function Files (choices) {
         // home
         { src: '/home/docRenderer.js' },
         { src: '/home/homeController.js'},
+        { src: '/home/mdParser.js' },
         { src: '/home/README.md', template: true },
+        { src: '/home/stringHelper.js' },
+        { src: '/home/producers/curlProducer.js' },
+        { src: '/home/producers/goProducer.js' },
+        { src: '/home/producers/jsProducer-browser-fetch.js' },
+        { src: '/home/producers/jsProducer-node-request.js' },
 
         // legos
         { src: '/legos/Lego.js'},
