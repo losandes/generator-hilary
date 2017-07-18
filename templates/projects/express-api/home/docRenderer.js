@@ -1,6 +1,6 @@
-module.exports.name = 'home-docRenderer';
+module.exports.name = 'docRenderer';
 module.exports.singleton = true;
-module.exports.dependencies = ['fs', 'async', 'marked', 'highlight.js', 'environment', 'home-mdParser'];
+module.exports.dependencies = ['fs', 'async', 'marked', 'highlight.js', 'environment', 'mdParser'];
 module.exports.factory = function(fs, async, marked, highlight, env, mdParser) {
     'use strict';
 

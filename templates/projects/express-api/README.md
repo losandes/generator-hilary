@@ -14,6 +14,28 @@ npm start
 >
 > NOTE: If you chose to install grunt, you must also have grunt installed globally: `npm install -g grunt`. Then you can also start the app with `grunt start`. To find out what else you can do with grunt, run grunt without any arguments: `grunt`.
 
+### Adding New APIs
+1. At the root-level of the app, add a new folder, describing the type of the new API (i.e. Users, Legos, etc.)
+
+2. To that new folder, add a controller, and any necessary supporting files, such as Models, and tests.
+
+> NOTE: `composition.js` assumes that all controllers are required in `apis.js`, and that they all include the word `controller` in their name. If you choose not to follow this convention, just resolve all of your controllers in the `registerRoutes` function.
+
+Example Controller:
+```javascript
+module.exports.name = 'userController';
+module.exports.dependencies = ['router'];
+module.exports.factory = function(router) {
+    'use strict';
+
+    router.get('/users', function (req, res) {
+        res.send('hello world');
+    });
+};
+```
+
+3. require these files in `/apis.js`
+
 ## Directories
 This project is organized, using _type-driven_ folders, as opposed to _capability-driven_ folders. Definitions follow:
 

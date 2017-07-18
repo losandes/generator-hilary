@@ -1,10 +1,10 @@
-module.exports.name = 'home-mdParser';
+module.exports.name = 'mdParser';
 module.exports.dependencies = [
     'logger',
-    'home-producers-curlProducer',
-    'home-producers-goProducer',
-    'home-producers-jsProducer-node-request',
-    'home-producers-jsProducer-browser-fetch'
+    'producers-curlProducer',
+    'producers-goProducer',
+    'producers-jsProducer-node-request',
+    'producers-jsProducer-browser-fetch'
 ];
 module.exports.factory = (logger, curlProducer, goProducer, nodeRequestProducer, browserFetchProducer) => {
     'use strict';

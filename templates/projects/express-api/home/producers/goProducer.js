@@ -1,5 +1,5 @@
-module.exports.name = 'home-producers-goProducer';
-module.exports.dependencies = ['home-stringHelper'];
+module.exports.name = 'producers-goProducer';
+module.exports.dependencies = ['stringHelper'];
 module.exports.factory = (stringHelper) => {
     'use strict';
 

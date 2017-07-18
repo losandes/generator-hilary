@@ -1,5 +1,5 @@
-module.exports.name = 'home-producers-jsProducer-browser-fetch';
-module.exports.dependencies = ['home-stringHelper'];
+module.exports.name = 'producers-jsProducer-browser-fetch';
+module.exports.dependencies = ['stringHelper'];
 module.exports.factory = (stringHelper) => {
     'use strict';
 

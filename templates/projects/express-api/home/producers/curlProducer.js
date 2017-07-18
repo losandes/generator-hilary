@@ -1,5 +1,5 @@
-module.exports.name = 'home-producers-curlProducer';
-module.exports.dependencies = ['home-stringHelper'];
+module.exports.name = 'producers-curlProducer';
+module.exports.dependencies = ['stringHelper'];
 module.exports.factory = (stringHelper) => {
     'use strict';
 

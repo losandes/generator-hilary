@@ -1,4 +1,4 @@
-module.exports.name = 'home-stringHelper';
+module.exports.name = 'stringHelper';
 module.exports.dependencies = [];
 module.exports.factory = () => {
     'use strict';
