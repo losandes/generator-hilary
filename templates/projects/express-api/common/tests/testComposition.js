@@ -18,7 +18,7 @@ function TestComposition (testTasks, done) {
         }),
         tasks = [
             scope.makeRegistrationTask(require('../../apis.js')),
-            scope.makeRegistrationTask(require('../index.js')),
+            scope.makeRegistrationTask(require('../utils')),
             scope.makeRegistrationTask(require('../error-handling')),
             scope.makeRegistrationTask(require('../express')),
             function composeUtils (scope, next) {

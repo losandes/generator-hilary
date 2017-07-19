@@ -26,7 +26,7 @@ function init() {
     scope.bootstrap([
         function (scope, next) { log('composing application'); next(null, scope); },
         scope.makeRegistrationTask(apis),
-        scope.makeRegistrationTask(require('./common')),
+        scope.makeRegistrationTask(require('./common/utils')),
         scope.makeRegistrationTask(require('./common/error-handling')),
         scope.makeRegistrationTask(require('./common/express')),
         function composeUtils (scope, next) {

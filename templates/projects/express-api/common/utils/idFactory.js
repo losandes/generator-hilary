@@ -1,5 +1,5 @@
 /*jshint bitwise: false*/
-module.exports.name = 'common-idFactory';
+module.exports.name = 'idFactory';
 module.exports.singleton = true;
 module.exports.dependencies = ['ObjectID', 'exceptions'];
 module.exports.factory = function (ObjectID, exceptions) {

@@ -41,8 +41,6 @@ function Files (choices) {
         { src: 'jshintrc.txt', dest: '.jshintrc' },
 
         // common
-        { src: '/common/index.js'},
-        { src: '/common/idFactory.js'},
         { src: '/common/README.md', template: true },
 
         // common/build-tasks
@@ -73,6 +71,10 @@ function Files (choices) {
         { src: '/common/express/hbsBlocks.js' },
         { src: '/common/express/versionHandler.js' },
         { src: '/common/express/www.js' },
+
+        // common/utils
+        { src: '/common/utils/index.js'},
+        { src: '/common/utils/idFactory.js'},
 
         // home
         { src: '/home/docRenderer.js' },
