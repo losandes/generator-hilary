@@ -1,5 +1,4 @@
 module.exports.name = 'CorsHandler';
-module.exports.singleton = true;
 module.exports.factory = function () {
     'use strict';
 

@@ -1,5 +1,4 @@
 module.exports.name = 'express-request-ids';
-module.exports.singleton = true;
 module.exports.dependencies = ['ObjectID'];
 module.exports.factory = function (ObjectID) {
     'use strict';

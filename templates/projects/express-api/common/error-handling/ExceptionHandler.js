@@ -1,5 +1,4 @@
 module.exports.name = 'ExceptionHandler';
-module.exports.singleton = true;
 module.exports.dependencies = ['Exception', 'logger'];
 module.exports.factory = function (Exception, logger) {
     'use strict';

@@ -1,5 +1,4 @@
 module.exports.name = 'logger';
-module.exports.singleton = true;
 module.exports.dependencies = [];
 module.exports.factory = {
     // NOTE: This is just a placeholder that wraps console logging in

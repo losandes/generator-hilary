@@ -1,10 +1,9 @@
 module.exports.name = 'Lego';
-module.exports.singleton = true;
-module.exports.dependencies = ['polyn'];
-module.exports.factory = function(polyn) {
+module.exports.dependencies = ['polyn { Immutable }'];
+module.exports.factory = function(Immutable) {
     'use strict';
 
-    return new polyn.Immutable({
+    return new Immutable({
         __blueprintId: 'Lego',
         color: 'string',
         width: 'number',
