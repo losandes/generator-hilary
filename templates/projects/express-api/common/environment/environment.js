@@ -11,8 +11,8 @@ module.exports.factory = function (nconf) {
         .argv()
         // Storing plain text secrets on the file system is not recommended,
         // nor does the file need to exist. Consider using args, encryption, etc.
-        .file('secrets', './common/environment/secrets/secrets.json')
-        .file('environment', './common/environment/environment.json');
+        .file('environment', './common/environment/environment.json')
+        .file('secrets', './common/environment/secrets/secrets.json');
         // ^^ Note that these are relative to root
 
     // check to see if the configuration turns memory off (default is true)
