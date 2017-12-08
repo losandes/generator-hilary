@@ -54,8 +54,8 @@ module.exports.factory = function (app, path, appDir, bodyParser, favicon, serve
         app.set('view engine', 'hbs');
         extendHbs(hbs);
 
-        app.use(requestIds);
-        app.use(corsHandler);
+        app.use(requestIds());
+        app.use(corsHandler());
         app.use(helmet.hsts({
             maxAge: 10886400000,        // Must be at least 18 weeks to be approved by Google
             includeSubdomains: true,    // Must be enabled to be approved by Google
@@ -66,7 +66,7 @@ module.exports.factory = function (app, path, appDir, bodyParser, favicon, serve
         app.use(helmet.ieNoOpen());
         app.use(helmet.noSniff());
         app.use(helmet.noCache());
-        app.use(versionHandler);
+        app.use(versionHandler());
         app.use(bodyParser.json());
         // app.use(bodyParser.urlencoded({ extended: true }));
         app.use(hpp()); // NOTE: this MUST come directly after bodyParser; hpp: Protect against HTTP Parameter Pollution attacks

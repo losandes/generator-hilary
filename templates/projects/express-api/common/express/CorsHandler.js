@@ -1,96 +1,124 @@
 module.exports.name = 'CorsHandler';
-module.exports.factory = function () {
+module.exports.dependencies = ['corsOptions', 'logger'];
+module.exports.factory = (options, logger) => () => {
     'use strict';
 
-    var validateOrigin,
-        isPreflight,
-        handlePreflight;
+    if (options.mode === 'on' && !options.areValid()) {
+        throw new Error(options.validationErrors);
+    }
 
-    validateOrigin = function (options, req, res) {
-        var origin;
+    const ALLOW_ORIGIN = 'Access-Control-Allow-Origin';
+    const ALLOW_CREDENTIALS = 'Access-Control-Allow-Credentials';
+    const ALLOW_HEADERS = 'Access-Control-Allow-Headers';
+    const ALLOW_METHODS = 'Access-Control-Allow-Methods';
+    const EXPOSE_HEADERS = 'Access-Control-Expose-Headers';
 
-        if (options.allowOrigin) {
-            // Validate that the origin is on the whitelist
-            origin = req.headers.origin || null;
+    // the following constants are for getting headers from the request
+    // express lower cases the headers
+    const REQUEST_METHOD = 'access-control-request-method';
+    const REQUEST_HEADERS = 'access-control-request-headers';
 
-            if (options.allowOrigin(origin)) {
-                res.set('Access-Control-Allow-Origin', origin);
-                res.set('Vary', 'Origin');
-            } else if (options.denialMessage) {
-                res.status(403).send(options.denialMessage.message.replace('{origin}', origin)).end();
-                return false;
-            } else {
-                res.status(403).end();
-                return false;
-            }
+    return function (req, res, next) {
+        if (options.mode === 'off') {
+            next();
+            return;
+        }
+
+        const originValidationResult = validateOrigin(options, req, res);
+
+        if (!originValidationResult.isValid) {
+            // Do not allow the request to be processed
+            // return the response
+            // do not continue the pipeline
+            return invalidOriginResponse(options, originValidationResult.origin, res);
+        }
+
+        if (options.allowCredentials === true) {
+            // set the response header to allow credentials (cookies)
+            res.set(ALLOW_CREDENTIALS, 'true');
+        }
+
+        if (isPreflight(req)) {
+            // process the preflight request and return the response
+            // do not continue the pipeline
+            return preflightResponse(options, req, res);
+        } else if (Array.isArray(options.exposeHeaders)) {
+            res.set(
+                EXPOSE_HEADERS,
+                options.exposeHeaders.join(',')
+            );
+        }
+
+        next();
+    };
+
+    // PRIVATE /////////////////////////////////////////////////////////////////
+    const isOriginAllowed = (val) => {
+        if (
+            options.originWhiteList.indexOf('*') > -1 ||                  // allow all
+            (!val && options.originWhiteList.indexOf('null') > -1) ||     // allow null origin header (server-to-server)
+            options.originWhiteList.indexOf(val) > -1                     // found match in whitelist
+        ) {
+            return true;
         } else {
-            // The options do not provide a means of validating the origin, allow any origin
-            // WE RECOMMEND NOT LETTING THIS HAPPEN IN PRODUCTION
-            res.set('Access-Control-Allow-Origin', '*');
+            return false;
         }
-
-        return true;
     };
 
-    isPreflight = function (req) {
-        var isHttpOptions = req.method === 'OPTIONS',
-            hasOriginHeader = req.headers.origin,
-            hasRequestMethod = req.headers['access-control-request-method'];
+    const getAllowedHeaders = (allowedHeaders, req) => {
+        if (allowedHeaders.indexOf('*') > -1) {
+            return req.headers[REQUEST_HEADERS];
+        } else {
+            return allowedHeaders.join(',');
+        }
+    };
 
+    function validateOrigin (options, req, res) {
+        // Validate that the origin is on the whitelist
+        const origin = req.headers.origin || null;
+
+        if (isOriginAllowed(origin)) {
+            res.set(ALLOW_ORIGIN, origin);
+            res.set('Vary', 'Origin');
+            return { isValid: true };
+        } else {
+            return { isValid: false, origin };
+        }
+    }
+
+    function invalidOriginResponse (options, origin, res) {
+        logger.info(`Denied access to ${origin} (CORS)`);
+        return res.status(403)
+            .send(options.denialMessage.replace(/{origin}/g, origin))
+            .end();
+    }
+
+    function isPreflight (req) {
+        const isHttpOptions = req.method === 'OPTIONS';
+        const hasOriginHeader = req.headers.origin;
+        const hasRequestMethod = req.headers[REQUEST_METHOD];
         return isHttpOptions && hasOriginHeader && hasRequestMethod;
-    };
+    }
 
-    handlePreflight = function (options, req, res) {
-        var headers;
-
-        if (options.allowMethods) {
-            res.set('Access-Control-Allow-Methods', options.allowMethods.join(','));
+    function preflightResponse (options, req, res) {
+        if (Array.isArray(options.allowMethods)) {
+            res.set(
+                ALLOW_METHODS,
+                options.allowMethods.join(',')
+            );
         }
 
-        if (typeof(options.allowHeaders) === 'function') {
-            headers = options.allowHeaders(req);
-
-            if (headers) {
-                res.set('Access-Control-Allow-Headers', headers);
-            }
-        } else if (options.allowHeaders) {
-            res.set('Access-Control-Allow-Headers', options.allowHeaders.join(','));
+        if (Array.isArray(options.allowHeaders)) {
+            res.set(
+                ALLOW_HEADERS,
+                getAllowedHeaders(options.allowHeaders, req)
+            );
         }
 
         // Chrome, Safari and Opera support a max of 5 minutes, Firefox supports up to 24 hours
         res.set('Access-Control-Max-Age', options.cacheDuration || '120' /* 2 minutes */);
 
         res.status(204).end();
-    };
-
-    return function (options) {
-        return function (req, res, next) {
-            if (options.mode === 'off') {
-                next();
-                return;
-            }
-
-            if (!validateOrigin(options, req, res)) {
-                // Do not allow the request to be processed
-                // return the response (do not continue the pipeline)
-                return;
-            }
-
-            if (options.allowCredentials) {
-                // set the response header to allow credentials (cookies)
-                res.set('Access-Control-Allow-Credentials', 'true');
-            }
-
-            if (isPreflight(req)) {
-                // process the preflight request and return the response (do not continue the pipeline)
-                handlePreflight(options, req, res);
-                return;
-            } else if (options.exposeHeaders) {
-                res.set('Access-Control-Expose-Headers', options.exposeHeaders.join(','));
-            }
-
-            next();
-        };
-    };
+    }
 
 };

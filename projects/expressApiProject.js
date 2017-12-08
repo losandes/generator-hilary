@@ -52,6 +52,7 @@ function Files (choices) {
         // common/environment
         { src: '/common/environment/environment.js'},
         { src: '/common/environment/environment.json', template: true },
+        { src: '/common/environment/README.md' },
 
         // common/error-handling
         { src: '/common/error-handling/index.js' },
@@ -62,8 +63,8 @@ function Files (choices) {
 
         // common/express
         { src: '/common/express/index.js' },
-        { src: '/common/express/defaultCorsHandler.js' },
         { src: '/common/express/CorsHandler.js' },
+        { src: '/common/express/corsOptions.js' },
         { src: '/common/express/express-errors-404.js' },
         { src: '/common/express/express-errors-500.js' },
         { src: '/common/express/express-request-ids.js' },

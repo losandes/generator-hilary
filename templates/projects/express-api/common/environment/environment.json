@@ -4,14 +4,11 @@
     "storeThisConfigInMemory": true,
     "cors": {
         "mode": "off",
-        "originWhiteList": {
-            "null": true,
-            "http://localhost:3000": true
-        },
+        "originWhiteList": ["null", "http: //localhost:3000"],
         "allowCredentials": true,
         "allowMethods": ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"],
         "allowHeaders": ["Authorization", "Accepts", "Content-Type", "If-Match", "If-Modified-Since", "If-None-Match", "If-Unmodified-Since", "Range", "X-Requested-With", "X-Request-ID"],
-        "exposeHeaders": ["Content-Length", "Date", "ETag", "Expires", "Last-Modified", "X-Powered-By", "X-Request-ID", "X-<%= projectName %>-Media-Type"],
+        "exposeHeaders": ["Content-Length", "Date", "ETag", "Expires", "Last-Modified", "X-Powered-By", "X-Request-ID"],
         "cacheDuration": "120",
         "denialMessage": { "status": 403, "message": "CORS Error: your origin, {origin}, is not whitelisted." }
     },

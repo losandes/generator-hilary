@@ -1,6 +1,6 @@
 module.exports.name = 'express-request-ids';
 module.exports.dependencies = ['ObjectID'];
-module.exports.factory = function (ObjectID) {
+module.exports.factory = (ObjectID) => () => {
     'use strict';
 
     var header = 'X-Request-ID';

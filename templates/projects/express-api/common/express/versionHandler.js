@@ -1,6 +1,6 @@
 module.exports.name = "versionHandler";
 module.exports.dependencies = ['logger'];
-module.exports.factory = function (logger) {
+module.exports.factory = (logger) => () => {
     'use strict';
 
     var REQUEST_HEADER = 'Accept',
